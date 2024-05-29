@@ -1,5 +1,5 @@
 # Ignore environment variable files
 .env
 
-/gemi-web/
+/mlab/
 /Archive/
