@@ -4,8 +4,8 @@
 # SETUP:
 #
 # Setup venv and install the requirements
-# 1. Create a virtual environment -> python -m venv gemi-web
-# 2. Activate the virtual environment -> .\gemi-web\Scripts\Activate
+# 1. Create a virtual environment -> python -m venv mlab
+# 2. Activate the virtual environment -> .\mlab\Scripts\Activate
 # 3. Install the requirements -> pip install -r requirements.txt
 # 
 #
@@ -14,7 +14,7 @@
 # 1. flask --app app_gpt4o run  
 #
 # Test (New Terminal):
-# 1. python test.py
+# 1. streamlit run test_streamlit.py
 
 
 #####################################################################################
