@@ -11,7 +11,7 @@
 #
 #
 # RUN:
-# 1. flask --app app_gpt4o run  
+# 1. flask --app app run  
 #
 # Test (New Terminal):
 # 1. streamlit run test_streamlit.py
