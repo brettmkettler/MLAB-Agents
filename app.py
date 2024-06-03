@@ -1,4 +1,35 @@
-
+#####################################################################################################################
+#
+#  ________                                   __  .__                  _____  .___  
+# /  _____/  ____   ____   ________________ _/  |_|__|__  __ ____     /  _  \ |   | 
+#/   \  ____/ __ \ /    \_/ __ \_  __ \__  \\   __\  \  \/ // __ \   /  /_\  \|   | 
+#\    \_\  \  ___/|   |  \  ___/|  | \// __ \|  | |  |\   /\  ___/  /    |    \   | 
+# \______  /\___  >___|  /\___  >__|  (____  /__| |__| \_/  \___  > \____|__  /___| 
+#        \/     \/     \/     \/           \/                   \/          \/      
+# .____          ___.                        __                                     
+# |    |   _____ \_ |__   ________________ _/  |_  ___________ ___.__.              
+# |    |   \__  \ | __ \ /  _ \_  __ \__  \\   __\/  _ \_  __ <   |  |              
+# |    |___ / __ \| \_\ (  <_> )  | \// __ \|  | (  <_> )  | \/\___  |              
+# |_______ (____  /___  /\____/|__|  (____  /__|  \____/|__|   / ____|              
+#         \/    \/    \/                  \/                   \/                
+#         
+#         
+#####################################################################################################################
+# INTRODUCTION:
+#
+#
+#
+#
+# DISCLAIMER: 
+# 
+# Changing of the code in this file voids the warranty of the code. This code is provided as is
+# and is not guaranteed to work for your use case. This code is provided as a starting point for your own projects and
+# should be used as such. Feel free to take inspiration from this code and use it in your own projects. If you would like
+# a session to understand further ... sorry we are not able to provide that at this time.
+#
+#
+# Generative AI Laboratory - Capgemini
+#
 #
 ######################################################
 # SETUP:
