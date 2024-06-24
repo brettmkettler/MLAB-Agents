@@ -51,6 +51,7 @@
 #####################################################################################
 
 
+from ast import Call
 import os
 import sys
 from unittest import result
@@ -90,6 +91,7 @@ load_dotenv()
 # Tools
 # from langchain_community.tools import DuckDuckGoSearchRun
 
+#from agent_tools import CallTool
 
 
 
@@ -334,6 +336,10 @@ chat_model = api.model('Chat', {
 
 llm = ChatOpenAI(model="gpt-4")
 
+print("LLM: ", llm)
+
+
+#tools = [capgeminiDocumentsTool(), actionTool(), CallTool()]
 
 tools = [capgeminiDocumentsTool(), actionTool()]
 
@@ -470,6 +476,8 @@ class Chat(Resource):
             
             prompt = setupPrompt(userinfo, agentlocation, userlocation)
             
+            print("Prompt: ", prompt)
+            
             # Construct the Tools agent
             agent = create_tool_calling_agent(llm, tools, prompt)
 
@@ -484,10 +492,13 @@ class Chat(Resource):
             print("=======================================")
             print("")
             
-            message_history = RedisChatMessageHistory(
+            try:
+                message_history = RedisChatMessageHistory(
                         url="redis://default:aKo1aAx6uSMFIKG0v0EYLDH5sOf9zFSR@redis-15294.c56.east-us.azure.redns.redis-cloud.com:15294", ttl=100, session_id=session_id
             
             )
+            except Exception as e:
+                return {"error": str(e)}
             
 
                             
@@ -496,14 +507,17 @@ class Chat(Resource):
             print("m=======================================")
             print("")
             
-            agent_with_chat_history = RunnableWithMessageHistory(
-                agent_executor,
-                # This is needed because in most real world scenarios, a session id is needed
-                # It isn't really used here because we are using a simple in memory ChatMessageHistory
-                lambda session_id: message_history,
-                input_messages_key="input",
-                history_messages_key="chat_history",
-            )
+            try:
+                agent_with_chat_history = RunnableWithMessageHistory(
+                    agent_executor,
+                    # This is needed because in most real world scenarios, a session id is needed
+                    # It isn't really used here because we are using a simple in memory ChatMessageHistory
+                    lambda session_id: message_history,
+                    input_messages_key="input",
+                    history_messages_key="chat_history",
+                )
+            except Exception as e:
+                return {"error": str(e)}
 
             try:
                 response = agent_with_chat_history.invoke(

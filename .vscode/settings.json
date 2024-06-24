@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/88731d58-dff4-4629-a4f1-0b2b22afd65d/resourceGroups/AGENTS/providers/Microsoft.Web/sites/mlab-moveagent1",
+    "appService.deploySubpath": "."
+}

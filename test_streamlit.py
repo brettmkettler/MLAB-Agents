@@ -56,6 +56,8 @@ def main():
     if user_input:
         response = chat_with_bot(user_input, user_id, user_location, agent_location)
         
+        print(response)
+        
         if isinstance(response, list):
             display_response(response)
         else:
