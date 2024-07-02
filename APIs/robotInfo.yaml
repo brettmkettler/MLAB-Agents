@@ -1,0 +1,169 @@
+openapi: 3.0.3
+info:
+  title: API
+  description: st2 API
+  version: "1.0.0"
+tags:
+  - name: Quality
+    description: Quality
+  - name: UR10E
+    description: UR10E
+  - name: UR10E_WR
+    description: UR10E WR
+
+
+paths:
+  /robot/{id}:
+    get:
+      tags:
+        - Robot
+      summary: get one  Robot
+      parameters:
+        - name: id
+          in: path
+          description: id of Robot
+          required: true
+          schema:
+            type: integer
+            format: int32
+      description: get Robot
+      operationId: RobotGet
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                $ref: '#/components/schemas/Robot'
+
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+  /robot/program/{id}:
+    get:
+      tags:
+        - Robot
+      summary: List programs robots
+      parameters:
+        - name: id
+          in: path
+          description: id of Robot
+          required: true
+          schema:
+            type: integer
+            format: int32
+      description: get list of programs robots
+      operationId: getRobotPrograms
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RobotProgramme'
+    post:
+      tags:
+        - Robot
+      summary: Send program to robots
+      parameters:
+        - name: id
+          in: path
+          description: id of Robot
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        required: true
+        description: Robot command
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RobotCommand'
+      description: send program to robot
+      operationId: sendRobotPrograms
+      responses:
+        '200':
+          description: OK
+          
+components:
+  schemas:
+    RobotCommand:
+      type: object
+      properties:
+        programId:
+          type: integer
+        operation:
+          type: string
+          enum:
+            - EXECUTE
+            - RESUME
+            - STOP
+            - PAUSE
+    RobotProgramme:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Robot:
+      type: object
+      properties:
+        status:
+          type: string
+        robotStatus:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusRobot'
+        dataRobot:
+          type: array
+          items:
+            $ref: '#/components/schemas/RobotMeasure'
+        timestamp:
+          type: string
+          format: date-time
+
+    StatusRobot:
+      type: object
+      properties:
+        position:
+          type: string
+        status:
+          type: string
+        result:
+          type: string
+        url:
+          type: string
+
+    RobotMeasure:
+      type: object
+      properties:
+        title:
+          type: string
+        dataRobot:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataRobot'
+
+    DataRobot:
+      type: object
+      properties:
+        name:
+          type: string
+        data:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+          enum:
+            - Base
+            - Shoulder
+            - Elbow
+            - Wrist
+        status:
+          type: string
