@@ -1,0 +1,46 @@
+{
+    "batch0001": {
+        "data": [
+            "1.1. Step - Calibration: Workspace Configuration. 26-06-2024 13:11:53",
+            "1.2. Step - Calibration: Placement of the ArUcos. 26-06-2024 13:12:09",
+            "1.3. Step - Calibration: Placement of the ArUcos. 26-06-2024 13:12:29",
+            "1.4. Step - Welcome to tutorial. 26-06-2024 13:12:52",
+            "1.5. Step - Station Tour: Information Area. 26-06-2024 13:13:18",
+            "1.6. Step - Station Tour: Controllers. 26-06-2024 13:13:42",
+            "1.7. Step - Station tour: NFC and QR reader. OCR camera. 26-06-2024 13:14:03",
+            "1.8. Step - Station Tour: Materials Area. 26-06-2024 13:14:29",
+            "1.9. Step - Station Tour: Assembly Area. 26-06-2024 13:14:49",
+            "1.10. Step - Station Tour: Handling objects. 26-06-2024 13:15:15"
+        ],
+        "expected_result": "All steps OK"
+    },
+    "batch0002": {
+        "data": [
+            "1.1. Step - Calibration: Workspace Configuration. 26-06-2024 13:11:53",
+            "1.2. Step - Calibration: Placement of the ArUcos. 26-06-2024 13:12:09",
+            "1.3. Step - Calibration: Placement of the ArUcos. 26-06-2024 13:12:29",
+            "1.4. Step - Welcome to tutorial. 26-06-2024 13:12:52",
+            "1.5. Step - Station Tour: Information Area. 26-06-2024 13:13:18",
+            "1.6. Step - Station Tour: Controllers. 26-06-2024 13:13:42",
+            "1.7. Step - Station tour: NFC and QR reader. OCR camera. 26-06-2024 13:14:03",
+            "1.8. Step - Station Tour: Materials Area. 26-06-2024 13:14:29",
+            "1.10. Step - Station Tour: Handling objects. 26-06-2024 13:15:15"
+        ],
+        "expected_result": "Step missing"
+    },
+    "batch0003": {
+        "data": [
+            "1.1. Step - Calibration: Workspace Configuration. 26-06-2024 13:11:53",
+            "1.2. Step - Calibration: Placement of the ArUcos. 26-06-2024 13:12:09",
+            "1.3. Step - Calibration: Placement of the ArUcos. 26-06-2024 13:12:29",
+            "1.4. Step - Welcome to tutorial. 26-06-2024 13:12:52",
+            "1.5. Step - Station Tour: Information Area. 26-06-2024 13:13:18",
+            "1.6. Step - Station Tour: Controllers. 26-06-2024 13:13:42",
+            "1.7. Step - Station tour: NFC and QR reader. OCR camera. 26-06-2024 13:14:03",
+            "1.8. Step - Station Tour: Materials Area. 26-06-2024 13:14:29",
+            "1.9. Step - Station Tour: Assembly Area. 26-06-2024 13:34:29",
+            "1.10. Step - Station Tour: Handling objects. 26-06-2024 13:35:15"
+        ],
+        "expected_result": "Suspicious step 9"
+    }
+}
