@@ -247,6 +247,10 @@ def search_tavily(api_key, query, search_depth="basic", include_images=False, in
         print("Error:", response.text)
         return None
    
+   
+######################################################################################################
+
+
 
 
 
@@ -424,3 +428,62 @@ class CallTool(BaseTool):
 
 
 ############################################################################################################
+
+
+from dotenv import load_dotenv
+from agent_mq import Agent
+import os
+# Define the communication function using RabbitMQ
+def agent2agent_comm(fromagent, agent, question):
+    """
+    Ability to talk to another agent using RabbitMQ. The agents you can talk to are:
+    1. ai_master - The master AI agent
+    2. ai_assessment - The assessment AI agent
+    3. ai_quality - The quality AI agent
+    
+    """
+    try:
+        ai_agent = Agent(
+            name=f"{fromagent}",
+            exchange="agent_exchange",
+            routing_key=f"{agent}",
+            queue=f"{agent}_queue",
+            user=os.getenv('AI_USER'),
+            password=os.getenv('AI_PASS')
+        )
+        ai_agent.send_message(message=question, target_routing_key=agent)
+        
+        print(f"Message sent to {agent}: {question}")
+        return {"status": "success", "message": f"Message sent to {agent} successfully."}
+    except Exception as e:
+        print(f"Error sending message to {agent}: {e}")
+        return {"status": "error", "message": str(e)}
+    
+    
+    
+
+class Agent2AgentInputs(BaseModel):
+    """Inputs for the Agent2Agent tool."""
+    fromagent: str = Field(
+        description="The name of the agent you are sending the message from."
+    )
+    agent: str = Field(
+        description="The name of the agent you want to talk to."
+    )
+    question: str = Field(
+        description="The question you want to ask, be descriptive."
+    )
+
+
+
+
+class Agent2AgentTool(BaseTool):
+    name = "agent2agent"
+    description = "useful for when you need to talk to or ask another agent a question. You will need the following inputs: question The question should be something that is easy to answer over the phone but descriptive and detailed enough to get the information you need and the agent name. Agents: ai_master, ai_assistant, ai_quality, ai_assessment."
+    args_schema: Type[BaseModel] = Agent2AgentInputs
+    company = ""
+
+    def _run(self, fromagent:str, agent: str, question: str) -> str:
+        """Use the tool."""
+        response = agent2agent_comm(fromagent, agent, question)
+        return response

@@ -2,8 +2,8 @@ import requests
 
 def chat_with_bot():
     # Define the API endpoint URL
-    #url = 'http://127.0.0.1:5000/chat'
-    url = 'https://mlab-moveagent1.azurewebsites.net/chat'
+    url = 'http://127.0.0.1:5000/chat'
+    #url = 'https://mlab-moveagent1.azurewebsites.net/chat'
     #url = 'https://mlab-agent1.azurewebsites.net/chat'
 
     # Static information about the user
