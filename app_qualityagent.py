@@ -50,7 +50,10 @@
 
 #####################################################################################
 
-
+from threading import Thread
+import os
+import logging
+import json
 from ast import Call
 import os
 import sys
@@ -310,12 +313,113 @@ class Chat(Resource):
             return {"error": str(e)}
 
 
+
+
+## LISTENING TO THE MESSAGE QUEUE
+
+
+
+
+# Set up the prompt template
+def setup_prompt(userinfo, agentlocation, userlocation):
+    logging.info("Setting up prompt")
+    return ChatPromptTemplate.from_messages([
+        ("system", f"""
+            You are a helpful metaverse lab assistant named: ai_master. You are talking to {userinfo}.
+            You are located here: {agentlocation}.
+            The user is located here: {userlocation}.
+            Use the searchDocuments tool to look up items about the lab. Use the Agent2Agent tool to ask other agents questions.
+        """),
+        ("placeholder", "{chat_history}"),
+        ("human", "{input}"),
+        ("placeholder", "{agent_scratchpad}")
+    ])
+    
+
+# Function to process incoming messages
+def process_message(message):
+    try:
+        logging.info(f"Processing message: {message}")
+        userquestion = message['message']
+        userinfo = message['sender']
+        userlocation = "Unknown"  # You might want to include user location in the message
+        agentlocation = "Metaverse Lab"
+
+        session_id = userinfo
+        
+        prompt = setup_prompt(userinfo, agentlocation, userlocation)
+        agent = create_tool_calling_agent(llm, tools, prompt)
+        agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+        
+        message_history = RedisChatMessageHistory(
+            url=os.getenv("REDIS_URL"), ttl=100, session_id=session_id
+        )
+        
+        logging.info(f"Message history initialized: {message_history}")
+        
+        agent_with_chat_history = RunnableWithMessageHistory(
+            agent_executor,
+            lambda session_id: message_history,
+            input_messages_key="input",
+            history_messages_key="chat_history"
+        )
+        
+        response = agent_with_chat_history.invoke({"input": userquestion}, config={"configurable": {"session_id": session_id}})
+        ai_response = response.get('output', "No valid response from the AI.")
+        
+        logging.info(f"AI Response: {ai_response}")
+        
+        # Send the response back to the sender through the queue (assuming master_ai.send_message exists)
+        master_ai.send_message(ai_response, target_routing_key=userinfo)
+        
+        logging.info(f"Sent response back to {userinfo} through the queue.")
+        
+    except Exception as e:
+        logging.error(f"Error processing message: {e}")
+        
+        
+# Function to start listening to the message queue
+def start_message_listener():
+    try:
+        global master_ai
+        master_ai = Agent(
+            name=agent_name,
+            exchange="agent_exchange",
+            routing_key=agent_name,
+            queue=f"{agent_name}_queue",
+            user=os.getenv('AI_USER'),
+            password=os.getenv('AI_PASS')
+        )
+        
+        def callback(ch, method, properties, body):
+            try:
+                logging.info(f"Received message: {body}")
+                message = json.loads(body)
+                process_message(message)
+                ch.basic_ack(delivery_tag=method.delivery_tag)
+            except Exception as e:
+                logging.error(f"Failed to process message: {e}")
+                ch.basic_nack(delivery_tag=method.delivery_tag)
+
+        master_ai.channel.basic_consume(queue=master_ai.queue, on_message_callback=callback, auto_ack=False)
+        logging.info("Started listening to message queue...")
+        master_ai.channel.start_consuming()
+    except Exception as e:
+        logging.error(f"Failed to start message listener: {e}")
+
+
+
+
 if __name__ == '__main__':
+    # Start the message listener in a separate thread
+    listener_thread = Thread(target=start_message_listener)
+    listener_thread.start()
+    
     # # Define the custom IP address and port
     custom_ip = '0.0.0.0'  # Set to the desired IP address (e.g., '127.0.0.1' for localhost)
     custom_port = 8000     # Set to the desired port number (e.g., 8080)
 
     # Run the Flask app with custom IP and port
-    app.run(debug=True)
+    app.run(debug=True, host=custom_ip, port=custom_port)
 
 

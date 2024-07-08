@@ -436,7 +436,7 @@ import os
 # Define the communication function using RabbitMQ
 def agent2agent_comm(fromagent, agent, question):
     """
-    Ability to talk to another agent using RabbitMQ. The agents you can talk to are:
+    Ability to talk to another agent and respond back to questions from agents. The agents you can talk to are:
     1. ai_master - The master AI agent
     2. ai_assessment - The assessment AI agent
     3. ai_quality - The quality AI agent
