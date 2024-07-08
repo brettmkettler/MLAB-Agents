@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RabbitMQ Agent Monitor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 95%;
+            padding: 10px;
+        }
+        .left-column, .right-column {
+            display: flex;
+            flex-direction: column;
+            width: 45%;
+        }
+        .queue-section {
+            margin: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .log-container {
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        .log-message {
+            background-color: #eee;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+        pre {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <div class="queue-section" id="ai_assessment_queue">
+                <div class="header">AI Assessment Queue</div>
+                <div class="log-container"></div>
+            </div>
+            <div class="queue-section" id="ai_quality_queue">
+                <div class="header">AI Quality Queue</div>
+                <div class="log-container"></div>
+            </div>
+            <div class="queue-section" id="ai_master_queue">
+                <div class="header">AI Master Queue</div>
+                <div class="log-container"></div>
+            </div>
+            <div class="queue-section" id="call_ms_teams_queue">
+                <div class="header">MS Teams Call Queue</div>
+                <div class="log-container"></div>
+            </div>
+        </div>
+        <div class="right-column">
+            <div class="queue-section" id="unity_assessment_queue">
+                <div class="header">Unity Assessment Queue</div>
+                <div class="log-container"></div>
+            </div>
+            <div class="queue-section" id="unity_quality_queue">
+                <div class="header">Unity Quality Queue</div>
+                <div class="log-container"></div>
+            </div>
+            <div class="queue-section" id="unity_master_queue">
+                <div class="header">Unity Master Queue</div>
+                <div class="log-container"></div>
+            </div>
+            <div class="queue-section" id="DigitalPokaYoke_bot_queue">
+                <div class="header">Digital Poka Yoke bot</div>
+                <div class="log-container"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var socket = io();
+            socket.on('log_message', function(msg) {
+                var formattedMessage = JSON.stringify(msg.message, null, 2);
+                $('#' + msg.queue + ' .log-container').prepend('<div class="log-message"><pre>' + formattedMessage + '</pre></div>');
+            });
+        });
+    </script>
+</body>
+</html>

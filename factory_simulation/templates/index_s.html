@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RabbitMQ Logs</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .log-container {
+            width: 100%;
+            padding: 20px;
+            overflow-y: auto;
+            height: 100vh;
+        }
+        .log-message {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+        pre {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="log-container" id="log-container">
+        <h2>RabbitMQ Logs</h2>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var socket = io();
+            socket.on('log_message', function(msg) {
+                var formattedMessage = JSON.stringify(msg, null, 2);
+                $('#log-container').prepend('<div class="log-message"><pre>' + formattedMessage + '</pre></div>');
+            });
+        });
+    </script>
+</body>
+</html>
