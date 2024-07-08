@@ -1,0 +1,572 @@
+openapi: 3.0.3
+info:
+  title: API
+  description: Tower API
+  version: "1.0.0"
+tags:
+  - name: station
+    description: station
+
+paths:
+  /view/station/overview:
+    get:
+      tags:
+        - Station
+      summary: List all Station Process
+      description: List all Station Process
+      operationId: getStationOverview
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/StationOverview'
+        '401':
+          description: No Auth
+
+  /view/station/{id}:
+    get:
+      tags:
+        - Station
+      summary: Station process detailed
+      description: Station detailed
+      operationId: getStationDetailed
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StationDetailed'
+        '401':
+          description: No Auth
+        '404':
+          description: Not Found
+
+  /view/tickets:
+    get:
+      tags:
+        - Ticket
+      summary: List all tickets
+      description: List all tickets
+      operationId: getTicketsList
+      parameters:
+        - name: stationId
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: string
+        - name: priority
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - HIGH
+                - MEDIUM
+                - LOW
+        - name: ticketType
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: string
+        - name: createdAtStart
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: createdAtEnd
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: endedAtStart
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: endedAtEnd
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: string
+            format: date-time
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ticketDetails'
+        '401':
+          description: No Auth
+
+  /view/workorder:
+    get:
+      tags:
+        - WorkOrder
+      summary: List all WorkOrders
+      description: List all WorkOrders
+      operationId: getWorkOrderList
+      parameters:
+        - name: stationId
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: integer
+        - name: status
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - OPEN
+                - IN_PROGRESS
+                - CLOSED
+                - LOCKED
+        - name: operativeType
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: string
+            enum:
+              - PRODUCTION
+              - MAINTENANCE
+              - TRAINING
+        - name: withTickets
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: boolean
+        - name: startAtStart
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: startAtEnd
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: endAtStart
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: endAtEnd
+          in: query
+          description: station identifier.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: operatorId
+          in: query
+          description: operator identifier.
+          required: false
+          schema:
+            type: string
+        - name: supervisorId
+          in: query
+          description: supervisor identifier.
+          required: false
+          schema:
+            type: string
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WorkOrderItemList'
+        '401':
+          description: No Auth
+
+  /useraad:
+    get:
+      tags:
+        - User
+      summary: Get user info
+      description: Get user info
+      operationId: getUserAad
+      parameters:
+        - name: role
+          in: query
+          description: role.
+          required: false
+          schema:
+            type: string
+            enum:
+              - external
+              - operator
+              - supervisor
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserAad'
+        '401':
+          description: No Auth
+  /useraad/{id}:
+    get:
+      tags:
+        - User
+      summary: Get user info
+      description: Get user info
+      operationId: getUserAadUserId
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAad'
+        '401':
+          description: No Auth
+    post:
+      tags:
+        - User
+      summary: Set user lang
+      description: set user info
+      operationId: setUserLang
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '401':
+          description: No Auth
+
+components:
+  schemas:
+    UserAad:
+      type: object
+      properties:
+        id:
+          type: string
+        role:
+          type: string
+        name:
+          type: string
+
+    StationOverview:
+      type: object
+      properties:
+        name:
+          type: string
+        stId:
+          type: integer
+        workOrder:
+          type: string
+        progress:
+          type: float
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        nextEvent:
+          type: string
+          format: date-time
+        incident:
+          type: string
+        operator:
+          type: string
+        status:
+          type: string
+          enum:
+            - IN_PROGRESS
+            - ALERT
+            - MAINTENANCE
+            - STOPPED
+
+    StationDetailed:
+      type: object
+      properties:
+        name:
+          type: string
+        workOrder:
+          type: string
+        workOrderId:
+          type: integer
+        progress:
+          type: float
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        robot:
+          type: boolean
+        operator:
+          type: string
+        status:
+          type: string
+          enum:
+            - IN_PROGRESS
+            - ALERT
+            - MAINTENANCE
+            - STOPPED
+        step:
+          $ref: '#/components/schemas/Stepper'
+        sensors:
+          type: array
+          items:
+            items:
+              $ref: '#/components/schemas/Sensor'
+        stepper:
+          type: array
+          items:
+            $ref: '#/components/schemas/Stepper'
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogStationDetailed'
+        cctv:
+          type: array
+          items:
+            $ref: '#/components/schemas/CctvStation'
+        stationIncident:
+          $ref: '#/components/schemas/StationIncident'
+
+
+    StationIncident:
+      type: object
+      properties:
+        open:
+          type: integer
+        closed:
+          type: integer
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ticketDetails'
+
+
+    Sensor:
+      type: object
+      properties:
+        type:
+          type: string
+        data:
+          type: string
+        extraData:
+          type: string
+
+    Stepper:
+      type: object
+      properties:
+        description:
+          type: string
+        order:
+          type: integer
+
+    LogStationDetailed:
+      type: object
+      properties:
+        description:
+          type: string
+        station:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    CctvStation:
+      type: object
+      properties:
+        name:
+          type: string
+        station:
+          type: string
+        url:
+          type: string
+
+    ticketDetails:
+      type: object
+      properties:
+        id:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        comment:
+          type: string
+        description:
+          type: string
+        urgency:
+          type: string
+          enum:
+            - HIGH
+            - MEDIUM
+            - LOW
+        state:
+          type: string
+          enum:
+            - OPEN
+            - CLOSED
+        supervisor:
+          type: string
+        createdBy:
+          type: string
+        externalHelp:
+          type: boolean
+        closedAt:
+          type: string
+          format: date-time
+        ticketType:
+          $ref: '#/components/schemas/ticketType'
+        workOrderId:
+          type: integer
+        stationName:
+          type: string
+
+    ticketType:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
+# Robot Schema Data
+
+    Robot:
+      type: object
+      properties:
+        status:
+          type: string
+        robotStatus:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusRobot'
+        dataRobot:
+          type: array
+          items:
+              $ref: '#/components/schemas/RobotMeasure'
+
+    StatusRobot:
+      type: object
+      properties:
+        position:
+          type: string
+        status:
+          type: string
+        result:
+          type: string
+    RobotMeasure:
+      type: object
+      properties:
+        title:
+          type: string
+        dataRobot:
+          type: array
+          items:
+              $ref: '#/components/schemas/DataRobot'
+
+    DataRobot:
+      type: object
+      properties:
+        name:
+          type: string
+        data:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+
+    WorkOrderItemList:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+          enum:
+            - OPEN
+            - IN_PROGRESS
+            - CLOSED
+            - LOCKED
+        operative:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        operator:
+          type: string
+        supervisor:
+          type: string
+        station:
+          type: string
+        operativeType:
+          type: string
+          enum:
+            - PRODUCTION
+            - MAINTENANCE
+            - TRAINING
+        hasTicket:
+          type: boolean
+        documentUrl:
+          type: string
+
+
