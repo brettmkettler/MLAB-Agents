@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 
 from agent_mq import Agent
-from agent_tools import CallTool, actionTool, capgeminiDocumentsTool, Agent2AgentTool
+from agent_tools import CallTool, actionTool, capgeminiDocumentsTool, Agent2AgentTool, Agent2HumanTool
 
 
 from langchain.tools import BaseTool
@@ -42,7 +42,7 @@ chat_model = api.model('Chat', {
 llm = ChatOpenAI(model="gpt-4")
 
 # Replace these with actual tool implementations
-tools = [capgeminiDocumentsTool(), actionTool(), Agent2AgentTool(), CallTool()]
+tools = [capgeminiDocumentsTool(), actionTool(), Agent2AgentTool(), CallTool(), Agent2HumanTool()]
 
 # Set up the prompt template
 def setup_prompt(userinfo, agentlocation, userlocation):
@@ -53,6 +53,7 @@ def setup_prompt(userinfo, agentlocation, userlocation):
             You are located here: {agentlocation}.
             The user is located here: {userlocation}.
             Use the searchDocuments tool to look up items about the lab. Use the Agent2Agent tool to ask other agents questions and respond back to agents that ask questions.
+            If you receive a response from ai_master, ai_quality, or ai_assistant, forward the response to the user if needed.
         """),
         ("placeholder", "{chat_history}"),
         ("human", "{input}"),

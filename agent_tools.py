@@ -487,3 +487,58 @@ class Agent2AgentTool(BaseTool):
         """Use the tool."""
         response = agent2agent_comm(fromagent, agent, question)
         return response
+
+
+##############################
+
+
+
+# Define the communication function using RabbitMQ
+def agent2human_comm(user_id, question):
+    """
+    Ability to talk to a human or respond back to questions from humans.
+    
+    """
+    try:
+        chat_agent = Agent(
+            name=user_id,
+            exchange="agent_exchange",
+            routing_key=user_id,
+            queue="unity_messages_queue",
+            user=os.getenv('AI_USER'),
+            password=os.getenv('AI_PASS')
+        )
+        chat_agent.send_message(message=question, target_routing_key=user_id)
+        
+        print(f"Message sent to {user_id}: {question}")
+        return {"status": "success", "message": f"Message sent to {user_id} successfully."}
+    except Exception as e:
+        print(f"Error sending message to {user_id}: {e}")
+        return {"status": "error", "message": str(e)}
+    
+    
+    
+
+class Agent2HumanInputs(BaseModel):
+    """Inputs for the Agent2Human tool."""
+    user_id: str = Field(
+        description="The name of the user you are sending the message to."
+    )
+
+    question: str = Field(
+        description="The question you want to ask, be descriptive."
+    )
+
+
+
+
+class Agent2HumanTool(BaseTool):
+    name = "agent2human"
+    description = "useful for when you need to talk to or ask a human a question. You will need the following inputs: question The question should be something that is easy to answer over the phone but descriptive and detailed enough to get the information you need and the agent name.."
+    args_schema: Type[BaseModel] = Agent2AgentInputs
+    company = ""
+
+    def _run(self, user_id:str, question: str) -> str:
+        """Use the tool."""
+        response = agent2human_comm(user_id, question)
+        return response

@@ -1,12 +1,26 @@
+## ASH - Readme
+
+So if you run these:
+
+1. test.py
+2. app_masteragent.py
+
+Run by using normal 'python test.py' and 'python app_masteragent.py'
+
+You can see the message and response go through.
+
+If you run the app_qualityagent.py also, you can ask in chat "Can you ask the master agent to see if they are busy?"
+
+**You will see that it will indeed ask the coworker ai_master the question, it will respond through queue, and respond to user in queue as well.**
+
+
 ## Introduction
 
 This project is a virtual assistant for the Metaverse Lab, developed by Capgemini. The assistant interacts with users to provide information and perform actions based on user queries. The assistant leverages OpenAI and Azure services for natural language processing and document retrieval. This agent can control an agent in the metaverse like a puppet using the response of the api as a control vector.
 
-
 ## Disclaimer
 
 Changing the code in this file voids the warranty. This code is provided as-is and is not guaranteed to work for your use case. It serves as a starting point for your own projects. Capgemini does not offer support for this code at this time.
-
 
 ---
 
