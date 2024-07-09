@@ -1,5 +1,5 @@
 import random
-from agent import Agent
+from agent_mq import Agent
 from dotenv import load_dotenv
 import os
 

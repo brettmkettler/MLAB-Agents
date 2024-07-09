@@ -1,6 +1,6 @@
 import json
 import time
-from agent import Agent
+from agent_mq import Agent
 from dotenv import load_dotenv
 import os
 
