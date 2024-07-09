@@ -21,9 +21,11 @@ class ChatAgent(Agent):
 
 def chat_with_bot():
     # Static information about the user
-    user_id = 'Brett Kettler'
+    user_id = 'Ash'
     user_location = 'Netherlands'
     agent_location = 'Lab'
+    
+    #who are you talking to?
     talk2_user_id = 'ai_master'
 
     # Create the agent
