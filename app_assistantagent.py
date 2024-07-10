@@ -76,7 +76,9 @@ class Chat(Resource):
             logging.info(f"Received request: {data}")
             
             prompt = setup_prompt(userinfo, agentlocation, userlocation)
+            
             agent = create_tool_calling_agent(llm, tools, prompt)
+            
             agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
             
             try:

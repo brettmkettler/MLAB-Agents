@@ -118,12 +118,6 @@ class Agent:
             self.reconnect()
 
     def process_by_llm(self, agent_name, data, userinfo, userlocation, agentlocation):
-        
-        
-        
-        ###########################################
-        
-        
         logging.info("Processing by LLM with data: %s", data)
         
         userquestion = data
@@ -161,13 +155,6 @@ class Agent:
         except concurrent.futures.TimeoutError:
             logging.error("Timeout while waiting for LLM response")
             response = {"output": "Timeout while processing the request."}
-            
-            
-            
-        ###########################################
-        
-        
-        
         except Exception as e:
             logging.error(f"Error invoking LLM: {e}")
             response = {"output": "Error processing the request."}

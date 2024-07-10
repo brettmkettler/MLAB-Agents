@@ -48,9 +48,7 @@ class Agent:
         print(f"[{self.name}] Waiting for messages...")
         self.channel.start_consuming()
 
-    def process_message(self, message):
-        # Implement specific logic for each agent
-        pass
+    
 
     def log_message(self, message):
         self.channel.basic_publish(
