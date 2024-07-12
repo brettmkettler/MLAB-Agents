@@ -105,6 +105,16 @@ namespace AshAMQP
                     Console.WriteLine($"InnerException: {ex.InnerException.Message}");
                 }
             }
+            catch (AuthenticationFailureException ex)
+            {
+                this.OnError?.Invoke(this, ex.Message);
+                this.State = ClientStates.Disconnected;
+                Console.WriteLine($"AuthenticationFailureException: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"InnerException: {ex.InnerException.Message}");
+                }
+            }
             catch (Exception ex)
             {
                 this.OnError?.Invoke(this, ex.Message);

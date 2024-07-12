@@ -8,7 +8,7 @@ namespace AshAMQP.TestApp
     {
         static async Task Main(string[] args)
         {
-            var client = new AMQPClient("68.221.122.91", "AIAgent", "mlab120!", useSSL: true);
+            var client = new AMQPClient("68.221.122.91", "unityAgent", "mlab120!", useSSL: true);
 
             client.OnConnected += Client_OnConnected;
             client.OnError += Client_OnError;
@@ -26,7 +26,7 @@ namespace AshAMQP.TestApp
                 client.Subscribe("unity_quality_queue", message => Console.WriteLine($"Received from unity_quality_queue: {message}"));
                 client.Subscribe("unity_master_queue", message => Console.WriteLine($"Received from unity_master_queue: {message}"));
 
-                var exampleMessage = new { Text = "Hello, World!" };
+                var exampleMessage = new { msg = "Hello, World!" , location = "TestBench" , user = "Ash" };
 
                 client.PublishMessage("unity_assessment_queue", JsonConvert.SerializeObject(exampleMessage));
                 client.PublishMessage("unity_quality_queue", JsonConvert.SerializeObject(exampleMessage));
