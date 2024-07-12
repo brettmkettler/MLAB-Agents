@@ -1,11 +1,17 @@
+import pika
 import json
+from dotenv import load_dotenv
 import os
+import threading
 import logging
 import concurrent.futures
-from dotenv import load_dotenv
-import pika
 from agent_tools import CallTool, actionTool, capgeminiDocumentsTool, Agent2AgentTool, Agent2HumanTool
-from ai_agent_class import run_agent
+from langchain.tools import BaseTool
+from langchain.agents import AgentExecutor, create_tool_calling_agent
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
+from langchain_community.chat_message_histories import RedisChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
 
 # Load environment variables
 load_dotenv()
@@ -13,8 +19,25 @@ load_dotenv()
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 
-# Define tools
-#tools = [capgeminiDocumentsTool(), actionTool(), Agent2AgentTool(), CallTool(), Agent2HumanTool()]
+# Setup LLM
+llm = ChatOpenAI(model="gpt-4")
+
+tools = [capgeminiDocumentsTool(), actionTool(), Agent2AgentTool(), CallTool(), Agent2HumanTool()]
+
+def setup_prompt(agent_name, userinfo, agentlocation, userlocation):
+    logging.info("Setting up prompt")
+    return ChatPromptTemplate.from_messages([
+        ("system", f"""
+            You are a helpful metaverse lab assistant named: {agent_name}. You are talking to {userinfo}.
+            You are located here: {agentlocation}.
+            The user is located here: {userlocation}.
+            Use the searchDocuments tool to look up items about the lab. Use the Agent2Agent tool to ask other agents questions and respond back to agents that ask questions.
+            If you receive a response from ai_master, ai_quality, or ai_assistant, forward the response to the user if needed.
+        """),
+        ("placeholder", "{chat_history}"),
+        ("human", "{input}"),
+        ("placeholder", "{agent_scratchpad}")
+    ])
 
 class Agent:
     def __init__(self, name, exchange, routing_key, queue, user, password):
@@ -27,7 +50,7 @@ class Agent:
         self.connection = None
         self.channel = None
         self.connect()
-
+        
     def connect(self):
         try:
             self.connection = pika.BlockingConnection(
@@ -95,42 +118,62 @@ class Agent:
             self.reconnect()
 
     def process_by_llm(self, agent_name, data, userinfo, userlocation, agentlocation):
-        logging.info(f"Processing by LLM: {data}")
-        userquestion = data
-        session_id = userinfo
+        logging.info("Processing by LLM with data: %s", data)
         
-        ################################
-        # Call LLM
+        userquestion = data
+        logging.info(f"Processing message from user: {userinfo}")
+
+        session_id = userinfo
+        prompt = setup_prompt(agent_name, userinfo, agentlocation, userlocation)
+        
+        agent = create_tool_calling_agent(llm, tools, prompt)
+        
+        agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+
+        try:
+            message_history = RedisChatMessageHistory(
+                url=os.getenv("REDIS_URL"), ttl=100, session_id=session_id
+            )
+        except Exception as e:
+            logging.error(f"Failed to initialize message history: {e}")
+            message_history = None
+
+        logging.info(f"Message history initialized for session: {session_id}")
+
+        agent_with_chat_history = RunnableWithMessageHistory(
+            agent_executor,
+            lambda session_id: message_history,
+            input_messages_key="input",
+            history_messages_key="chat_history"
+        )
+
+        logging.info("Invoking LLM with message history")
         try:
             with concurrent.futures.ThreadPoolExecutor() as executor:
-                future = executor.submit(run_agent, agent_name, userquestion, userinfo, userlocation, agentlocation)
-                response = future.result(timeout=10)
-                
-                print(f"Response AutoGen: {response}")
-                
+                future = executor.submit(agent_with_chat_history.invoke, {"input": userquestion}, {"configurable": {"session_id": session_id}})
+                response = future.result(timeout=30)  # Adjust timeout as necessary
         except concurrent.futures.TimeoutError:
             logging.error("Timeout while waiting for LLM response")
             response = {"output": "Timeout while processing the request."}
-            
-        ###########################################
+        except Exception as e:
+            logging.error(f"Error invoking LLM: {e}")
+            response = {"output": "Error processing the request."}
 
-        ai_response = response
+        ai_response = response.get('output', "No valid response from the AI.")
         logging.info(f"AI Response: {ai_response}")
 
         return ai_response
 
     def process_message(self, message):
         try:
-            inner_msg = message.get('message', {})
-            if not isinstance(inner_msg, dict):
-                inner_msg = json.loads(inner_msg)
+            inner_msg = message['message']
             userquestion = inner_msg.get('userquestion', None)
             userinfo = inner_msg.get('user_id', None)
             userlocation = inner_msg.get('user_location', None)
             agentlocation = inner_msg.get('agent_location', None)
             
             if userquestion:
-                response = self.process_by_llm(self.name, userquestion, userinfo, userlocation, agentlocation)
+                response = self.process_by_llm(self.name, inner_msg['userquestion'], userinfo, userlocation, agentlocation)
                 self.send_message(response, routing_key=userinfo)
             else:
                 response = self.process_by_llm(self.name, inner_msg, "Unknown User", "Unknown Location", "Unknown Location")
@@ -143,12 +186,11 @@ class Agent:
     def callback(self, ch, method, properties, body):
         try:
             message = json.loads(body)
-            self.log_message(f"Received: {message}", received_from=self.name)
-            self.process_message(message)
         except json.JSONDecodeError as e:
             logging.error(f"JSONDecodeError: {e}. Body: {body}")
-        except Exception as e:
-            logging.error(f"Error processing message: {e}. Body: {body}")
+            return
+        self.log_message(f"Received: {message}", received_from=self.name)
+        self.process_message(message)
 
     def start_receiving(self):
         self.channel.basic_consume(queue=self.queue, on_message_callback=self.callback, auto_ack=True)
@@ -161,6 +203,8 @@ class Agent:
                 self.reconnect()
 
 if __name__ == "__main__":
+    import random
+    from agent import Agent
     from dotenv import load_dotenv
     import os
 
@@ -179,3 +223,7 @@ if __name__ == "__main__":
 
     # Start receiving messages
     assessment_agent.start_receiving()
+
+    # Blocking loop to keep the script running
+    while True:
+        pass

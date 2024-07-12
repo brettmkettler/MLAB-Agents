@@ -1,17 +1,10 @@
 ## ASH - Readme
 
-So if you run these:
+I have the LLM in the factory_simulation and it is working. I have it in the agent.py file, I beleive this will be switched here soon to the upgraded agent. 
 
-1. test.py
-2. app_masteragent.py
+It does work and accepts the userquestion and also if you run the simulation it will process the messages
 
-Run by using normal 'python test.py' and 'python app_masteragent.py'
 
-You can see the message and response go through.
-
-If you run the app_qualityagent.py also, you can ask in chat "Can you ask the master agent to see if they are busy?"
-
-**You will see that it will indeed ask the coworker ai_master the question, it will respond through queue, and respond to user in queue as well.**
 
 
 ## Introduction

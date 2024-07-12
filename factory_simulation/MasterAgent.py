@@ -1,5 +1,5 @@
 import random
-from agent_mq import Agent
+from agent import Agent
 from dotenv import load_dotenv
 import os
 
@@ -7,17 +7,17 @@ import os
 load_dotenv()
 
 # Initialize the assessment agent
-assessment_agent = Agent(
-    name="ai_assessment",
+master_agent = Agent(
+    name="ai_master",
     exchange="agent_exchange",
-    routing_key="ai_assessment",
-    queue="ai_assessment_queue",
+    routing_key="ai_master",
+    queue="ai_master_queue",
     user=os.getenv("AI_USER"),
     password=os.getenv("AI_PASS")
 )
 
 # Start receiving messages
-assessment_agent.start_receiving()
+master_agent.start_receiving()
 
 # Blocking loop to keep the script running
 while True:

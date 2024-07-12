@@ -26,7 +26,7 @@ def simulate_scenario(data, batch):
     print(f"Sent data for batch {batch} to AI Assessment Agent")
 
 def main():
-    scenarios = load_scenarios('factory_simulation/scenarios.json')
+    scenarios = load_scenarios('scenarios.json')
 
     while True:
         for batch, details in scenarios.items():

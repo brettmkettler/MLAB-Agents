@@ -3,7 +3,7 @@ import os
 from queue import Queue, Empty
 from threading import Thread
 from dotenv import load_dotenv
-from agent_mq import Agent
+from agent import Agent  # Ensure this is the correct path to your Agent class
 
 # Load environment variables from .env file
 load_dotenv()
@@ -14,17 +14,26 @@ class ChatAgent(Agent):
         self.message_queue = Queue()
 
     def process_message(self, message):
-        # This method will be called when a message is received
-        if message['sender'] != self.name:
+        # Check if the message is from the agent itself
+        sender = message.get('sender')
+        if sender is None:
+            # Assuming if there is no sender, it's a response from the AI agent
+            self.message_queue.put(message['message'])
+            print(f"Debug: AI agent response added to queue: {message['message']}")
+        elif sender != self.name:
             self.message_queue.put(message['message'])
             print(f"Debug: Message received and added to queue: {message['message']}")
+        else:
+            print(f"Debug: Message ignored from self: {message}")
 
 def chat_with_bot():
     # Static information about the user
     user_id = 'Brett Kettler'
     user_location = 'Netherlands'
     agent_location = 'Lab'
-    talk2_user_id = 'ai_master'
+    
+    # Who are you talking to?
+    talk2_user_id = 'ai_assessment'
 
     # Create the agent
     chat_agent = ChatAgent(
@@ -55,20 +64,27 @@ def chat_with_bot():
     response_thread.daemon = True  # This makes sure the thread will close when the main program exits
     response_thread.start()
 
-    while True:
-        userquestion = input("You: ")
-        if userquestion.lower() in ['exit', 'quit']:
-            print("Exiting chat...")
-            break
+    try:
+        while True:
+            userquestion = input("You: ")
+            if userquestion.lower() in ['exit', 'quit']:
+                print("Exiting chat...")
+                break
 
-        # Send the user question to the AI agent
-        chat_agent.send_message({
-            'userquestion': userquestion,
-            'user_id': user_id,
-            'user_location': user_location,
-            'agent_location': agent_location
-        }, talk2_user_id)
-        print("Debug: Message sent to AI agent.")
+            # Send the user question to the AI agent
+            chat_agent.send_message({
+                'userquestion': userquestion,
+                'user_id': user_id,
+                'user_location': user_location,
+                'agent_location': agent_location
+            }, talk2_user_id)
+            print("Debug: Message sent to AI agent.")
+    except KeyboardInterrupt:
+        print("Exiting chat due to keyboard interrupt...")
+
+    # Graceful shutdown
+    chat_agent.close_connection()
+    receive_thread.join()
 
 if __name__ == '__main__':
     chat_with_bot()

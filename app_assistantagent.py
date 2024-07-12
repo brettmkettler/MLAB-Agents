@@ -76,13 +76,19 @@ class Chat(Resource):
             logging.info(f"Received request: {data}")
             
             prompt = setup_prompt(userinfo, agentlocation, userlocation)
+            
             agent = create_tool_calling_agent(llm, tools, prompt)
+            
             agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
             
-            message_history = RedisChatMessageHistory(
-                url=os.getenv("REDIS_URL"), ttl=100, session_id=session_id
-            )
-            
+            try:
+                message_history = RedisChatMessageHistory(
+                    url=os.getenv("REDIS_URL"), ttl=100, session_id=session_id
+                )
+            except Exception as e:
+                logging.error(f"Failed to initialize message history: {e}")
+                message_history = None
+                
             logging.info(f"Message history initialized: {message_history}")
             
             agent_with_chat_history = RunnableWithMessageHistory(
