@@ -1,5 +1,7 @@
 import paho.mqtt.client as mqtt
 import logging
+import ssl
+
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -8,11 +10,11 @@ connection_config = {
     "type": "MQTT",
     "isActive": True,
     "host": "68.221.122.91",
-    "port": 1883,  # Adjust this if using SSL/TLS
+    "port": 8883,  # Adjust this if using SSL/TLS
     "path": "/",  # This is not used directly by paho-mqtt
     "user": "AIAgent",
     "password": "mlab120!",
-    "isSecure": False,  # Adjust this to True if using SSL/TLS
+    "isSecure": True,  # Adjust this to True if using SSL/TLS
     "topics": ["unityAssessmentAgent", "unityQualityAgent", "unityMasterAgent"]
 }
 
@@ -31,7 +33,7 @@ client.username_pw_set(connection_config["user"], connection_config["password"])
 
 # Enable SSL/TLS if required
 if connection_config["isSecure"]:
-    client.tls_set()
+    client.tls_set(cert_reqs=ssl.CERT_NONE)  # Disable SSL certificate verification
 
 # Connect to the broker
 client.connect(connection_config["host"], connection_config["port"], 60)
@@ -42,7 +44,7 @@ client.loop_start()
 # Publish a test message to a specific topic
 def publish_message():
     topic_to_publish = connection_config["topics"][0]
-    message = "Hello from publish_mqtt.py"
+    message = "Hello from publish_mqtt.py ssl"
     client.publish(topic_to_publish, message)
     print(f"Published message '{message}' to topic '{topic_to_publish}'")
 
