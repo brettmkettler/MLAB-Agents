@@ -1,5 +1,6 @@
 from autogen.agentchat.contrib.gpt_assistant_agent import GPTAssistantAgent
 from autogen.function_utils import get_function_schema
+from autogen.agentchat.contrib.capabilities.teachability import Teachability
 
 from openai import OpenAI
 import logging
@@ -56,8 +57,11 @@ assistant_id = os.environ.get("ASSISTANT_ID", None)
 
 cap_phil = GPTAssistantAgent(
     name="ai_assessment",
-    instructions="""You are a working agent in a Capgemini Digital Twin Factory named ai_assessment. You can ask questions to other agents using the agent2agent API. 
-    The other agents are: 
+    instructions="""You are a working agent in a Capgemini Digital Twin Factory named ai_assessment. 
+    
+    You are a friendly assistant agent that can help answer questions about the lab and the AI models.
+    
+    You can ask questions to other agents using the agent2agent API, The other agents are: 
     
     1. ai_master - ai_master is the master agent that can answer questions about the factory and its operations or the temperature of the lab.
     2. ai_assistant - ai_assistant is the assistant agent that can answer questions about the AI models and their capabilities.
@@ -81,6 +85,16 @@ if assistant_id:
     client.beta.assistants.update(
         assistant_id=cap_phil.assistant_id,
     )
+    
+
+# Teachability capability
+teachability = Teachability(
+    verbosity=2,  # 0 for basic info, 1 to add memory operations, 2 for analyzer messages, 3 for memo lists.
+    reset_db=True,
+    path_to_db_dir="./tmp/notebook/teachability_db",
+    recall_threshold=1.5,  # Higher numbers allow more (but less relevant) memos to be recalled.
+)
+teachability.add_to_agent(cap_phil)
 
 # User proxy for chat
 user_proxy = UserProxyAgent(
