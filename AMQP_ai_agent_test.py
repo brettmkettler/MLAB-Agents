@@ -15,9 +15,9 @@ AI_PASS = os.getenv('AI_PASS')
 # Sample message
 message = {
     "userquestion": "Hi, how is the factory doing today?",
-    "user_id": "user123",
+    "user_id": "Ash",
     "user_location": "Lab-1",
-    "agent_location": "Control Room"
+    "agent_location": "AshHome"
 }
 
 def send_message(channel):

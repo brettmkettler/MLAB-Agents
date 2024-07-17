@@ -39,7 +39,7 @@ def load_config(agent_name):
 
 def forward_message(channel, forward_queue, forward_route, message):
     channel.basic_publish(
-        exchange='AIFactory',
+        exchange='amq.topic',
         routing_key=forward_route,
         body=json.dumps(message)
     )
@@ -206,20 +206,21 @@ def handle_message(channel, method, properties, body, config):
         formatted_response = process_ai_response(response)
 
         # Publish the response to the publish queue
+        logger.info(f"Publishing to {config['queues']['publish']} with routing key {config['queues']['publish_route']}")
         channel.basic_publish(
-            exchange='AIFactory',
+            exchange='amq.topic',
             routing_key=config['queues']['publish_route'],
             body=json.dumps(formatted_response)
         )
         logger.info(f"Published response to {config['queues']['publish']} via route {config['queues']['publish_route']}")
 
         # Forward the message if necessary
-        if config['agent_name'] == 'assessment' and actions(userlocation, userquestion, response):
-            forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
-        elif config['agent_name'] == 'quality' and actions(userlocation, userquestion, response):
-            forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
-        elif config['agent_name'] == 'master':
-            logger.info("Master agent does not forward messages")
+        # if config['agent_name'] == 'assessment' and actions(userlocation, userquestion, response):
+        #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
+        # elif config['agent_name'] == 'quality' and actions(userlocation, userquestion, response):
+        #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
+        # elif config['agent_name'] == 'master':
+        #     logger.info("Master agent does not forward messages")
 
     except json.JSONDecodeError:
         logger.error("Received message is not in JSON format. Here is the raw message:")

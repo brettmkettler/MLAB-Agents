@@ -5,7 +5,7 @@ password = "mlab120!"
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        client.subscribe("unity_assessment")
+        client.subscribe("unity_assessment_queue")
     else:
         print("Connection error: " + str(rc))
 
