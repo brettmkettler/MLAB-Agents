@@ -3,6 +3,7 @@ import yaml
 import pika
 import json
 import re
+import time
 from langchain.tools import BaseTool
 from typing import Optional, Type
 from langchain.agents import AgentExecutor, create_tool_calling_agent
@@ -230,35 +231,49 @@ def handle_message(channel, method, properties, body, config):
     finally:
         channel.basic_ack(delivery_tag=method.delivery_tag)
 
-def main(agent_name):
-    # Load the agent-specific configuration
-    config = load_config(agent_name)
+def connect_and_consume(agent_name):
+    while True:
+        try:
+            # Load the agent-specific configuration
+            config = load_config(agent_name)
 
-    # Load RabbitMQ credentials from environment variables
-    rabbitmq_user = os.getenv('RABBITMQ_USER')
-    rabbitmq_pass = os.getenv('RABBITMQ_PASS')
-    rabbitmq_host = os.getenv('RABBITMQ_HOST')
-    rabbitmq_port = int(os.getenv('RABBITMQ_PORT'))
+            # Load RabbitMQ credentials from environment variables
+            rabbitmq_user = os.getenv('RABBITMQ_USER')
+            rabbitmq_pass = os.getenv('RABBITMQ_PASS')
+            rabbitmq_host = os.getenv('RABBITMQ_HOST')
+            rabbitmq_port = int(os.getenv('RABBITMQ_PORT'))
 
-    if not rabbitmq_user or not rabbitmq_pass or not rabbitmq_host or not rabbitmq_port:
-        logger.error("RabbitMQ configuration is missing in the environment variables.")
-        sys.exit(1)
+            if not rabbitmq_user or not rabbitmq_pass or not rabbitmq_host or not rabbitmq_port:
+                logger.error("RabbitMQ configuration is missing in the environment variables.")
+                sys.exit(1)
 
-    # Set up RabbitMQ connection and channel
-    credentials = pika.PlainCredentials(rabbitmq_user, rabbitmq_pass)
-    parameters = pika.ConnectionParameters(host=rabbitmq_host, port=rabbitmq_port, credentials=credentials)
-    connection = pika.BlockingConnection(parameters)
-    channel = connection.channel()
+            # Set up RabbitMQ connection and channel
+            credentials = pika.PlainCredentials(rabbitmq_user, rabbitmq_pass)
+            parameters = pika.ConnectionParameters(
+                host=rabbitmq_host, 
+                port=rabbitmq_port, 
+                credentials=credentials,
+                heartbeat=60,  # Set heartbeat to 1 minutes
+                blocked_connection_timeout=600  # Set blocked connection timeout to 10 minutes
+            )
+            connection = pika.BlockingConnection(parameters)
+            channel = connection.channel()
 
-    # Set up the consumer for the listen queue
-    channel.basic_consume(queue=config['queues']['listen'], on_message_callback=lambda ch, method, properties, body: handle_message(ch, method, properties, body, config))
+            # Set up the consumer for the listen queue
+            channel.basic_consume(queue=config['queues']['listen'], on_message_callback=lambda ch, method, properties, body: handle_message(ch, method, properties, body, config))
 
-    logger.info(f'Waiting for messages from "{config["queues"]["listen"]}". To exit press CTRL+C')
-    channel.start_consuming()
+            logger.info(f'Waiting for messages from "{config["queues"]["listen"]}". To exit press CTRL+C')
+            channel.start_consuming()
+        except (pika.exceptions.AMQPConnectionError, pika.exceptions.ChannelError) as e:
+            logger.error(f"Connection error: {e}. Reconnecting in 10 seconds...")
+            time.sleep(10)
+        except Exception as e:
+            logger.error(f"Unexpected error: {e}. Reconnecting in 10 seconds...")
+            time.sleep(10)
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
         logger.error("Usage: python AMQP_AI_Agent.py <agent_name>")
         sys.exit(1)
     agent_name = sys.argv[1]
-    main(agent_name)
+    connect_and_consume(agent_name)
