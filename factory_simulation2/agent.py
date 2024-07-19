@@ -29,7 +29,7 @@ class Agent:
         self.channel.queue_bind(exchange=exchange, queue=queue, routing_key=routing_key)
 
         # Register function handlers for inter-agent communication
-        self.auto_gen_agent.register_function(self.send_to_assessment, name='send_to_assessment')
+        self.auto_gen_agent.register_function(self.send_to_assembly, name='send_to_assembly')
         self.auto_gen_agent.register_function(self.send_to_quality, name='send_to_quality')
         self.auto_gen_agent.register_function(self.send_to_master, name='send_to_master')
         self.auto_gen_agent.register_function(self.send_msg, name='send_msg')
@@ -78,15 +78,15 @@ class Agent:
         llm_result = response.get('result', {})
 
         # If the LLM result contains a command to send a message to another agent or Unity
-        if 'send_to_assessment' in llm_result:
-            self.send_to_assessment(llm_result['send_to_assessment'])
+        if 'send_to_assembly' in llm_result:
+            self.send_to_assembly(llm_result['send_to_assembly'])
         if 'send_to_quality' in llm_result:
             self.send_to_quality(llm_result['send_to_quality'])
         if 'send_to_master' in llm_result:
             self.send_to_master(llm_result['send_to_master'])
 
-    def send_to_assessment(self, message):
-        self.send_message(message, "unity_assessment")
+    def send_to_assembly(self, message):
+        self.send_message(message, "unity_assembly")
 
     def send_to_quality(self, message):
         self.send_message(message, "unity_quality")
@@ -95,8 +95,8 @@ class Agent:
         self.send_message(message, "unity_master")
 
     def send_msg(self, agent_name, message):
-        if agent_name == "AssessmentAgent":
-            self.send_to_assessment(message)
+        if agent_name == "assemblyAgent":
+            self.send_to_assembly(message)
         elif agent_name == "QualityAgent":
             self.send_to_quality(message)
         elif agent_name == "MasterAgent":

@@ -13,17 +13,17 @@ def load_scenarios(file_path):
     return scenarios
 
 def simulate_scenario(data, batch):
-    assessment_agent = Agent(
-        name="AssessmentAgent",
+    assembly_agent = Agent(
+        name="assemblyAgent",
         exchange="agent_exchange",
-        routing_key="assessment",
-        queue="ai_assessment_queue",
+        routing_key="assembly",
+        queue="ai_assembly_queue",
         user=os.getenv('AI_USER'),
         password=os.getenv('AI_PASS')
     )
     # Correctly structure the message
-    assessment_agent.send_message({'data': data, 'batch': batch}, "ai_assessment")
-    print(f"Sent data for batch {batch} to AI Assessment Agent")
+    assembly_agent.send_message({'data': data, 'batch': batch}, "ai_assembly")
+    print(f"Sent data for batch {batch} to AI assembly Agent")
 
 def main():
     scenarios = load_scenarios('scenarios.json')

@@ -1,44 +1,52 @@
+# Python Script with YAML Integration
+
+import glob
 import sys
 import yaml
-import pika
 import json
 import re
 import time
-from langchain.tools import BaseTool
+import os
+import logging
+
+import pika
+from dotenv import load_dotenv
+from pydantic import BaseModel, Field
 from typing import Optional, Type
+
+from langchain.tools import BaseTool
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain_core.prompts import ChatPromptTemplate
-from pydantic import BaseModel, Field
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.messages import SystemMessage
-from langchain_core.prompts import (
-    ChatPromptTemplate,
-    HumanMessagePromptTemplate,
-    MessagesPlaceholder,
-)
+from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
-from dotenv import load_dotenv
 from langchain_community.vectorstores.azuresearch import AzureSearch
 from langchain_openai import AzureOpenAIEmbeddings, OpenAIEmbeddings
 from langchain_community.chat_message_histories import RedisChatMessageHistory
 from langchain.memory import ConversationBufferMemory
-import os
-import logging
+
+from agent_tools import capgeminiDocumentsTool, CallTool, actionTool, Agent2AgentTool
 
 # Load environment variables
 load_dotenv()
+
+# Global Channel
+channel = None
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def load_config(agent_name):
+    """Load the configuration file for the given agent."""
     config_file = f"{agent_name}Agent.yaml"
     with open(config_file, 'r') as file:
         config = yaml.safe_load(file)
     return config
 
 def forward_message(channel, forward_queue, forward_route, message):
+    """Forward a message to the specified queue."""
     channel.basic_publish(
         exchange='amq.topic',
         routing_key=forward_route,
@@ -46,61 +54,11 @@ def forward_message(channel, forward_queue, forward_route, message):
     )
     logger.info(f"Message forwarded to {forward_queue} via route {forward_route}.")
 
-def actions(userlocation, userquestion, response):
-    logger.info("Deciding what actions to take...")
-    logger.info(f"User's Location: {userlocation}")
-    logger.info(f"User Question: {userquestion}")
-    logger.info(f"Response: {response}")
+# Tools
+tools = [capgeminiDocumentsTool(), actionTool(), Agent2AgentTool(), CallTool()]
 
-    # Example: Assess if the log requires quality check
-    if "quality issue" in userquestion.lower():
-        return True
-    return False
-
-def searchDocuments(userquestion):
-    logger.info("Searching for documents...")
-    logger.info(f"User Question: {userquestion}")
-
-    # Example: Mock documents and scores for demonstration
-    docs_and_scores = [{"doc": "Mock document", "score": 0.9}]
-    logger.info(f"Docs and Scores: {docs_and_scores}")
-    return docs_and_scores
-
-class capgeminiDocumentsInputs(BaseModel):
-    question: str = Field(..., description="The entire question that the user asked.")
-
-class capgeminiDocumentsTool(BaseTool):
-    name = "searchDocuments"
-    description = "Use this tool to search for information in the documents."
-
-    def _run(self, question: str, *args, **kwargs):
-        return searchDocuments(question)
-
-    def _arun(self, question: str, *args, **kwargs):
-        raise NotImplementedError("This tool does not support async")
-
-    args_schema: Optional[Type[BaseModel]] = capgeminiDocumentsInputs
-
-class actionInputs(BaseModel):
-    userlocation: str = Field(..., description="The location of the user.")
-    question: str = Field(..., description="The entire question that the user asked.")
-    response: str = Field(..., description="The response from the agent.")
-
-class actionTool(BaseTool):
-    name = "actionTool"
-    description = "Use this tool to decide what actions to take based on the user question and your response."
-
-    def _run(self, userlocation:str, question: str, response: str, *args, **kwargs):
-        return actions(userlocation, question, response)
-
-    def _arun(self, question: str, response: str, *args, **kwargs):
-        raise NotImplementedError("This tool does not support async")
-
-    args_schema: Optional[Type[BaseModel]] = actionInputs
-
-tools = [capgeminiDocumentsTool(), actionTool()]
-
-def setupPrompt(userinfo, agentlocation, userlocation, config):
+def setup_prompt(userinfo, agentlocation, userlocation, config):
+    """Set up the prompt template."""
     logger.info("Setting up prompt")
     return ChatPromptTemplate.from_messages(
         [
@@ -115,6 +73,7 @@ def setupPrompt(userinfo, agentlocation, userlocation, config):
     )
 
 def process_ai_response(response):
+    """Process the AI response to extract actions."""
     try:
         if 'output' in response:
             ai_response = response['output']
@@ -144,6 +103,7 @@ def process_ai_response(response):
         return {"error": str(e)}
 
 def handle_message(channel, method, properties, body, config):
+    """Handle incoming messages from the queue."""
     logger.info(f"Received raw message: {body}")
     try:
         message = json.loads(body)
@@ -158,7 +118,7 @@ def handle_message(channel, method, properties, body, config):
         logger.info(f"Agent Location: {agentlocation}")
         logger.info(f"User Question: {userquestion}")
 
-        prompt = setupPrompt(userinfo, agentlocation, userlocation, config)
+        prompt = setup_prompt(userinfo, agentlocation, userlocation, config)
         logger.info(f"Prompt: {prompt}")
 
         llm = ChatOpenAI(model="gpt-4")
@@ -166,11 +126,9 @@ def handle_message(channel, method, properties, body, config):
 
         agent = create_tool_calling_agent(llm, tools, prompt)
         logger.info(f"Agent: {agent}")
-        logger.info("=======================================")
 
         agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
         logger.info(f"Agent Executor: {agent_executor}")
-        logger.info("=======================================")
 
         try:
             message_history = RedisChatMessageHistory(
@@ -181,7 +139,6 @@ def handle_message(channel, method, properties, body, config):
             return
 
         logger.info(f"Message History: {message_history}")
-        logger.info("=======================================")
 
         try:
             agent_with_chat_history = RunnableWithMessageHistory(
@@ -216,7 +173,7 @@ def handle_message(channel, method, properties, body, config):
         logger.info(f"Published response to {config['queues']['publish']} via route {config['queues']['publish_route']}")
 
         # Forward the message if necessary
-        # if config['agent_name'] == 'assessment' and actions(userlocation, userquestion, response):
+        # if config['agent_name'] == 'assembly' and actions(userlocation, userquestion, response):
         #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
         # elif config['agent_name'] == 'quality' and actions(userlocation, userquestion, response):
         #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
@@ -225,41 +182,39 @@ def handle_message(channel, method, properties, body, config):
 
     except json.JSONDecodeError:
         logger.error("Received message is not in JSON format. Here is the raw message:")
-        logger.error(body.decode('utf-8'))  # Decode and print the raw message as text
+        logger.error(body.decode('utf-8'))
     except Exception as e:
         logger.error(f"Error handling message: {e}")
     finally:
         channel.basic_ack(delivery_tag=method.delivery_tag)
 
 def connect_and_consume(agent_name):
+    """Connect to RabbitMQ and start consuming messages."""
+    global channel
     while True:
         try:
-            # Load the agent-specific configuration
             config = load_config(agent_name)
-
-            # Load RabbitMQ credentials from environment variables
+###################################
             rabbitmq_user = os.getenv('RABBITMQ_USER')
             rabbitmq_pass = os.getenv('RABBITMQ_PASS')
             rabbitmq_host = os.getenv('RABBITMQ_HOST')
             rabbitmq_port = int(os.getenv('RABBITMQ_PORT'))
 
-            if not rabbitmq_user or not rabbitmq_pass or not rabbitmq_host or not rabbitmq_port:
+            if not all([rabbitmq_user, rabbitmq_pass, rabbitmq_host, rabbitmq_port]):
                 logger.error("RabbitMQ configuration is missing in the environment variables.")
                 sys.exit(1)
 
-            # Set up RabbitMQ connection and channel
             credentials = pika.PlainCredentials(rabbitmq_user, rabbitmq_pass)
             parameters = pika.ConnectionParameters(
                 host=rabbitmq_host, 
                 port=rabbitmq_port, 
                 credentials=credentials,
-                heartbeat=60,  # Set heartbeat to 1 minutes
-                blocked_connection_timeout=600  # Set blocked connection timeout to 10 minutes
+                heartbeat=60,  
+                blocked_connection_timeout=600  
             )
             connection = pika.BlockingConnection(parameters)
             channel = connection.channel()
-
-            # Set up the consumer for the listen queue
+###################################
             channel.basic_consume(queue=config['queues']['listen'], on_message_callback=lambda ch, method, properties, body: handle_message(ch, method, properties, body, config))
 
             logger.info(f'Waiting for messages from "{config["queues"]["listen"]}". To exit press CTRL+C')

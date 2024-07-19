@@ -37,7 +37,7 @@ def main():
     connection = pika.BlockingConnection(parameters)
     channel = connection.channel()
 
-    queues = ['unity_assessment_queue', 'unity_quality_queue', 'unity_master_queue']
+    queues = ['unity_assembly_queue', 'unity_quality_queue', 'unity_master_queue']
 
     for queue in queues:
         channel.basic_consume(

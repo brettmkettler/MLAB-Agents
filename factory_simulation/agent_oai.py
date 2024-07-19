@@ -193,9 +193,9 @@ class Agent:
                 response = self.process_by_llm(self.name, inner_msg, "Unknown User", "Unknown Location", "Unknown Location")
                 # Here you could do something with the response if needed
         except KeyError as e:
-            logging.error(f"[AIAssessmentAgent] KeyError: {e}. Message: {message}")
+            logging.error(f"[AIassemblyAgent] KeyError: {e}. Message: {message}")
         except Exception as e:
-            logging.error(f"[AIAssessmentAgent] Unexpected error: {e}. Message: {message}")
+            logging.error(f"[AIassemblyAgent] Unexpected error: {e}. Message: {message}")
 
     def callback(self, ch, method, properties, body):
         try:
@@ -225,18 +225,18 @@ if __name__ == "__main__":
     # Load environment variables
     load_dotenv()
 
-    # Initialize the assessment agent
-    assessment_agent = Agent(
-        name="AIAssessmentAgent",
+    # Initialize the assembly agent
+    assembly_agent = Agent(
+        name="AIassemblyAgent",
         exchange="agent_exchange",
-        routing_key="ai_assessment",
-        queue="ai_assessment_queue",
+        routing_key="ai_assembly",
+        queue="ai_assembly_queue",
         user=os.getenv("AI_USER"),
         password=os.getenv("AI_PASS")
     )
 
     # Start receiving messages
-    assessment_agent.start_receiving()
+    assembly_agent.start_receiving()
 
     # Blocking loop to keep the script running
     while True:

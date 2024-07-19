@@ -56,8 +56,8 @@ agent2agent_api_schema = get_function_schema(
 assistant_id = os.environ.get("ASSISTANT_ID", None)
 
 cap_phil = GPTAssistantAgent(
-    name="ai_assessment",
-    instructions="""You are a working agent in a Capgemini Digital Twin Factory named ai_assessment. 
+    name="ai_assembly",
+    instructions="""You are a working agent in a Capgemini Digital Twin Factory named ai_assembly. 
     
     You are a friendly assistant agent that can help answer questions about the lab and the AI models.
     

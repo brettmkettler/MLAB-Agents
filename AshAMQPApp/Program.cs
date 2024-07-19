@@ -20,13 +20,13 @@ namespace AshAMQP.TestApp
 
             if (client.State == ClientStates.Connected)
             {
-                client.Subscribe("unity_assessment_queue", message => Console.WriteLine($"Received from unity_assessment_queue: {message}"));
+                client.Subscribe("unity_assembly_queue", message => Console.WriteLine($"Received from unity_assembly_queue: {message}"));
                 client.Subscribe("unity_quality_queue", message => Console.WriteLine($"Received from unity_quality_queue: {message}"));
                 client.Subscribe("unity_master_queue", message => Console.WriteLine($"Received from unity_master_queue: {message}"));
 
                 var exampleMessage = new { msg = "Hello, World!" , location = "TestBench" , user = "Ash" };
 
-                client.PublishMessage("unity_assessment_queue", JsonConvert.SerializeObject(exampleMessage));
+                client.PublishMessage("unity_assembly_queue", JsonConvert.SerializeObject(exampleMessage));
                 client.PublishMessage("unity_quality_queue", JsonConvert.SerializeObject(exampleMessage));
                 client.PublishMessage("unity_master_queue", JsonConvert.SerializeObject(exampleMessage));
 

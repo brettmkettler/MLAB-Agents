@@ -15,7 +15,7 @@ connection_config = {
     "user": "AIAgent",
     "password": "mlab120!",
     "isSecure": True,  # Adjust this to True if using SSL/TLS
-    "topics": ["unityAssessmentAgent", "unityQualityAgent", "unityMasterAgent"]
+    "topics": ["unityassemblyAgent", "unityQualityAgent", "unityMasterAgent"]
 }
 
 # Define the callback function for logging

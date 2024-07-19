@@ -6,7 +6,7 @@ import os
 # Load environment variables
 load_dotenv()
 
-# Initialize the assessment agent
+# Initialize the assembly agent
 master_agent = Agent(
     name="ai_master",
     exchange="agent_exchange",

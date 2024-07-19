@@ -33,14 +33,15 @@ def chat_with_bot():
     agent_location = 'Lab'
     
     # Who are you talking to?
-    talk2_user_id = 'ai_assessment'
+    agent = 'master'
+    
 
     # Create the agent
     chat_agent = ChatAgent(
         name=user_id,
         exchange="agent_exchange",
         routing_key=user_id,
-        queue="unity_messages_queue",
+        queue=f"unity_{agent}_queue",
         user=os.getenv('AI_USER'),
         password=os.getenv('AI_PASS')
     )
@@ -54,7 +55,7 @@ def chat_with_bot():
             try:
                 # Wait for a message to arrive for up to 1 second
                 response_message = chat_agent.message_queue.get(timeout=1)
-                print(f"{talk2_user_id}: {response_message}")
+                print(f"{agent}: {response_message}")
             except Empty:
                 # No message received within timeout, continue waiting
                 continue
@@ -77,7 +78,7 @@ def chat_with_bot():
                 'user_id': user_id,
                 'user_location': user_location,
                 'agent_location': agent_location
-            }, talk2_user_id)
+            }, f"ai_{agent}")
             print("Debug: Message sent to AI agent.")
     except KeyboardInterrupt:
         print("Exiting chat due to keyboard interrupt...")

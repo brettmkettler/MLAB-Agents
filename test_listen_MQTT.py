@@ -13,7 +13,7 @@ connection_config = {
     "user": "unityAgentMQTT",
     "password": "password",
     "isSecure": False,  # Adjust this to True if using SSL/TLS
-    "topics": ["unityAssessmentAgent", "unityQualityAgent", "unityMasterAgent"]
+    "topics": ["unityassemblyAgent", "unityQualityAgent", "unityMasterAgent"]
 }
 
 # Define the callback function for message reception

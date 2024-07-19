@@ -106,7 +106,7 @@ here's a step-by-step guide on how to run the provided RabbitMQ client and test 
    - Log in with the default credentials (`guest`/`guest`).
 
 2. **Verify Queues:**
-   - Ensure that the `unity_assessment_queue`, `unity_quality_queue`, and `unity_master_queue` queues are created and messages are being sent and received as expected.
+   - Ensure that the `unity_assembly_queue`, `unity_quality_queue`, and `unity_master_queue` queues are created and messages are being sent and received as expected.
 
 ### Summary
 

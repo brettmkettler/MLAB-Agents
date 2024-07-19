@@ -438,7 +438,7 @@ def agent2agent_comm(fromagent, agent, question):
     """
     Ability to talk to another agent and respond back to questions from agents. The agents you can talk to are:
     1. ai_master - The master AI agent
-    2. ai_assessment - The assessment AI agent
+    2. ai_assembly - The assembly AI agent
     3. ai_quality - The quality AI agent
     
     """
@@ -479,7 +479,7 @@ class Agent2AgentInputs(BaseModel):
 
 class Agent2AgentTool(BaseTool):
     name = "agent2agent"
-    description = "useful for when you need to talk to or ask another agent a question. You will need the following inputs: question The question should be something that is easy to answer over the phone but descriptive and detailed enough to get the information you need and the agent name. Agents: ai_master, ai_assistant, ai_quality, ai_assessment."
+    description = "useful for when you need to talk to or ask another agent a question. You will need the following inputs: question The question should be something that is easy to answer over the phone but descriptive and detailed enough to get the information you need and the agent name. Agents: ai_master, ai_assistant, ai_quality, ai_assembly."
     args_schema: Type[BaseModel] = Agent2AgentInputs
     company = ""
 

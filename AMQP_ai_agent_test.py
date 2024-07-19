@@ -15,25 +15,25 @@ AI_PASS = os.getenv('AI_PASS')
 # Sample message
 message = {
     "userquestion": "Hi, how is the factory doing today?",
-    "user_id": "Ash",
-    "user_location": "Lab-1",
-    "agent_location": "AshHome"
+    "user_id": "Brett Kettler",
+    "user_location": "Lab",
+    "agent_location": "Lab"
 }
 
 def send_message(channel):
     # Publish the message
     channel.basic_publish(
-        exchange='AIFactory',
-        routing_key='ai_assessment',
+        exchange='amq.topic',
+        routing_key='ai_assembly',
         body=json.dumps(message)
     )
-    print("Message sent to the route 'ai_assessment'.")
+    print("Message sent to the route 'ai_assembly'.")
 
 def callback(ch, method, properties, body):
     print("Received raw message:", body)
     try:
         response = json.loads(body)
-        print("Received response from 'unity_assessment':", response)
+        print("Received response from 'unity_assembly':", response)
     except json.JSONDecodeError:
         print("Received message is not in JSON format. Here is the raw message:")
         print(body.decode('utf-8'))  # Decode and print the raw message as text
@@ -52,11 +52,11 @@ def main():
     # Send the message
     send_message(channel)
 
-    # Set up the consumer for the unity_assessment queue
-    channel.basic_consume(queue='unity_assessment_queue', on_message_callback=callback)
+    # Set up the consumer for the unity_assembly queue
+    # channel.basic_consume(queue='unity_assembly_queue', on_message_callback=callback)
 
-    print('Waiting for response from "unity_assessment_queue". To exit press CTRL+C')
-    channel.start_consuming()
+    # print('Waiting for response from "unity_assembly_queue". To exit press CTRL+C')
+    # channel.start_consuming()
 
 if __name__ == '__main__':
     main()

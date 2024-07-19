@@ -8,7 +8,7 @@ This repository contains scripts to manage AI agents that communicate via Rabbit
 
 - `AMQP_ai_agent.py`: Main script for running the AI agents.
 - `AMQP_ai_agent_listten.py`: Script to listen and print messages from the `unity_X` queues.
-- `assessmentAgent.yaml`, `qualityAgent.yaml`, `masterAgent.yaml`: Configuration files for each AI agent.
+- `assemblyAgent.yaml`, `qualityAgent.yaml`, `masterAgent.yaml`: Configuration files for each AI agent.
 - `.env`: Environment file containing RabbitMQ credentials.
 
 ## Prerequisites
@@ -49,19 +49,19 @@ This repository contains scripts to manage AI agents that communicate via Rabbit
 
 ## Configuration
 
-### `assessmentAgent.yaml`
+### `assemblyAgent.yaml`
 ```yaml
-agent_name: assessment
+agent_name: assembly
 queues:
-  listen: "ai_assessment_queue"
-  listen_route: "ai_assessment"
-  publish: "unity_assessment_queue"
-  publish_route: "unity_assessment"
+  listen: "ai_assembly_queue"
+  listen_route: "ai_assembly"
+  publish: "unity_assembly_queue"
+  publish_route: "unity_assembly"
   forward: "ai_quality_queue"
   forward_route: "ai_quality"
 prompts:
   system: |
-    You are an assessment assistant named Gemi. Assess incoming logs in assembly and send messages to the quality agent if required. You are located here: {agentlocation}. The user is located here: {userlocation}.
+    You are an assembly assistant named Gemi. Assess incoming logs in assembly and send messages to the quality agent if required. You are located here: {agentlocation}. The user is located here: {userlocation}.
 ```
 
 ### `qualityAgent.yaml`
@@ -94,9 +94,9 @@ prompts:
 
 ## Running the AI Agents
 
-1. **Run the Assessment Agent**:
+1. **Run the assembly Agent**:
    ```sh
-   python AMQP_ai_agent.py assessment
+   python AMQP_ai_agent.py assembly
    ```
 
 2. **Run the Quality Agent**:
@@ -119,5 +119,5 @@ To listen and print messages from the `unity_X` queues:
 python AMQP_ai_agent_listten.py
 ```
 
-This script will listen for new messages on the `unity_assessment_queue`, `unity_quality_queue`, and `unity_master_queue`, and print any new messages that arrive.
+This script will listen for new messages on the `unity_assembly_queue`, `unity_quality_queue`, and `unity_master_queue`, and print any new messages that arrive.
 
