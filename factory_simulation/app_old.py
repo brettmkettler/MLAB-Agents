@@ -42,7 +42,7 @@ def index():
     return render_template('index_old.html')
 
 if __name__ == '__main__':
-    queues = ['ai_assessment_queue', 'ai_quality_queue', 'ai_master_queue', 'unity_assessment_queue', 'unity_quality_queue', 'unity_master_queue','call_ms_teams_queue','DigitalPokaYoke_bot_queue']
+    queues = ['ai_assembly_queue', 'ai_quality_queue', 'ai_master_queue', 'unity_assembly_queue', 'unity_quality_queue', 'unity_master_queue','call_ms_teams_queue','DigitalPokaYoke_bot_queue']
     for queue in queues:
         threading.Thread(target=rabbitmq_listener, args=(queue,)).start()
     socketio.run(app, host='0.0.0.0', port=5000)

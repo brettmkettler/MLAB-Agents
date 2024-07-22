@@ -3,3 +3,7 @@
 
 /mlab/
 /Archive/
+
+__pycache__
+.cache
+/tmp/

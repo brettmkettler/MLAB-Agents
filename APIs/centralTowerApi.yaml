@@ -1,0 +1,1737 @@
+openapi: 3.0.3
+info:
+  title: API
+  description: Tower API
+  version: "1.0.0"
+tags:
+  - name: CCVT
+    description: CCVT
+  - name: hardcoded
+    description: Hardcoded
+  - name: log
+    description: Loggers
+  - name: NPLcommand
+    description: npl commands
+  - name: notification
+    description: notification
+  - name: operative
+    description: operative
+  - name: station
+    description: station
+  - name: ticket
+    description: ticket
+  - name: workOrder
+    description: workOrder
+  - name: userData
+    description: userData
+  - name: Documents
+    description: Documents
+paths:
+  /ccvt:
+    get:
+      tags:
+        - CCVT
+      summary: List all CCVT
+      description: retrieve list CCVT object
+      operationId: ccvtList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ccvt'
+        '400':
+          description: Invalid CCVT supplied
+        '404':
+          description: CCVT not found
+    post:
+      tags:
+        - CCVT
+      summary: save one CCVT
+      description: save CCVT
+      operationId: ccvtSave
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ccvt'
+        description: Created object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ccvt'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+
+  /ccvt/{id}:
+    get:
+      tags:
+        - CCVT
+      summary: Get CCVT by id
+      description: CCVT object
+      operationId: ccvtById
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ccvt'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    delete:
+      tags:
+        - CCVT
+      summary: Delete CCVT
+      description: CCVT object
+      operationId: ccvtDelete
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+
+  /log:
+    get:
+      tags:
+        - log
+      summary: List all log
+      description: retrieve list log object
+      operationId: LogList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/log'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    post:
+      tags:
+        - log
+      summary: save one log
+      description: save log
+      operationId: logSave
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/logIngest'
+        description: Created log object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/log'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: Log not found
+  /log/{id}:
+    get:
+      tags:
+        - log
+      summary: Get log by id
+      description: log object
+      operationId: logById
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/log'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    delete:
+      tags:
+        - log
+      summary: delete log
+      description: log object
+      operationId: logDelete
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+  /nlp:
+    get:
+      tags:
+        - NLPcommand
+      summary: List all NLPcommand
+      description: retrieve list NPLcommand object
+      operationId: NLPcommandList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/nlpCommand'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    post:
+      tags:
+        - NLPcommand
+      summary: save one NLPcommand
+      description: save NLPcommand
+      operationId: nlpCommandSave
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/nlpCommand'
+        description: Created NLPcommand object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nlpCommand'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: NLPcommand not found
+  /nlp/{id}:
+    get:
+      tags:
+        - NLPcommand
+      summary: Get NLPcommand by id
+      description: NLPcommand object
+      operationId: nlpCommandById
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nlpCommand'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    delete:
+      tags:
+        - NLPcommand
+      summary: delete NLPcommand
+      description: NLPcommand object
+      operationId: nlpCommandDelete
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+  /nlp/login:
+    post:
+      tags:
+        - NLPcommand
+      summary: Send user logged  NLP headset
+      description: Save user logged NLP
+      operationId: nlpLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/nlpAuth'
+        description: Created NLPcommand object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nlpAuth'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: NLPcommand not found
+  /nlp/logout:
+    post:
+      tags:
+        - NLPcommand
+      summary: Send user logout  NLP headset
+      description: Save user logout NLP
+      operationId: nlpLogout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/nlpAuth'
+        description: Created NLPcommand object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nlpAuth'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: NLPcommand not found
+  /notification:
+    get:
+      tags:
+        - notification
+      summary: List all notification
+      description: retrieve list notification object
+      operationId: notificationList
+      parameters:
+        - name: userId
+          in: query
+          description: userId.
+          required: false
+          schema:
+            type: string
+        - name: read
+          in: query
+          description: read
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/notification'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    post:
+      tags:
+        - notification
+      summary: save one notification
+      description: save notification
+      operationId: notificationSave
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/notification'
+        description: Created notification object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notification'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: Notification not found
+    delete:
+      tags:
+        - notification
+      summary: delete list notifications
+      description: delete list notifications
+      operationId: deleteListNotifications
+      parameters:
+        - name: id
+          in: query
+          description: id.
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: WorkOrder not found
+  /notification/count:
+    get:
+      tags:
+        - notification
+      summary: List all notification
+      description: retrieve list notification object
+      operationId: notificationListCount
+      parameters:
+        - name: userId
+          in: query
+          description: userId.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notificationCount'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+  /notification/{id}:
+    get:
+      tags:
+        - notification
+      summary: Get notification by id
+      description: notification object
+      operationId: notificationById
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notification'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    delete:
+      tags:
+        - notification
+      summary: delete notification
+      description: notification object
+      operationId: notificationDelete
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+
+  /notification/{id}/state:
+    put:
+      tags:
+        - notification
+      summary: save one notification
+      description: save notification
+      operationId: notificationSaveState
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/notificationState'
+        description: Created notification object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notification'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: Notification not found
+  /operative:
+    get:
+      tags:
+        - operative
+      summary: List all operative
+      description: retrieve list operative object
+      operationId: operativeList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/operative'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    post:
+      tags:
+        - operative
+      summary: save one operative
+      description: save operative
+      operationId: operativeSave
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/operative'
+        description: Created operative object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/operative'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: Operative not found
+  /operative/{id}:
+    get:
+      tags:
+        - operative
+      summary: Get operative by id
+      description: operative object
+      operationId: operativeById
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/operative'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    delete:
+      tags:
+        - operative
+      summary: delete operative
+      description: operative object
+      operationId: operativeDelete
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+  /station:
+    get:
+      tags:
+        - station
+      summary: List all station
+      description: retrieve list station object
+      operationId: stationList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/station'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    post:
+      tags:
+        - station
+      summary: save one station
+      description: save station
+      operationId: stationSave
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/station'
+        description: Created station object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/station'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: Station not found
+  /station/{id}:
+    get:
+      tags:
+        - station
+      summary: Get station by id
+      description: station object
+      operationId: stationById
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/station'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    delete:
+      tags:
+        - station
+      summary: delete station
+      description: station object
+      operationId: stationDelete
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+  /station/conditions:
+    post:
+      tags:
+        - station
+      operationId: saveStationConditions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/stationConditionsOPC'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /sensorBatterySoC:
+    post:
+      tags:
+        - station
+      operationId: saveSensorBatterySoc
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sensorBatterySoC'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /ticket:
+    get:
+      tags:
+        - ticket
+      summary: List all ticket
+      description: retrieve list ticket object
+      operationId: ticketList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ticket'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    post:
+      tags:
+        - ticket
+      summary: save one ticket
+      description: save ticket
+      operationId: ticketSave
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ticket'
+        description: Created ticket object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ticket'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: Ticket not found
+    delete:
+      tags:
+        - ticket
+      summary: delete list tickets by id
+      description: delete list tickets by id
+      operationId: deleteListTickets
+      parameters:
+        - name: id
+          in: query
+          description: id.
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: ticket not found
+  /ticket/{id}:
+    get:
+      tags:
+        - ticket
+      summary: Get ticket by id
+      description: ticket object
+      operationId: ticketById
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ticket'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    delete:
+      tags:
+        - ticket
+      summary: delete ticket
+      description: ticket object
+      operationId: ticketDelete
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+
+  /ticketType:
+    get:
+      tags:
+        - ticketType
+      summary: List all ticketType
+      description: retrieve list ticketType object
+      operationId: ticketTypeList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ticketType'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+  /work_order:
+    get:
+      tags:
+        - workOrder
+      summary: List all workOrder
+      description: retrieve list workOrder object
+      operationId: workOrderList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/workOrder'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    post:
+      tags:
+        - workOrder
+      summary: save one workOrder
+      description: save workOrder
+      operationId: workOrderSave
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workOrder'
+        description: Created workOrder object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workOrder'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: WorkOrder not found
+    delete:
+      tags:
+        - workOrder
+      summary: delete list work orders by id
+      description: delete list work order by id
+      operationId: deleteListWorkOrders
+      parameters:
+        - name: id
+          in: query
+          description: id.
+          required: true
+          schema:
+            type: array
+            items:
+                type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: WorkOrder not found
+  /work_order/{id}:
+    get:
+      tags:
+        - workOrder
+      summary: Get workOrder by id
+      description: workOrder object
+      operationId: workOrderById
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workOrder'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    delete:
+      tags:
+        - workOrder
+      summary: delete workOrder
+      description: workOrder object
+      operationId: workOrderDelete
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+  /work_order/available_check:
+    get:
+      tags:
+        - workOrder
+      summary: Get workOrder by id
+      description: workOrder object
+      operationId: workOrderAvailableCheck
+      parameters:
+        - name: operativeId
+          in: query
+          description: operativeId.
+          required: true
+          schema:
+            type: integer
+        - name: userId
+          in: query
+          description: userId.
+          required: true
+          schema:
+            type: string
+        - name: start
+          in: query
+          description: start.
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: end
+          in: query
+          description: end.
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: woId
+          in: query
+          description: WorkOrder Id
+          required: false
+          schema:
+            type: integer
+
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workOrderAvailability'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+  /status:
+    post:
+      summary: save process status
+      description: save process status
+      operationId: stationProcessStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusProcess'
+        description: Saved Process status
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workOrder'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: WorkOrder not found
+  /hardcoded:
+    get:
+      tags:
+        - hardcoded
+      summary: List all hardcoded
+      description: retrieve list hardcoded object
+      operationId: hardcodedList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/hardcoded'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    post:
+      tags:
+        - hardcoded
+      summary: save one hardcoded
+      description: save hardcoded
+      operationId: hardcodedSave
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/hardcoded'
+        description: Created hardocded object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hardcoded'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: Hardcoded not found
+  /hardcoded/{id}:
+    get:
+      tags:
+        - hardcoded
+      summary: Get hardcoded by id
+      description: hardcoded object
+      operationId: hardcodedById
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hardcoded'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    delete:
+      tags:
+        - hardcoded
+      summary: delete hardcoded
+      description: hardcoded object
+      operationId: hardcodedDelete
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+  /electric/consumption:
+    post:
+      tags:
+        - electric-consumption
+      operationId: saveElectricConsumption
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/electricConsumptionOPC'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /carbon/footprint:
+    post:
+      summary: Send station conditions information for the process of a station
+      tags:
+        - "Plant Control Tower"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarbonFootprint'
+      responses:
+        '200':
+          description: OK
+  /userdata:
+    post:
+      summary: Create a match between nlp and aad user id, also save the status of the headset
+      tags:
+        - userData
+      operationId: saveUserData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userData'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userData'
+  /userdata/nlp/{id}:
+    get:
+      tags:
+        - userData
+      summary: Get UserData by nlpId
+      description: Get UserData by nlpId
+      operationId: userdataByNlpId
+      parameters:
+        - name: id
+          in: path
+          description: id.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userData'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+  /document:
+    get:
+      tags:
+        - Documents
+      summary: List all Documents
+      description: retrieve list Documents object
+      operationId: documentsList
+      parameters:
+        - name: documentType
+          in: query
+          description: documentType.
+          required: false
+          schema:
+            type: string
+        - name: costStart
+          in: query
+          description: costStart.
+          required: false
+          schema:
+            type: number
+            format: float
+        - name: costEnd
+          in: query
+          description: costEnd.
+          required: false
+          schema:
+            type: number
+            format: float
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/document'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+    post:
+      tags:
+        - Documents
+      summary: save one document
+      description: save document
+      operationId: saveDocument
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/document'
+        description: Created document object
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/document'
+        '400':
+          description: Invalid supplied
+        '404':
+          description: document not found
+  /document/view:
+    get:
+      tags:
+        - Documents
+      summary: List all Documents
+      description: retrieve list Documents object
+      operationId: getDocumentFile
+      parameters:
+        - name: filename
+          in: query
+          description: filename.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid supplied
+        '404':
+          description: not found
+components:
+  schemas:
+    ccvt:
+      type: object
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+        name:
+          type: string
+        stationId:
+          type: integer
+    hardcoded:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        value:
+          type: number
+          format: float
+    station:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        description:
+          type: string
+        name:
+          type: string
+        identifier:
+          type: string
+    operative:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        description:
+          type: string
+        stationId:
+          type: integer
+        stationName:
+          type: string
+        documentUrl:
+          type: string
+        cost:
+          type: number
+          format: float
+        hours:
+          type: number
+          format: float
+        operativeType:
+          type: string
+          enum:
+            - PRODUCTION
+            - MAINTENANCE
+            - TRAINING
+
+    notificationCount:
+        type: object
+        properties:
+          count:
+            type: integer
+            format: int32
+          notifications:
+            type: array
+            items:
+              $ref: '#/components/schemas/notification'
+    notification:
+      type: object
+      properties:
+        id:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        actionRequired:
+          type: boolean
+        priority:
+          type: string
+          enum:
+            - HIGH
+            - MEDIUM
+            - LOW
+        title:
+          type: string
+        description:
+          type: string
+        alreadyRead:
+          type: boolean
+        userId:
+          type: string
+        notificationType:
+          type: string
+          enum:
+            - NEW_WORK_ORDER_EVENT
+            - TICKET
+            - NLP
+            - DELETED_WORK_ORDER_EVENT
+            - EDITED_WORK_ORDER_EVENT
+        stationId:
+          type: integer
+        stationName:
+          type: string
+        ticket:
+          $ref: '#/components/schemas/ticket'
+        nlpCommand:
+          $ref: '#/components/schemas/nlpCommand'
+        workOrder:
+          $ref: '#/components/schemas/workOrder'
+
+    notificationState:
+      type: object
+      properties:
+        alreadyRead:
+          type: boolean
+
+
+    nlpCommand:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        timestamp:
+          type: string
+          format: date-time
+        voiceCommand:
+          type: string
+        shortAnswer:
+          type: string
+        longAnswer:
+          type: string
+        useCase:
+          type: string
+          enum:
+            - Q&A
+            - COMMAND
+        operation:
+          type: string
+          enum:
+            - EXECUTE
+            - RESUME
+            - STOP
+            - PAUSE
+        language:
+          type: string
+        link:
+          type: string
+        userId:
+          type: string
+        stId:
+          type: integer
+          format: int32
+        operativeId:
+          type: integer
+          format: int32
+
+    nlpAuth:
+      type: object
+      properties:
+        userId:
+          type: string
+
+    ticket:
+      type: object
+      properties:
+        id:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        comment:
+          type: string
+        description:
+          type: string
+        urgency:
+          type: string
+          enum:
+            - HIGH
+            - MEDIUM
+            - LOW
+        state:
+          type: string
+          enum:
+            - OPEN
+            - CLOSED
+        supervisorId:
+          type: string
+        createdByUserId:
+          type: string
+        externalHelp:
+          type: boolean
+        closedAt:
+          type: string
+          format: date-time
+        ticketTypeId:
+          type: integer
+        workOrderId:
+          type: integer
+    ticketType:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    workOrderAvailability:
+      type: object
+      properties:
+        available:
+          type: boolean
+        suggestion:
+          type: array
+          items:
+            type: string
+
+    workOrder:
+      type: object
+      properties:
+        id:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+        endedAt:
+          type: string
+          format: date-time
+        estimationEnd:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+            - OPEN
+            - IN_PROGRESS
+            - CLOSED
+            - LOCKED
+        totalSteps:
+          type: integer
+        currentStep:
+          type: integer
+        operatorId:
+          type: string
+        operativeId:
+          type: integer
+        supervisorId:
+          type: string
+        tickets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ticket'
+    StatusProcess:
+      title: StatusProcess
+      type: object
+      properties:
+        currentStep:
+          type: integer
+          format: int32
+        totalSteps:
+          type: integer
+          format: int32
+        operatorId:
+          type: string
+        operative:
+          type: string
+        stId:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+    log: ## DUplicate to LOG ingest
+      type: object
+      properties:
+        id:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        description:
+          type: string
+        workOrderId:
+          type: integer
+    logIngest:
+      type: object
+      properties:
+        id:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        description:
+          type: string
+        stId:
+          type: integer
+    electricConsumptionOPC:
+      type: object
+      properties:
+        value:
+          type: object
+          properties:
+            value:
+              $ref: '#/components/schemas/electricConsumption'
+    electricConsumption:
+      type: object
+      properties:
+        station_name:
+          type: string
+        device:
+          type: string
+        consumption:
+          type: number
+          format: float
+        cost:
+          type: number
+          format: float
+        timestamp:
+          type: string
+          format: date-time
+        stId:
+          type: integer
+          format: int32
+    CarbonFootprint:
+      title: Carbon footprint Consumption
+      type: object
+      properties:
+        emissionKwh:
+          type: number
+        source:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+              value:
+                type: number
+        timestamp:
+          type: string
+          format: date-time
+    sensorBatterySoC:
+      type: object
+      properties:
+        soc:
+          type: number
+        outOfDate:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
+        replaceDate:
+          type: string
+          format: date-time
+        device:
+          type: string
+    stationConditionsOPC:
+      type: object
+      properties:
+        value:
+          type: object
+          properties:
+            value:
+              $ref: '#/components/schemas/stationConditions'
+    stationConditions:
+      type: object
+      properties:
+        temperature:
+          type: number
+          format: float
+        pressure:
+          type: number
+          format: float
+        humidity:
+          type: number
+          format: float
+        battery:
+          type: number
+          format: float
+        location:
+          type: string
+        deviceId:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        stId:
+          type: integer
+          format: int32
+    userData:
+      type: object
+      properties:
+        userId:
+          type: string
+        nlpId:
+          type: string
+        connectedHeadset:
+          type: boolean
+
+    document:
+      type: object
+      properties:
+        id:
+          type: integer
+        documentType:
+          type: string
+          enum:
+            - WORK_ORDER
+            - MAINTENANCE_ORDER
+            - DEMO_VISIT
+            - MANUAL
+        name:
+          type: string
+        url:
+          type: string
+        operativeId:
+          type: integer
+        operative:
+          $ref: '#/components/schemas/operative'
+
+

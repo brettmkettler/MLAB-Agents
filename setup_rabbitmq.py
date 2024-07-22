@@ -7,8 +7,8 @@ load_dotenv()
 
 def delete_agent_exchange_and_queues(channel, connection):
     queues = [
-        ('unity_assessment', 'unity_assessment_queue'),
-        ('ai_assessment', 'ai_assessment_queue'),
+        ('unity_assembly', 'unity_assembly_queue'),
+        ('ai_assembly', 'ai_assembly_queue'),
         ('unity_quality', 'unity_quality_queue'),
         ('ai_quality', 'ai_quality_queue'),
         ('unity_master', 'unity_master_queue'),
@@ -42,8 +42,8 @@ def create_agent_exchange_and_queues(channel):
 
     # Create routing/queues and bind them to the agent exchange
     queues = [
-        ('unity_assessment', 'unity_assessment_queue'),
-        ('ai_assessment', 'ai_assessment_queue'),
+        ('unity_assembly', 'unity_assembly_queue'),
+        ('ai_assembly', 'ai_assembly_queue'),
         ('unity_quality', 'unity_quality_queue'),
         ('ai_quality', 'ai_quality_queue'),
         ('unity_master', 'unity_master_queue'),
@@ -64,6 +64,21 @@ def create_agent_exchange_and_queues(channel):
     channel.queue_declare(queue='log_queue', durable=True, arguments=args)
     channel.queue_bind(exchange='log_exchange', queue='log_queue')
     print("Queue 'log_queue' created with TTL and bound to 'log_exchange'.")
+
+    # Bind queues to the existing exchange 'amq.topic'
+    existing_exchange = 'amq.topic'
+    bindings = [
+        ('unity_assembly', 'unity_assembly_queue'),
+        ('ai_assembly', 'ai_assembly_queue'),
+        ('unity_quality', 'unity_quality_queue'),
+        ('ai_quality', 'ai_quality_queue'),
+        ('unity_master', 'unity_master_queue'),
+        ('ai_master', 'ai_master_queue')
+    ]
+
+    for routing_key, queue_name in bindings:
+        channel.queue_bind(exchange=existing_exchange, queue=queue_name, routing_key=routing_key)
+        print(f"Queue {queue_name} bound to '{existing_exchange}' with routing key '{routing_key}'.")
 
 def setup_rabbitmq(delete_existing=True):
     connection = pika.BlockingConnection(pika.ConnectionParameters(

@@ -1,29 +1,105 @@
 import streamlit as st
-import requests
+import pika
+import json
+import threading
+import time
+import os
+from dotenv import load_dotenv
+import logging
+
+# Load environment variables
+load_dotenv()
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Load RabbitMQ credentials from environment variables
+rabbitmq_user = os.getenv('RABBITMQ_USER')
+rabbitmq_pass = os.getenv('RABBITMQ_PASS')
+rabbitmq_host = os.getenv('RABBITMQ_HOST')
+rabbitmq_port = int(os.getenv('RABBITMQ_PORT'))
+
+# Define the queue names
+listen_queue = 'ai_master_queue'
+publish_queue = 'unity_master_queue'
+
+# Global variable to store the response
+response_message = None
+
+def callback(ch, method, properties, body, queue_name):
+    global response_message
+    try:
+        message = json.loads(body)
+        response_message = message
+        logger.info(f"Received message from {queue_name}: {json.dumps(message, indent=2)}")
+    except json.JSONDecodeError:
+        logger.error(f"Received non-JSON message from {queue_name}: {body}")
+    ch.basic_ack(delivery_tag=method.delivery_tag)
+
+def listen_for_response():
+    if not rabbitmq_user or not rabbitmq_pass or not rabbitmq_host or not rabbitmq_port:
+        logger.error("RabbitMQ configuration is missing in the environment variables.")
+        return
+
+    credentials = pika.PlainCredentials(rabbitmq_user, rabbitmq_pass)
+    parameters = pika.ConnectionParameters(host=rabbitmq_host, port=rabbitmq_port, credentials=credentials)
+    connection = pika.BlockingConnection(parameters)
+    channel = connection.channel()
+
+    channel.basic_consume(
+        queue=publish_queue,
+        on_message_callback=lambda ch, method, properties, body, queue_name=publish_queue: callback(ch, method, properties, body, queue_name)
+    )
+
+    logger.info("Listening for messages. To exit press CTRL+C")
+    channel.start_consuming()
+
+def start_listening_thread():
+    listening_thread = threading.Thread(target=listen_for_response)
+    listening_thread.daemon = True
+    listening_thread.start()
+
+def send_message_to_queue(userquestion, user_id, user_location, agent_location):
+    try:
+        credentials = pika.PlainCredentials(rabbitmq_user, rabbitmq_pass)
+        parameters = pika.ConnectionParameters(
+            host=rabbitmq_host,
+            port=rabbitmq_port,
+            credentials=credentials
+        )
+        connection = pika.BlockingConnection(parameters)
+        channel = connection.channel()
+        
+        message = {
+            'userquestion': userquestion,
+            'user_id': user_id,
+            'user_location': user_location,
+            'agent_location': agent_location
+        }
+        
+        channel.basic_publish(
+            exchange='amq.topic',
+            routing_key=listen_queue,
+            body=json.dumps(message)
+        )
+        connection.close()
+    except Exception as e:
+        st.error(f"Failed to send message to queue: {e}")
 
 def chat_with_bot(userquestion, user_id, user_location, agent_location):
-    # Define the API endpoint URL
-    #url = 'https://mlab-moveagent1.azurewebsites.net/chat'
-    url = 'http://127.0.0.1:5000/chat'
+    global response_message
+    response_message = None
     
+    send_message_to_queue(userquestion, user_id, user_location, agent_location)
     
-    # Define the JSON payload for the POST request
-    data = {
-        'userquestion': userquestion,
-        'user_id': user_id,
-        'user_location': user_location,
-        'agent_location': agent_location
-    }
-
-    # Send a POST request to the API endpoint
-    response = requests.post(url, json=data)
+    timeout = time.time() + 100  # 10 seconds timeout
+    while response_message is None:
+        if time.time() > timeout:
+            print("Waiting")
+        time.sleep(1)
     
-    # Handle the response from the server
-    if response.status_code == 200:
-        api_response = response.json().get('response')
-        return api_response
-    else:
-        return f"Failed to get a response: {response.status_code}"
+    return response_message.get('response')
 
 def display_response(response):
     for action in response:
@@ -39,10 +115,8 @@ def display_response(response):
 def main():
     st.title("Chat with Gemi")
 
-    # Input fields for user information
     user_id = st.text_input("User ID", "Brett Kettler")
 
-    # Dropdown for selecting region
     regions = [
         'REGION_VR', 'REGION_DIGITALPOKAYOKE', 'REGION_COBOT', 
         'REGION_TESTBENCH', 'REGION_UR3', 'REGION_SPEECH'
@@ -63,9 +137,9 @@ def main():
         else:
             st.write(response)
         
-        # Expander to show raw response data
         with st.expander("Show raw response data"):
             st.json(response)
 
 if __name__ == '__main__':
+    start_listening_thread()
     main()
