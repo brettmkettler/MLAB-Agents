@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from autogen import UserProxyAgent, config_list_from_json
 from typing import Any, Dict, Optional
 
-from agent_tools import actions, makeCall
+from agent_tools import actions, makeCall, search_tavily
 
 
 # Load environment variables
@@ -78,6 +78,26 @@ callTool_api_schema = get_function_schema(
     description="Ability to call and talk to Brett Kettler to ask questions or get information on things you dont know.",
 )
 
+###############################
+# SEARCH TOOL
+
+def searchTool(question: str) -> str:
+    """
+    Ability to search the web for information on things you dont know.
+    """
+    
+    print("Running call tool")
+    response = search_tavily(question, search_depth="basic", include_images=False, include_answer=True, include_raw_content=False, max_results=5, include_domains=None, exclude_domains=None)
+    print(f"Response: {response}")
+    return "The message was sent to the agent."
+   
+
+searchTool_api_schema = get_function_schema(
+    searchTool,
+    name="searchTool",
+    description="Ability search the web for information on things you dont know.",
+)
+
 
 # Create the agent
 assistant_id = os.environ.get("ASSISTANT_ID", None)
@@ -106,7 +126,7 @@ def run_agent(agent_name: str, userquestion: str, prompt: str) -> str:
         llm_config={
             "config_list": config_list,
             # "tools": [agent2agent_api_schema],
-            "tools": [callTool_api_schema],
+            "tools": [callTool_api_schema, searchTool_api_schema],
             "assistant_id": assistant_id,
         },
         verbose=True,
@@ -116,6 +136,7 @@ def run_agent(agent_name: str, userquestion: str, prompt: str) -> str:
     # agent.register_function(function_map={"agent2agent_comm": agent2agent_comm})
     
     agent.register_function(function_map={"callTool": callTool})
+    agent.register_function(function_map={"searchTool": searchTool})
 
     # Update the assistant (ensure that the assistant_id is correctly set in the environment variables)
     if assistant_id:

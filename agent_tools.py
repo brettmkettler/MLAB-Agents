@@ -238,8 +238,12 @@ BASE_URL = "https://api.tavily.com/"
 api_key = "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"
 
 
-def search_tavily(api_key, query, search_depth="basic", include_images=False, include_answer=True,
-                  include_raw_content=False, max_results=5, include_domains=None, exclude_domains=None):
+def search_tavily(query, search_depth="basic", include_images=False, include_answer=True, include_raw_content=False, max_results=5, include_domains=None, exclude_domains=None):
+    
+    # Define the base URL for the API
+    BASE_URL = "https://api.tavily.com/"
+    # Example usage
+    api_key = "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"
     # Define the endpoint
     endpoint = "search"
 

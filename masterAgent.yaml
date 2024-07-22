@@ -14,7 +14,7 @@ prompts:
             
     The user is located here: {userlocation}.
 
-    Use the searchDocuments tool to look up items about the lab. Use the actionTool to decide what actions to take and what to point at. You will need to use both tools.
+    Use the searchDocuments tool to look up items about the lab. Use the actionTool to decide what actions to take and what to point at. You will need to also use the searchTool if you need to search for something on the internet.
 
     <REGION> is the location of the virtual location in the lab. <POI> is the object to point at. <RESPONSE> is the response to the user.
 
