@@ -1,5 +1,6 @@
 import asyncio
 import glob
+from multiprocessing import process
 from grpc import channel_ready_future
 from langchain.tools import BaseTool
 from typing import Optional, Type
@@ -10,6 +11,7 @@ from openai import OpenAI
 from pydantic import BaseModel
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
 client = OpenAI()
@@ -17,6 +19,8 @@ client = OpenAI()
 import pika
 import json
 import os
+import logging
+
 
 ###################################################################
 # RABBITMQ
@@ -35,6 +39,48 @@ channel = connection.channel()
 
 ############################
 
+
+# HELPER FUNCTION
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def process_ai_response(response):
+    """Process the AI response to extract actions."""
+    try:
+        # Check if response is a string
+        if isinstance(response, str):
+            logger.info(f"Raw AI Response: {response}")
+
+            # Pattern to match actions and their content
+            action_pattern = r'"action": "(\w+)", "content": "([^"]*)"'
+            actions = re.findall(action_pattern, response)
+
+            if not actions:
+                logger.warning("No valid actions found in the AI response.")
+                return {"error": "No valid actions found in the AI response."}
+
+            action_types = {"GOTO": "None", "POINTAT": "None", "TALK": "None"}
+
+            for action_type, action_content in actions:
+                if action_type in action_types:
+                    action_types[action_type] = action_content
+
+            actions_list = [
+                {"action": "GOTO", "content": action_types["GOTO"]},
+                {"action": "POINTAT", "content": action_types["POINTAT"]},
+                {"action": "TALK", "content": action_types["TALK"]}
+            ]
+
+            formatted_response = {"response": actions_list}
+            logger.info(f"Formatted Response: {formatted_response}")
+            return formatted_response
+        else:
+            logger.warning("No valid response from the AI.")
+            return {"error": "No valid response from the AI."}
+    except Exception as e:
+        logger.error(f"Error processing AI response: {e}")
+        return {"error": str(e)}
     
     
 #########################################################################################################
@@ -395,7 +441,18 @@ def makeCall(question: str):
                 summary = data.get('summary', 'No summary available')
                 print('Summary of the call:')
                 print(summary)
-                return summary
+                
+                summary = f"""
+                "action": "GOTO", "content": "None"
+                "action": "POINTAT", "content": "None"
+                "action": "TALK", "content": "{summary}"
+                """
+                
+                formatted_summary = process_ai_response(summary)
+                
+                print("Formatted Summary: ", formatted_summary)
+                
+                return formatted_summary
             #########################################
             else:
                 print("Failed to get call summary")

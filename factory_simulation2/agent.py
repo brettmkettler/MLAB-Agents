@@ -1,12 +1,16 @@
-import pika
 import json
 import os
-import threading
+import logging
+import concurrent.futures
 from dotenv import load_dotenv
-from autogen import Agent as AutoGenAgent, Message
+import pika
 
-# Load environment variables from .env file
+
+# Load environment variables
 load_dotenv()
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
 
 class Agent:
     def __init__(self, name, exchange, routing_key, queue, user, password):
@@ -14,112 +18,150 @@ class Agent:
         self.exchange = exchange
         self.routing_key = routing_key
         self.queue = queue
-        self.auto_gen_agent = AutoGenAgent(name=name)
+        self.user = user
+        self.password = password
+        self.connection = None
+        self.channel = None
+        self.connect()
 
-        self.connection = pika.BlockingConnection(
-            pika.ConnectionParameters(
-                host=os.getenv('RABBITMQ_HOST'),
-                port=int(os.getenv('RABBITMQ_PORT')),
-                credentials=pika.PlainCredentials(user, password)
+    def connect(self):
+        try:
+            self.connection = pika.BlockingConnection(
+                pika.ConnectionParameters(
+                    host=os.getenv('RABBITMQ_HOST'),
+                    port=int(os.getenv('RABBITMQ_PORT')),
+                    credentials=pika.PlainCredentials(self.user, self.password)
+                )
             )
-        )
-        self.channel = self.connection.channel()
-        self.channel.exchange_declare(exchange=exchange, exchange_type='direct')
-        self.channel.queue_declare(queue=queue, durable=True)
-        self.channel.queue_bind(exchange=exchange, queue=queue, routing_key=routing_key)
+            self.channel = self.connection.channel()
+            self.channel.exchange_declare(exchange=self.exchange, exchange_type='topic')
+            self.channel.queue_declare(queue=self.queue, durable=True)
+            self.channel.queue_bind(exchange=self.exchange, queue=self.queue, routing_key=self.routing_key)
+        except pika.exceptions.AMQPConnectionError as e:
+            logging.error(f"Failed to connect to RabbitMQ: {e}")
+            self.reconnect()
 
-        # Register function handlers for inter-agent communication
-        self.auto_gen_agent.register_function(self.send_to_assembly, name='send_to_assembly')
-        self.auto_gen_agent.register_function(self.send_to_quality, name='send_to_quality')
-        self.auto_gen_agent.register_function(self.send_to_master, name='send_to_master')
-        self.auto_gen_agent.register_function(self.send_msg, name='send_msg')
+    def reconnect(self):
+        logging.info("Reconnecting to RabbitMQ...")
+        self.close_connection()
+        self.connect()
+        
+    def close_connection(self):
+        if self.connection:
+            try:
+                self.connection.close()
+            except Exception as e:
+                logging.error(f"Error closing connection: {e}")
 
     def send_message(self, message, routing_key):
-        self.channel.basic_publish(
-            exchange=self.exchange,
-            routing_key=routing_key,
-            body=json.dumps(message),
-            properties=pika.BasicProperties(
-                delivery_mode=2,
+        try:
+            self.channel.basic_publish(
+                exchange=self.exchange,
+                routing_key=routing_key,
+                body=json.dumps({'message': message, 'sent_to': routing_key}),
+                properties=pika.BasicProperties(
+                    delivery_mode=2,
+                )
             )
-        )
-        self.log_message(message, sent_to=routing_key)
+            self.log_message(message, sent_to=routing_key)
+        except pika.exceptions.AMQPConnectionError as e:
+            logging.error(f"Connection error while sending message: {e}")
+            self.reconnect()
 
     def log_message(self, message, sent_to=None, received_from=None):
         log_entry = {'message': message}
         if sent_to:
             log_entry['sent_to'] = sent_to
-            print(f"[{self.name}] sent to '{sent_to}': {message}")
+            logging.info(f"[{self.name}] sent to '{sent_to}' : {message}")
         if received_from:
             log_entry['received_from'] = received_from
-            print(f"[{self.name}] received from '{received_from}': {message}")
+            logging.info(f"[{self.name}] received from '{received_from}' : {message}")
 
-        self.channel.basic_publish(
-            exchange='log_exchange',
-            routing_key='',
-            body=json.dumps(log_entry),
-            properties=pika.BasicProperties(
-                delivery_mode=2,
+        try:
+            self.channel.basic_publish(
+                exchange='log_exchange',
+                routing_key='',
+                body=json.dumps(log_entry),
+                properties=pika.BasicProperties(
+                    delivery_mode=2,
+                )
             )
-        )
+        except pika.exceptions.AMQPConnectionError as e:
+            logging.error(f"Connection error while logging message: {e}")
+            self.reconnect()
+
+    def process_by_llm(self, agent_name, data, userinfo, userlocation, agentlocation):
+        logging.info(f"Processing by LLM: {data}")
+        userquestion = data
+        session_id = userinfo
+        
+        try:
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(agent_name, userquestion, userinfo, userlocation, agentlocation)
+                response = future.result(timeout=10)
+                logging.info(f"Response from LLM: {response}")
+        except concurrent.futures.TimeoutError:
+            logging.error("Timeout while waiting for LLM response")
+            response = {"output": "Timeout while processing the request."}
+        except Exception as e:
+            logging.error(f"Error during LLM processing: {e}")
+            response = {"output": "An error occurred while processing the request."}
+
+        return response
 
     def process_message(self, message):
-        print(f"[{self.name}] Processing message: {message}")
-        inner_msg = json.loads(message)
-
-        # Load the prompt from a file
-        with open(f'{self.name}.prompt.md', 'r') as file:
-            prompt_template = file.read()
-
-        prompt = prompt_template.format(data=json.dumps(inner_msg, indent=2))
-        
-        # Call the LLM through AutoGen
-        response = self.auto_gen_agent.send_message(Message(prompt=prompt, return_type='json'))
-        llm_result = response.get('result', {})
-
-        # If the LLM result contains a command to send a message to another agent or Unity
-        if 'send_to_assembly' in llm_result:
-            self.send_to_assembly(llm_result['send_to_assembly'])
-        if 'send_to_quality' in llm_result:
-            self.send_to_quality(llm_result['send_to_quality'])
-        if 'send_to_master' in llm_result:
-            self.send_to_master(llm_result['send_to_master'])
-
-    def send_to_assembly(self, message):
-        self.send_message(message, "unity_assembly")
-
-    def send_to_quality(self, message):
-        self.send_message(message, "unity_quality")
-
-    def send_to_master(self, message):
-        self.send_message(message, "unity_master")
-
-    def send_msg(self, agent_name, message):
-        if agent_name == "assemblyAgent":
-            self.send_to_assembly(message)
-        elif agent_name == "QualityAgent":
-            self.send_to_quality(message)
-        elif agent_name == "MasterAgent":
-            self.send_to_master(message)
+        try:
+            inner_msg = message.get('message', {})
+            if not isinstance(inner_msg, dict):
+                inner_msg = json.loads(inner_msg)
+            userquestion = inner_msg.get('userquestion', None)
+            userinfo = inner_msg.get('user_id', None)
+            userlocation = inner_msg.get('user_location', None)
+            agentlocation = inner_msg.get('agent_location', None)
+            
+            if userquestion:
+                response = self.process_by_llm(self.name, userquestion, userinfo, userlocation, agentlocation)
+                self.send_message(response, routing_key=userinfo)
+            else:
+                response = self.process_by_llm(self.name, inner_msg, "Unknown User", "Unknown Location", "Unknown Location")
+        except KeyError as e:
+            logging.error(f"[AIassemblyAgent] KeyError: {e}. Message: {message}")
+        except Exception as e:
+            logging.error(f"[AIassemblyAgent] Unexpected error: {e}. Message: {message}")
 
     def callback(self, ch, method, properties, body):
-        message = body.decode()
-        self.log_message(f"Received: {message}", received_from=self.name)
-        self.process_message(message)
+        try:
+            message = json.loads(body)
+            self.log_message(f"Received: {message}", received_from=self.name)
+            self.process_message(message)
+        except json.JSONDecodeError as e:
+            logging.error(f"JSONDecodeError: {e}. Body: {body}")
+        except Exception as e:
+            logging.error(f"Error processing message: {e}. Body: {body}")
 
     def start_receiving(self):
         self.channel.basic_consume(queue=self.queue, on_message_callback=self.callback, auto_ack=True)
-        print(f"[{self.name}] Waiting for messages...")
-        threading.Thread(target=self.channel.start_consuming).start()
+        logging.info(f"[{self.name}] Waiting for messages...")
+        while True:
+            try:
+                self.connection.process_data_events(time_limit=None)
+            except pika.exceptions.AMQPConnectionError as e:
+                logging.error(f"Connection error during message consumption: {e}")
+                self.reconnect()
 
-# Example usage
 if __name__ == "__main__":
-    agent = Agent(
-        name="AssemblyAgent",
+    # Load environment variables
+    load_dotenv()
+
+    # Initialize the assembly agent
+    assembly_agent = Agent(
+        name="AIassemblyAgent",
         exchange="agent_exchange",
-        routing_key="assembly",
-        queue="assembly_queue",
+        routing_key="ai_assembly",
+        queue="ai_assembly_queue",
         user=os.getenv("AI_USER"),
         password=os.getenv("AI_PASS")
     )
-    agent.start_receiving()
+
+    # Start receiving messages
+    assembly_agent.start_receiving()

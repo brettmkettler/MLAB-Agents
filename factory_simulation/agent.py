@@ -5,7 +5,7 @@ import concurrent.futures
 from dotenv import load_dotenv
 import pika
 from agent_tools import CallTool, actionTool, capgeminiDocumentsTool, Agent2AgentTool, Agent2HumanTool
-from agent_llm import run_agent
+from ai_agent_class import run_agent
 
 # Load environment variables
 load_dotenv()
