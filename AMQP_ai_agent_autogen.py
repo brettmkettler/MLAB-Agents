@@ -74,35 +74,44 @@ def setup_prompt(userinfo, agentlocation, userlocation, config):
         ]
     )
 
+
 def process_ai_response(response):
     """Process the AI response to extract actions."""
     try:
-        if 'output' in response:
-            ai_response = response['output']
-            logger.info(f"AI Response: {ai_response}")
+        # Check if response is a string
+        if isinstance(response, str):
+            logger.info(f"Raw AI Response: {response}")
+
+            # Pattern to match actions and their content
+            action_pattern = r'"action": "(\w+)", "content": "([^"]*)"'
+            actions = re.findall(action_pattern, response)
+
+            if not actions:
+                logger.warning("No valid actions found in the AI response.")
+                return {"error": "No valid actions found in the AI response."}
+
+            action_types = {"GOTO": "None", "POINTAT": "None", "TALK": "None"}
+
+            for action_type, action_content in actions:
+                if action_type in action_types:
+                    action_types[action_type] = action_content
+
+            actions_list = [
+                {"action": "GOTO", "content": action_types["GOTO"]},
+                {"action": "POINTAT", "content": action_types["POINTAT"]},
+                {"action": "TALK", "content": action_types["TALK"]}
+            ]
+
+            formatted_response = {"response": actions_list}
+            logger.info(f"Formatted Response: {formatted_response}")
+            return formatted_response
         else:
             logger.warning("No valid response from the AI.")
             return {"error": "No valid response from the AI."}
-
-        action_pattern = r'"action": "(\w+)", "content": "([^"]*)"'
-        actions = re.findall(action_pattern, ai_response)
-        action_types = {"GOTO": "None", "POINTAT": "None", "TALK": "None"}
-
-        for action_type, action_content in actions:
-            action_types[action_type] = action_content
-
-        actions_list = [
-            {"action": "GOTO", "content": action_types["GOTO"]},
-            {"action": "POINTAT", "content": action_types["POINTAT"]},
-            {"action": "TALK", "content": action_types["TALK"]}
-        ]
-
-        formatted_response = {"response": actions_list}
-        logger.info(f"Formatted Response: {formatted_response}")
-        return formatted_response
     except Exception as e:
         logger.error(f"Error processing AI response: {e}")
         return {"error": str(e)}
+    
 
 def handle_message(channel, method, properties, body, config):
     """Handle incoming messages from the queue."""
