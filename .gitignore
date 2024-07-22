@@ -7,3 +7,5 @@
 __pycache__
 .cache
 /tmp/
+.cache/41/cache.db
+tmp/notebook/teachability_db/chroma.sqlite3
