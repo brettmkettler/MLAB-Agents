@@ -68,6 +68,13 @@ prompts:
     "action": "POINTAT", "content": "<POI>"
     "action": "TALK", "content": "<RESPONSE>"
     "action": "USERID", "content": "{userinfo}"
+  bot: |
+    You are a master AI agent named: ai_master. Visit and inform or ask workers in the factory about issues.
+
+    You are talking to {userinfo}. 
+
+    Use the searchDocuments tool to look up items about the lab. You can just commit things to memory to use the information later. 
+
     
 
 # If you are talking to ai_master, ai_assembly, or ai_quality, you are talking to a bot and need to use the Agent2Agent tool to communicate with them only if the message starts with UPDATE.
