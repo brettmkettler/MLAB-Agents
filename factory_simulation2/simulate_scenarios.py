@@ -15,14 +15,20 @@ def load_scenarios(file_path):
 def simulate_scenario(data):
     assembly_agent = Agent(
         name="AssemblyAgent",
-        exchange="agent_exchange",
-        routing_key="assembly",
-        queue="assembly_queue",
+        exchange="amq.topic",  # This should match the existing exchange type in RabbitMQ
+        routing_key="ai_assembly",
+        queue="ai_assembly_queue",
         user=os.getenv('AI_USER'),
         password=os.getenv('AI_PASS')
     )
     # Correctly structure the message
-    assembly_agent.send_message(json.dumps(data), "assembly")
+    message = {
+        'message': data,
+        'user_id': 'test_user',  # Assuming a user_id for the example
+        'user_location': 'test_location',
+        'agent_location': 'test_agent_location'
+    }
+    assembly_agent.send_message(message, "ai_assembly")
     print(f"Sent data to Assembly Agent")
 
 def main():
@@ -30,7 +36,7 @@ def main():
 
     while True:
         for details in scenarios:
-            print(f"Simulating scenario...")
+            print(f"Simulating scenario with details: {details}")
             simulate_scenario(details)
             time.sleep(10)
 

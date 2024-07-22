@@ -90,7 +90,7 @@ def process_ai_response(response):
                 logger.warning("No valid actions found in the AI response.")
                 return {"error": "No valid actions found in the AI response."}
 
-            action_types = {"GOTO": "None", "POINTAT": "None", "TALK": "None"}
+            action_types = {"GOTO": "None", "POINTAT": "None", "TALK": "None", "USERID": "None"}
 
             for action_type, action_content in actions:
                 if action_type in action_types:
@@ -99,7 +99,8 @@ def process_ai_response(response):
             actions_list = [
                 {"action": "GOTO", "content": action_types["GOTO"]},
                 {"action": "POINTAT", "content": action_types["POINTAT"]},
-                {"action": "TALK", "content": action_types["TALK"]}
+                {"action": "TALK", "content": action_types["TALK"]},
+                {"action": "USERID", "content": action_types["USERID"]}
             ]
 
             formatted_response = {"response": actions_list}
@@ -111,6 +112,7 @@ def process_ai_response(response):
     except Exception as e:
         logger.error(f"Error processing AI response: {e}")
         return {"error": str(e)}
+    
     
 
 def handle_message(channel, method, properties, body, config):

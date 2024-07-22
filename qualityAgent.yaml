@@ -25,6 +25,7 @@ prompts:
     "action": "GOTO", "content": "<REGION>"
     "action": "POINTAT", "content": "<POI>"
     "action": "TALK", "content": "<RESPONSE>" 
+    "action": "USERID", "content": "{userinfo}"
     
 
     Fill in the <REGION>, <POI>, and <RESPONSE> with the appropriate information if available:
@@ -61,9 +62,11 @@ prompts:
     
     "action": "GOTO", "content": "None"
     "action": "POINTAT", "content": "None"
-    "action": "TALK", "content": "<RESPONSE>" 
+    "action": "TALK", "content": "<RESPONSE>"
+    "action": "USERID", "content": "{userinfo}"
     
     
     "action": "GOTO", "content": "<REGION>"
     "action": "POINTAT", "content": "<POI>"
     "action": "TALK", "content": "<RESPONSE>"
+    "action": "USERID", "content": "{userinfo}"
