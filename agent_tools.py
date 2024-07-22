@@ -1,4 +1,6 @@
 import asyncio
+import glob
+from grpc import channel_ready_future
 from langchain.tools import BaseTool
 from typing import Optional, Type
 from flask import Flask, Response, request
@@ -12,13 +14,32 @@ load_dotenv()
 
 client = OpenAI()
 
+import pika
+import json
+import os
 
+###################################################################
+# RABBITMQ
+#############
 
+# RabbitMQ configuration
+RABBITMQ_HOST = os.getenv('RABBITMQ_HOST')
+RABBITMQ_PORT = int(os.getenv('RABBITMQ_PORT'))
+AI_USER = os.getenv('AI_USER')
+AI_PASS = os.getenv('AI_PASS')
+# Set up RabbitMQ connection and channel
+credentials = pika.PlainCredentials(AI_USER, AI_PASS)
+parameters = pika.ConnectionParameters(host=RABBITMQ_HOST, port=RABBITMQ_PORT, credentials=credentials)
+connection = pika.BlockingConnection(parameters)
+channel = connection.channel()
 
+############################
+
+    
+    
 #########################################################################################################
 # FUNCTION CLASSES CREATION
 #######################
-
 
 
 
@@ -217,8 +238,12 @@ BASE_URL = "https://api.tavily.com/"
 api_key = "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"
 
 
-def search_tavily(api_key, query, search_depth="basic", include_images=False, include_answer=True,
-                  include_raw_content=False, max_results=5, include_domains=None, exclude_domains=None):
+def search_tavily(query, search_depth="basic", include_images=False, include_answer=True, include_raw_content=False, max_results=5, include_domains=None, exclude_domains=None):
+    
+    # Define the base URL for the API
+    BASE_URL = "https://api.tavily.com/"
+    # Example usage
+    api_key = "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"
     # Define the endpoint
     endpoint = "search"
 
@@ -247,6 +272,10 @@ def search_tavily(api_key, query, search_depth="basic", include_images=False, in
         print("Error:", response.text)
         return None
    
+   
+######################################################################################################
+
+
 
 
 
@@ -264,7 +293,7 @@ def makeCall(question: str):
     # The Phone Number ID, and the Customer details for the call
     phone_number_id = 'dd0216d4-22ad-49ac-8bbb-61b31fa08357'
     
-    company = "Capgemini" 
+    company = "Capgemini Lab" 
     user_name = "Brett Kettler"
     phone_number = "+31625223187"
     
@@ -386,6 +415,41 @@ def makeCall(question: str):
 ############################################################################################################
 #### TOOLS 
 # You can add more tools here
+
+# NOTE: WORKING ON ADDING INTERNET SEARCH TOOL TO FIND THINGS ONLINE
+
+class searchInputs(BaseModel):
+    """Inputs for the Agent2Human tool."""
+    user_id: str = Field(
+        description="The name of the user you are sending the message to."
+    )
+
+    question: str = Field(
+        description="The question you want to ask, be descriptive."
+    )
+
+
+
+
+class searchTool(BaseTool):
+    name = "searchTool"
+    description = "useful for when search for things on the internet."
+    args_schema: Type[BaseModel] = searchInputs
+    company = ""
+
+    def _run(self, user_id:str, question: str) -> str:
+        """Use the tool."""
+        response = agent2human_comm(user_id, question)
+        return response
+
+
+
+
+
+
+
+
+# CALL
 from typing import Optional, Type
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import BaseTool, StructuredTool, tool
@@ -424,3 +488,137 @@ class CallTool(BaseTool):
 
 
 ############################################################################################################
+
+
+
+
+def send_message(route, message):
+    """Send a message to the specified queue."""
+    
+    channel.basic_publish(
+        exchange='amq.topic',
+        routing_key=route,
+        body=json.dumps(message)
+    )
+    print(f"Message send to route {route}.")
+    # logger.info(f"Message forwarded to {forward_queue} via route {forward_route}.")       
+
+
+from dotenv import load_dotenv
+from agent_mq import Agent
+import os
+# Define the communication function using RabbitMQ
+def agent2agent_comm(fromagent, agent, question):
+    """
+    Ability to talk to another agent and respond back to questions from agents. The agents you can talk to are:
+    1. ai_master - The master AI agent
+    2. ai_assembly - The assembly AI agent
+    3. ai_quality - The quality AI agent
+    
+    """
+
+    try:
+        
+        ####
+        route = agent
+        
+        message = {
+        "userquestion": question,
+        "user_id": fromagent,
+        "user_location": "Lab",
+        "agent_location": "Lab"
+        }
+
+        send_message(route, message)
+        
+        print(f"Message sent to {agent}: {question}")
+        
+        return {"status": "success", "message": f"Message sent to {agent} successfully."}
+    
+    except Exception as e:
+        print(f"Error sending message to {agent}: {e}")
+        return {"status": "error", "message": str(e)}
+    
+    
+    
+
+class Agent2AgentInputs(BaseModel):
+    """Inputs for the Agent2Agent tool."""
+    fromagent: str = Field(
+        description="The name of the agent you are sending the message from."
+    )
+    agent: str = Field(
+        description="The name of the agent you want to talk to."
+    )
+    question: str = Field(
+        description="The question you want to ask, be descriptive."
+    )
+
+
+
+
+class Agent2AgentTool(BaseTool):
+    name = "agent2agent"
+    description = "useful for when you need to talk to or ask another agent a question. You will need the following inputs: question The question should be something that is easy to answer over the phone but descriptive and detailed enough to get the information you need and the agent name. Agents: ai_master, ai_assistant, ai_quality, ai_assembly."
+    args_schema: Type[BaseModel] = Agent2AgentInputs
+    company = ""
+
+    def _run(self, fromagent:str, agent: str, question: str) -> str:
+        """Use the tool."""
+        response = agent2agent_comm(fromagent, agent, question)
+        return response
+
+
+##############################
+
+
+
+# Define the communication function using RabbitMQ
+def agent2human_comm(user_id, question):
+    """
+    Ability to talk to a human or respond back to questions from humans.
+    
+    """
+    try:
+        chat_agent = Agent(
+            name=user_id,
+            exchange="agent_exchange",
+            routing_key=user_id,
+            queue="unity_messages_queue",
+            user=os.getenv('AI_USER'),
+            password=os.getenv('AI_PASS')
+        )
+        chat_agent.send_message(message=question, target_routing_key=user_id)
+        
+        print(f"Message sent to {user_id}: {question}")
+        return {"status": "success", "message": f"Message sent to {user_id} successfully."}
+    except Exception as e:
+        print(f"Error sending message to {user_id}: {e}")
+        return {"status": "error", "message": str(e)}
+    
+    
+    
+
+class Agent2HumanInputs(BaseModel):
+    """Inputs for the Agent2Human tool."""
+    user_id: str = Field(
+        description="The name of the user you are sending the message to."
+    )
+
+    question: str = Field(
+        description="The question you want to ask, be descriptive."
+    )
+
+
+
+
+class Agent2HumanTool(BaseTool):
+    name = "agent2human"
+    description = "useful for when you need to talk to or ask a human a question. You will need the following inputs: question The question should be something that is easy to answer over the phone but descriptive and detailed enough to get the information you need and the agent name.."
+    args_schema: Type[BaseModel] = Agent2AgentInputs
+    company = ""
+
+    def _run(self, user_id:str, question: str) -> str:
+        """Use the tool."""
+        response = agent2human_comm(user_id, question)
+        return response

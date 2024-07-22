@@ -2,7 +2,7 @@
 
 ### Overview
 
-This document describes the simulation scenarios for the communication between AI agents and Unity agents in a factory metaverse environment using RabbitMQ. The setup includes assessment, quality, and master agents for both AI and Unity, and scenarios for message exchange and logging.
+This document describes the simulation scenarios for the communication between AI agents and Unity agents in a factory metaverse environment using RabbitMQ. The setup includes assembly, quality, and master agents for both AI and Unity, and scenarios for message exchange and logging.
 
 ### Scenario Descriptions
 
@@ -10,14 +10,14 @@ This document describes the simulation scenarios for the communication between A
 
 - **Steps:** 10 steps with timestamps 20 to 40 seconds apart.
 - **Flow:**
-  1. Assessment Agent processes the log and confirms all steps are OK.
+  1. assembly Agent processes the log and confirms all steps are OK.
   2. Sends a message to Quality AI agent with the batch number.
 
 #### Scenario 2: Batch0002 - Missing Step
 
 - **Steps:** 9 steps with one step missing.
 - **Flow:**
-  1. Assessment Agent processes the log and detects a missing step.
+  1. assembly Agent processes the log and detects a missing step.
   2. Sends a message to Quality AI agent with the batch number.
   3. Quality AI agent instructs its Unity counterpart to inform the test bench about the missing step.
 
@@ -25,7 +25,7 @@ This document describes the simulation scenarios for the communication between A
 
 - **Steps:** 10 steps with a 20-minute gap between step 8 and step 9.
 - **Flow:**
-  1. Assessment Agent processes the log and detects the abnormal time gap.
+  1. assembly Agent processes the log and detects the abnormal time gap.
   2. Sends a message to Quality AI agent with the batch number.
   3. Sends a message to Master AI agent with the batch number.
   4. Quality AI agent instructs its Unity counterpart to inspect the relevant part.
@@ -54,7 +54,7 @@ In this simulation, we use two types of exchanges:
 
 1. **agent_exchange (Direct Exchange):**
    - Purpose: Routes messages to specific agents based on routing keys.
-   - Bindings: Each agent's queue is bound to this exchange with a specific routing key (e.g., `assessment`, `ai_quality`, `ai_master`, `unity_quality`).
+   - Bindings: Each agent's queue is bound to this exchange with a specific routing key (e.g., `assembly`, `ai_quality`, `ai_master`, `unity_quality`).
 
 2. **log_exchange (Fanout Exchange):**
    - Purpose: Broadcasts messages to all bound queues for logging purposes.
@@ -69,22 +69,22 @@ In this simulation, we use two types of exchanges:
 
 #### simulate_scenarios.py
 
-- **Purpose:** Simulates the three scenarios by sending structured messages to the Assessment Agent via RabbitMQ.
+- **Purpose:** Simulates the three scenarios by sending structured messages to the assembly Agent via RabbitMQ.
 - **Details:** Reads scenarios from a `scenarios.json` file and sends messages every 10 seconds to simulate different batch processes.
 
-#### AssessmentAIAgent.py
+#### assemblyAIAgent.py
 
 - **Purpose:** Processes incoming messages, checks for missing steps or abnormal time gaps, and forwards relevant information to Quality AI and Master AI agents.
 - **Details:** Extracts logs and batch information, performs checks, and sends structured messages to other agents based on the findings.
 
 #### QualityAIAgent.py
 
-- **Purpose:** Processes messages from the Assessment Agent to handle quality-related issues.
-- **Details:** Instructs the Unity Quality agent to take specific actions based on the assessment results.
+- **Purpose:** Processes messages from the assembly Agent to handle quality-related issues.
+- **Details:** Instructs the Unity Quality agent to take specific actions based on the assembly results.
 
 #### MasterAIAgent.py
 
-- **Purpose:** Processes messages from the Assessment Agent to handle master-level issues.
+- **Purpose:** Processes messages from the assembly Agent to handle master-level issues.
 - **Details:** Instructs the Unity Master agent to take specific actions, such as querying the test bench and logging calls to the supervisor.
 
 #### app.py
@@ -104,7 +104,7 @@ In this simulation, we use two types of exchanges:
    Run the `setup_rabbitmq.py` script to create necessary exchanges and queues.
 
 2. **Start the agents:**
-   Run `AssessmentAIAgent.py`, `QualityAI.py`, and `MasterAIAgent.py` in separate terminals.
+   Run `assemblyAIAgent.py`, `QualityAI.py`, and `MasterAIAgent.py` in separate terminals.
 
 3. **Start the log observer:**
    Run the `log_observer.py` script to start logging communications.
@@ -117,8 +117,8 @@ This setup simulates the communication between AI and Unity agents in a factory 
 ### Queues
 
 Binding route : Queue
-- unity_assessment: unity_assessment_queue: 
-- ai_assessment: ai_assessment_queue: 
+- unity_assembly: unity_assembly_queue: 
+- ai_assembly: ai_assembly_queue: 
 - unity_quality: unity_quality_queue: 
 - ai_quality: ai_quality_queue: 
 - unity_master: unity_master_queue: 

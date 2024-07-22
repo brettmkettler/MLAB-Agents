@@ -1,12 +1,19 @@
+## ASH - Readme
+
+I have the LLM in the factory_simulation and it is working. I have it in the agent.py file, I beleive this will be switched here soon to the upgraded agent. 
+
+It does work and accepts the userquestion and also if you run the simulation it will process the messages
+
+
+
+
 ## Introduction
 
 This project is a virtual assistant for the Metaverse Lab, developed by Capgemini. The assistant interacts with users to provide information and perform actions based on user queries. The assistant leverages OpenAI and Azure services for natural language processing and document retrieval. This agent can control an agent in the metaverse like a puppet using the response of the api as a control vector.
 
-
 ## Disclaimer
 
 Changing the code in this file voids the warranty. This code is provided as-is and is not guaranteed to work for your use case. It serves as a starting point for your own projects. Capgemini does not offer support for this code at this time.
-
 
 ---
 

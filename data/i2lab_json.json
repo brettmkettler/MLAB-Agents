@@ -1,0 +1,402 @@
+{
+    "name": "ST0",
+    "workOrder": "1302 - Assembly operation",
+    "workOrderId": 1302,
+    "progress": 84.21,
+    "start": "2024-07-04T11:00:00Z",
+    "end": "2024-07-04T12:00:00Z",
+    "robot": false,
+    "operator": "Galvez Mata, Almudena",
+    "status": "ALERT",
+    "step": {
+        "description": "3.4) Plate assembly:  Disconnecting and protection elements",
+        "order": 16
+    },
+    "sensors": [
+        [
+            {
+                "type": "Consumo",
+                "data": "0.000 Kwh",
+                "extraData": null
+            },
+            {
+                "type": "Batería sensor",
+                "data": "10.6 %",
+                "extraData": "04/11/2023"
+            }
+        ],
+        [
+            {
+                "type": "Temperatura",
+                "data": "17.1 ºC",
+                "extraData": null
+            },
+            {
+                "type": "Presión",
+                "data": "1016.75 bar",
+                "extraData": null
+            },
+            {
+                "type": "Humedad",
+                "data": "75.10 %",
+                "extraData": null
+            }
+        ]
+    ],
+    "stepper": [
+        {
+            "description": "0.1) Welcome to the tutorial",
+            "order": 1
+        },
+        {
+            "description": "0.2) Station Tour: Information Area",
+            "order": 2
+        },
+        {
+            "description": "0.3) Station Tour: Controllers",
+            "order": 3
+        },
+        {
+            "description": "0.4) Station tour: NFC and QR reader. OCR and computer vision camera",
+            "order": 4
+        },
+        {
+            "description": "0.5) Station Tour: Pre-assembly Area",
+            "order": 5
+        },
+        {
+            "description": "0.6) Station Tour: Assembly Area",
+            "order": 6
+        },
+        {
+            "description": "0.7) Station Tour: Feedback",
+            "order": 7
+        },
+        {
+            "description": "0.8) Station Tour: Material Trolley",
+            "order": 8
+        },
+        {
+            "description": "0.9) Station Tour: Voice assistance",
+            "order": 9
+        },
+        {
+            "description": "0.10) End of tutorial",
+            "order": 10
+        },
+        {
+            "description": "1) Safety instructions. Review of conditions and drawings",
+            "order": 11
+        },
+        {
+            "description": "2) Materials",
+            "order": 12
+        },
+        {
+            "description": "3.1) Assembly Process Preliminary review",
+            "order": 13
+        },
+        {
+            "description": "3.2) Assembly process: Planning on the plate",
+            "order": 14
+        },
+        {
+            "description": "3.3) Placement of kits in pre-assembly area",
+            "order": 15
+        },
+        {
+            "description": "3.4) Plate assembly:  Disconnecting and protection elements",
+            "order": 16
+        },
+        {
+            "description": "3.5) Plate assembly: Control elements",
+            "order": 17
+        },
+        {
+            "description": "3.6) Plate assembly: Power elements",
+            "order": 18
+        },
+        {
+            "description": "4) Final review. End of operation",
+            "order": 19
+        }
+    ],
+    "logs": [
+        {
+            "description": "M7.9.1. Step - Detección NFC/OCR exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T12:07:13Z"
+        },
+        {
+            "description": "M7.9. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T12:06:42Z"
+        },
+        {
+            "description": "M7.8.1. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T12:05:42Z"
+        },
+        {
+            "description": "M7.8. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T12:05:40Z"
+        },
+        {
+            "description": "M7.7.1. Step - Detección NFC/OCR exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T12:04:34Z"
+        },
+        {
+            "description": "M7.7. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T12:04:26Z"
+        },
+        {
+            "description": "M7.6.1. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T12:03:08Z"
+        },
+        {
+            "description": "M7.6. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T12:03:06Z"
+        },
+        {
+            "description": "M7.5.1. Step - Detección NFC/OCR exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T12:01:51Z"
+        },
+        {
+            "description": "M7.5. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T12:01:41Z"
+        },
+        {
+            "description": "M7.4.1. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:59:44Z"
+        },
+        {
+            "description": "M7.4. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:59:41Z"
+        },
+        {
+            "description": "M7.3.1. Step - Detección NFC/OCR exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:58:25Z"
+        },
+        {
+            "description": "M7.3.1. Step - Detección NFC/OCR errónea.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:52:46Z"
+        },
+        {
+            "description": "M7.3. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:51:42Z"
+        },
+        {
+            "description": "7.2.2. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:51:18Z"
+        },
+        {
+            "description": "9.2. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:49:38Z"
+        },
+        {
+            "description": "9.1. Step - Detección NFC/OCR exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:49:04Z"
+        },
+        {
+            "description": "8.2. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:48:17Z"
+        },
+        {
+            "description": "8.1. Step - Detección NFC/OCR exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:47:30Z"
+        },
+        {
+            "description": "7.2. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:46:40Z"
+        },
+        {
+            "description": "7.1. Step - Detección NFC/OCR exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:45:34Z"
+        },
+        {
+            "description": "10.0. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:44:25Z"
+        },
+        {
+            "description": "13.0. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:43:25Z"
+        },
+        {
+            "description": "5.10. Loading Step - Paso automático exitoso.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:41:54Z"
+        },
+        {
+            "description": "5.3. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:41:51Z"
+        },
+        {
+            "description": "5.1. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:40:25Z"
+        },
+        {
+            "description": "5.0. SkipStep - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:39:56Z"
+        },
+        {
+            "description": "2.10. Loading Step - Paso automático exitoso.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:38:39Z"
+        },
+        {
+            "description": "2.6. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:38:37Z"
+        },
+        {
+            "description": "2.5. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:38:33Z"
+        },
+        {
+            "description": "2.4. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:37:49Z"
+        },
+        {
+            "description": "2.3. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:36:35Z"
+        },
+        {
+            "description": "2.2. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:36:11Z"
+        },
+        {
+            "description": "2.1. SkipStep - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:33:41Z"
+        },
+        {
+            "description": "1.15. Loading Step - Paso automático exitoso.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:27:27Z"
+        },
+        {
+            "description": "1.11. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:27:25Z"
+        },
+        {
+            "description": "1.10. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:23:33Z"
+        },
+        {
+            "description": "1.9. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:14:49Z"
+        },
+        {
+            "description": "1.7. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:14:21Z"
+        },
+        {
+            "description": "1.5. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:14:09Z"
+        },
+        {
+            "description": "1.4. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:13:25Z"
+        },
+        {
+            "description": "1.3. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:12:43Z"
+        },
+        {
+            "description": "1.2. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:11:47Z"
+        },
+        {
+            "description": "1.1. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:10:27Z"
+        },
+        {
+            "description": "4.2. Loading Step - Paso automático exitoso.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:10:11Z"
+        },
+        {
+            "description": "4.1. Step - Detección Manos/Guantes/Posición exitosa.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:10:09Z"
+        },
+        {
+            "description": "2.0. Step - Paso automático exitoso.",
+            "station": "ST0",
+            "timestamp": "2024-07-04T11:09:11Z"
+        }
+    ],
+    "cctv": [
+        {
+            "name": "STO perspective view",
+            "station": "ST0",
+            "url": "https://nginxrtmp20240430.westeurope.azurecontainer.io/flv?app=live&stream=camera01cHjTe5nqZ6gdXo"
+        },
+        {
+            "name": "ST0 detailed view",
+            "station": "ST0",
+            "url": "https://nginxrtmp20240430.westeurope.azurecontainer.io/flv?app=live&stream=camera02KULr3mTXHtR3Hr"
+        }
+    ],
+    "stationIncident": {
+        "open": 1,
+        "closed": 0,
+        "details": [
+            {
+                "id": 79,
+                "timestamp": "2024-07-05T10:25:19.175Z",
+                "comment": "",
+                "description": null,
+                "urgency": "HIGH",
+                "state": "OPEN",
+                "supervisor": null,
+                "createdBy": "050cef24-19e3-40ee-b948-0c5d6be8bab9",
+                "externalHelp": false,
+                "closedAt": null,
+                "ticketType": {
+                    "id": 4,
+                    "name": "MISSING_MATERIAL"
+                },
+                "workOrderId": 1302,
+                "stationName": "ST0"
+            }
+        ]
+    }
+}
