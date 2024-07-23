@@ -44,6 +44,13 @@
 # Check Status
 # sudo systemctl status mlab-agent.service
 
+#################
+# Stop Service
+# sudo systemctl stop mlab-agent.service
+
+#################
+# Update Code
+# git pull origin main
 
 import glob
 from pdb import run
