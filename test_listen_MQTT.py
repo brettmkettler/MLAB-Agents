@@ -7,12 +7,12 @@ logging.basicConfig(level=logging.DEBUG)
 connection_config = {
     "type": "MQTT",
     "isActive": True,
-    "host": "68.221.122.91",
-    "port": 1883,  # Adjust this if using SSL/TLS
+    "host": "mlab-rabbitmq.spaincentral.cloudapp.azure.com",
+    "port": 8883,  # Adjust this if using SSL/TLS
     "path": "/",  # This is not used directly by paho-mqtt
     "user": "unityAgentMQTT",
     "password": "password",
-    "isSecure": False,  # Adjust this to True if using SSL/TLS
+    "isSecure": True,  # Adjust this to True if using SSL/TLS
     "topics": ["unityassemblyAgent", "unityQualityAgent", "unityMasterAgent"]
 }
 

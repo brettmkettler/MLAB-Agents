@@ -2,6 +2,7 @@ import json
 import time
 import os
 import pika
+import ssl
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -22,13 +23,21 @@ def get_rabbitmq_connection():
         raise ValueError("RabbitMQ configuration is missing in the environment variables.")
 
     credentials = pika.PlainCredentials(rabbitmq_user, rabbitmq_pass)
+    
+    # SSL context setup with disabled verification
+    context = ssl.create_default_context()
+    context.check_hostname = False
+    context.verify_mode = ssl.CERT_NONE
+    
     parameters = pika.ConnectionParameters(
         host=rabbitmq_host,
         port=rabbitmq_port,
         credentials=credentials,
         heartbeat=60,
-        blocked_connection_timeout=600
+        blocked_connection_timeout=600,
+        ssl_options=pika.SSLOptions(context)
     )
+    
     connection = pika.BlockingConnection(parameters)
     return connection
 
@@ -47,7 +56,7 @@ def simulate_scenario(channel, data):
         'user_location': 'test_location',
         'agent_location': 'test_agent_location'
     }
-    publish_message(channel, message, "s3_ai_assembly")
+    publish_message(channel, message, "ai_assembly")
 
 def main():
     scenarios = load_scenarios('scenarios.json')
@@ -59,7 +68,7 @@ def main():
             for details in scenarios:
                 print(f"Simulating scenario with details: {details}")
                 simulate_scenario(channel, details)
-                time.sleep(30)
+                time.sleep(10)
     finally:
         connection.close()
 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQTT WebSocket Test</title>
+</head>
+<body>
+    <h1>MQTT WebSocket Test</h1>
+
+    <!-- Include the latest client library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/paho-mqtt.min.js"></script>
+    <script>
+        // Config section
+        const config = {
+            wsbroker: "testapigatewaypct.azure-api.net",  // MQTT broker
+            wsport: 443,  // WebSocket port
+            path: "/ws",  // WebSocket path
+            clientId: "myclientid_" + parseInt(Math.random() * 100, 10),
+            userName: "admin",  // Username
+            password: "awfoh1o28c1"  // Password
+        };
+
+        window.addEventListener('load', function() {
+            // Ensure the Paho library is loaded
+            if (typeof Paho !== 'undefined' && typeof Paho.Client !== 'undefined') {
+                // Initialize the MQTT client
+                var client = new Paho.Client(config.wsbroker, config.wsport, config.path, config.clientId);
+
+                // Define the connection lost callback
+                client.onConnectionLost = function (responseObject) {
+                    if (responseObject.errorCode !== 0) {
+                        console.log("CONNECTION LOST - " + responseObject.errorMessage);
+                    }
+                };
+
+                // Define the message arrived callback
+                client.onMessageArrived = function (message) {
+                    console.log("RECEIVE ON " + message.destinationName + " PAYLOAD " + message.payloadString);
+                };
+
+                // WebSocket event listeners for more detailed debugging
+                client._on_socket_open = function() {
+                    console.log("WebSocket connection opened.");
+                };
+                client._on_socket_close = function(event) {
+                    console.log("WebSocket connection closed.", event);
+                };
+                client._on_socket_error = function(event) {
+                    console.log("WebSocket error occurred.", event);
+                };
+
+                // Connection options
+                var options = {
+                    timeout: 3,
+                    keepAliveInterval: 30,
+                    useSSL: true,  // Use SSL
+                    userName: config.userName,
+                    password: config.password,
+                    onSuccess: function () {
+                        console.log("CONNECTION SUCCESS");
+                        client.subscribe('/topic/test', { qos: 1 });
+                    },
+                    onFailure: function (message) {
+                        console.log("CONNECTION FAILURE - " + message.errorMessage);
+                    }
+                };
+
+                // Debug connection details
+                console.log("CONNECT TO " + config.wsbroker + ":" + config.wsport);
+
+                // Connect the client
+                client.connect(options);
+            } else {
+                console.error("Paho MQTT library is not loaded correctly.");
+            }
+        });
+    </script>
+</body>
+</html>

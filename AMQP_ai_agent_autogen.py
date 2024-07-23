@@ -11,6 +11,8 @@ import os
 import logging
 
 import pika
+import ssl
+
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 from typing import Optional, Type
@@ -74,7 +76,6 @@ def setup_prompt(userinfo, agentlocation, userlocation, config):
         ]
     )
 
-
 def process_ai_response(response):
     """Process the AI response to extract actions."""
     try:
@@ -93,7 +94,7 @@ def process_ai_response(response):
             action_types = {"GOTO": "None", "POINTAT": "None", "TALK": "None", "USERID": "None"}
 
             for action_type, action_content in actions:
-                if action_type in action_types:
+                if (action_type := action_type.upper()) in action_types:
                     action_types[action_type] = action_content
 
             actions_list = [
@@ -112,8 +113,6 @@ def process_ai_response(response):
     except Exception as e:
         logger.error(f"Error processing AI response: {e}")
         return {"error": str(e)}
-    
-    
 
 def handle_message(channel, method, properties, body, config):
     """Handle incoming messages from the queue."""
@@ -132,16 +131,14 @@ def handle_message(channel, method, properties, body, config):
         logger.info(f"User Question: {userquestion}")
 
         prompt = setup_prompt(userinfo, agentlocation, userlocation, config)
-        
-        #convert to string
+
+        # Convert to string
         prompt = str(prompt)
-        
+
         logger.info(f"Prompt: {prompt}")
-        
-        ############################################
+
         # AUTOGEN CODE
         response = run_agent("ai_master", userquestion, prompt)
-
 
         logger.info(f"Raw AI response: {response}")
         formatted_response = process_ai_response(response)
@@ -154,14 +151,6 @@ def handle_message(channel, method, properties, body, config):
             body=json.dumps(formatted_response)
         )
         logger.info(f"Published response to {config['queues']['publish']} via route {config['queues']['publish_route']}")
-
-        # Forward the message if necessary
-        # if config['agent_name'] == 'assembly' and actions(userlocation, userquestion, response):
-        #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
-        # elif config['agent_name'] == 'quality' and actions(userlocation, userquestion, response):
-        #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
-        # elif config['agent_name'] == 'master':
-        #     logger.info("Master agent does not forward messages")
 
     except json.JSONDecodeError:
         logger.error("Received message is not in JSON format. Here is the raw message:")
@@ -177,17 +166,25 @@ def connect_and_consume(agent_name):
     while True:
         try:
             config = load_config(agent_name)
-            
-###################################
 
             rabbitmq_user = os.getenv('RABBITMQ_USER')
             rabbitmq_pass = os.getenv('RABBITMQ_PASS')
             rabbitmq_host = os.getenv('RABBITMQ_HOST')
             rabbitmq_port = int(os.getenv('RABBITMQ_PORT'))
 
+            print(f"Connecting to RabbitMQ at {rabbitmq_host}:{rabbitmq_port} with user {rabbitmq_user}")
+
+
             if not all([rabbitmq_user, rabbitmq_pass, rabbitmq_host, rabbitmq_port]):
                 logger.error("RabbitMQ configuration is missing in the environment variables.")
                 sys.exit(1)
+
+            # SSL context setup with disabled verification
+            context = ssl.create_default_context()
+            context.check_hostname = False
+            context.verify_mode = ssl.CERT_NONE
+
+        
 
             credentials = pika.PlainCredentials(rabbitmq_user, rabbitmq_pass)
             parameters = pika.ConnectionParameters(
@@ -195,11 +192,12 @@ def connect_and_consume(agent_name):
                 port=rabbitmq_port, 
                 credentials=credentials,
                 heartbeat=60,  
-                blocked_connection_timeout=600  
+                blocked_connection_timeout=600,
+                ssl_options=pika.SSLOptions(context)
             )
             connection = pika.BlockingConnection(parameters)
             channel = connection.channel()
-###################################
+
             channel.basic_consume(queue=config['queues']['listen'], on_message_callback=lambda ch, method, properties, body: handle_message(ch, method, properties, body, config))
 
             logger.info(f'Waiting for messages from "{config["queues"]["listen"]}". To exit press CTRL+C')
