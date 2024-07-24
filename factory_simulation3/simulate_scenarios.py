@@ -5,6 +5,8 @@ import pika
 import ssl
 from dotenv import load_dotenv
 
+
+prefix = "s3_"
 # Load environment variables from .env file
 load_dotenv()
 
@@ -50,13 +52,8 @@ def publish_message(channel, message, routing_key):
     print(f"Sent data to Assembly Agent with routing key {routing_key}")
 
 def simulate_scenario(channel, data):
-    message = {
-        'message': data,
-        'user_id': 'test_user',  # Assuming a user_id for the example
-        'user_location': 'test_location',
-        'agent_location': 'test_agent_location'
-    }
-    publish_message(channel, message, "ai_assembly")
+    message = data
+    publish_message(channel, message, f"{prefix}ai_assembly")
 
 def main():
     scenarios = load_scenarios('scenarios.json')

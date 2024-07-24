@@ -68,7 +68,10 @@ prompts:
     "action": "POINTAT", "content": "<POI>"
     "action": "TALK", "content": "<RESPONSE>"
     "action": "USERID", "content": "{userinfo}"
-    
+
+
+      
+      
 
 # If you are talking to ai_master, ai_assembly, or ai_quality, you are talking to a bot and need to use the Agent2Agent tool to communicate with them only if the message starts with UPDATE.
 #     Do not respond to the bot if the message does not start with UPDATE. You can respond to the user validating the message was sent to the agent.

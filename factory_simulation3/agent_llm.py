@@ -148,8 +148,8 @@ def run_agent(agent_name: str, userquestion: str, prompt: str) -> str:
     # Teachability capability
     teachability = Teachability(
         verbosity=2,  # 0 for basic info, 1 to add memory operations, 2 for analyzer messages, 3 for memo lists.
-        reset_db=True,
-        path_to_db_dir="./tmp/notebook/teachability_db",
+        reset_db=False,
+        path_to_db_dir=f"./tmp/notebook/{agent_name}teachability_db",
         recall_threshold=1.5,  # Higher numbers allow more (but less relevant) memos to be recalled.
     )
     
