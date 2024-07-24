@@ -119,58 +119,76 @@ def process_ai_response(response):
 def handle_message(channel, method, properties, body, config):
     """Handle incoming messages from the queue."""
     logger.info(f"Received raw message: {body}")
-    try:
+     # Try to parse the incoming message as JSON
+    message_dict = json.loads(body)
+    
+    # Check if the message has the required fields
+    if all(key in message_dict for key in ["userquestion", "user_id", "user_location", "agent_location"]):
+        try:
+            message = json.loads(body)
+            userquestion = message.get('userquestion', 'No question provided')
+            userinfo = message.get('user_id', 'Unknown user')
+            userlocation = message.get('user_location', 'Unknown location')
+            agentlocation = message.get('agent_location', 'Unknown location')
+            session_id = userinfo
+
+            logger.info(f"User Info: {userinfo}")
+            logger.info(f"User Location: {userlocation}")
+            logger.info(f"Agent Location: {agentlocation}")
+            logger.info(f"User Question: {userquestion}")
+
+            prompt = setup_prompt(userinfo, agentlocation, userlocation, config)
+            
+            #convert to string
+            prompt = str(prompt)
+            
+            logger.info(f"Prompt: {prompt}")
+            
+            ############################################
+            # AUTOGEN CODE
+            response = run_agent("ai_master", userquestion, prompt)
+
+
+            logger.info(f"Raw AI response: {response}")
+            formatted_response = process_ai_response(response)
+
+            # Publish the response to the publish queue
+            logger.info(f"Publishing to {config['queues']['publish']} with routing key {config['queues']['publish_route']}")
+            channel.basic_publish(
+                exchange='amq.topic',
+                routing_key=config['queues']['publish_route'],
+                body=json.dumps(formatted_response)
+            )
+            logger.info(f"Published response to {config['queues']['publish']} via route {config['queues']['publish_route']}")
+
+            # Forward the message if necessary
+            # if config['agent_name'] == 'assembly' and actions(userlocation, userquestion, response):
+            #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
+            # elif config['agent_name'] == 'quality' and actions(userlocation, userquestion, response):
+            #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
+            # elif config['agent_name'] == 'master':
+            #     logger.info("Master agent does not forward messages")
+
+        except json.JSONDecodeError:
+            logger.error("Received message is not in JSON format. Here is the raw message:")
+            logger.error(body.decode('utf-8'))
+        except Exception as e:
+            logger.error(f"Error handling message: {e}")
+        finally:
+            channel.basic_ack(delivery_tag=method.delivery_tag)
+
+    else:
         message = json.loads(body)
-        userquestion = message.get('userquestion', 'No question provided')
         userinfo = message.get('user_id', 'Unknown user')
-        userlocation = message.get('user_location', 'Unknown location')
-        agentlocation = message.get('agent_location', 'Unknown location')
-        session_id = userinfo
-
-        logger.info(f"User Info: {userinfo}")
-        logger.info(f"User Location: {userlocation}")
-        logger.info(f"Agent Location: {agentlocation}")
-        logger.info(f"User Question: {userquestion}")
-
-        prompt = setup_prompt(userinfo, agentlocation, userlocation, config)
-        
-        #convert to string
-        prompt = str(prompt)
-        
-        logger.info(f"Prompt: {prompt}")
-        
         ############################################
         # AUTOGEN CODE
-        response = run_agent("ai_master", userquestion, prompt)
-
-
+        prompt = setup_prompt_com(userinfo, config)
+        #convert to string
+        prompt = str(prompt)
+        response = run_agent("ai_master", body, prompt)
         logger.info(f"Raw AI response: {response}")
-        formatted_response = process_ai_response(response)
-
-        # Publish the response to the publish queue
-        logger.info(f"Publishing to {config['queues']['publish']} with routing key {config['queues']['publish_route']}")
-        channel.basic_publish(
-            exchange='amq.topic',
-            routing_key=config['queues']['publish_route'],
-            body=json.dumps(formatted_response)
-        )
-        logger.info(f"Published response to {config['queues']['publish']} via route {config['queues']['publish_route']}")
-
-        # Forward the message if necessary
-        # if config['agent_name'] == 'assembly' and actions(userlocation, userquestion, response):
-        #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
-        # elif config['agent_name'] == 'quality' and actions(userlocation, userquestion, response):
-        #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
-        # elif config['agent_name'] == 'master':
-        #     logger.info("Master agent does not forward messages")
-
-    except json.JSONDecodeError:
-        logger.error("Received message is not in JSON format. Here is the raw message:")
-        logger.error(body.decode('utf-8'))
-    except Exception as e:
-        logger.error(f"Error handling message: {e}")
-    finally:
-        channel.basic_ack(delivery_tag=method.delivery_tag)
+        print(response)
+        
 
 def connect_and_consume(agent_name):
     """Connect to RabbitMQ and start consuming messages."""
