@@ -1,5 +1,3 @@
-Sure! Here is a `README.md` file that includes all the necessary steps and explanations for setting up and running your project:
-
 # MLAB Agents Factory 
 
 ## Overview
@@ -39,7 +37,7 @@ pip install -r requirements.txt
 If you haven't already set up the RabbitMQ queues, run the `setup_rabbitmq.py` script. This will create all necessary queues with a specified prefix to isolate from other runs:
 
 ```bash
-python setup_rabbitmq.py --prefix your_prefix
+python setup_rabbitmq.py 
 ```
 
 ### 5. Run the Agents
@@ -118,7 +116,4 @@ Feel free to submit issues and pull requests. For major changes, please open an 
 
 ## License
 
-This project is licensed under the MIT License.
-```
-
-This `README.md` provides a comprehensive guide for setting up and running your project, ensuring users have all the necessary information to get started.
+This project is licensed under Capgemini License.
