@@ -2,6 +2,7 @@ import pika
 import json
 import os
 from dotenv import load_dotenv
+import ssl
 
 # Load environment variables
 load_dotenv()
@@ -44,8 +45,11 @@ def callback(ch, method, properties, body):
 
 def main():
     # Set up RabbitMQ connection and channel
+    context = ssl.create_default_context()
+    context.check_hostname = False
+    context.verify_mode = ssl.CERT_NONE  
     credentials = pika.PlainCredentials(AI_USER, AI_PASS)
-    parameters = pika.ConnectionParameters(host=RABBITMQ_HOST, port=RABBITMQ_PORT, credentials=credentials)
+    parameters = pika.ConnectionParameters(host=RABBITMQ_HOST, port=RABBITMQ_PORT, credentials=credentials, ssl_options=pika.SSLOptions(context))
     connection = pika.BlockingConnection(parameters)
     channel = connection.channel()
 

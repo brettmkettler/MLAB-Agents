@@ -1,0 +1,219 @@
+[
+    {
+      "name": "ST0",
+      "workOrder": "1303 - Assembly operation",
+      "workOrderId": 1303,
+      "progress": 78.95,
+      "start": "2024-07-09T09:30:00Z",
+      "end": "2024-07-09T10:30:00Z",
+      "robot": false,
+      "operator": "Sanchez Bella, Natalia",
+      "status": "IN_PROGRESS",
+      "step": {
+        "description": "3.3) Placement of kits in pre-assembly area",
+        "order": 15
+      },
+      "sensors": [
+        [
+          {"type": "Consumo", "data": "0.000 Kwh", "extraData": null},
+          {"type": "Batería sensor", "data": "10.6 %", "extraData": "04/11/2023"}
+        ],
+        [
+          {"type": "Temperatura", "data": "17.1 ºC", "extraData": null},
+          {"type": "Presión", "data": "1016.75 bar", "extraData": null},
+          {"type": "Humedad", "data": "75.10 %", "extraData": null}
+        ]
+      ],
+      "stepper": [
+        {"description": "0.1) Welcome to the tutorial", "order": 1},
+        {"description": "0.2) Station Tour: Information Area", "order": 2},
+        {"description": "0.3) Station Tour: Controllers", "order": 3},
+        {"description": "0.4) Station tour: NFC and QR reader. OCR and computer vision camera", "order": 4},
+        {"description": "0.5) Station Tour: Pre-assembly Area", "order": 5},
+        {"description": "0.6) Station Tour: Assembly Area", "order": 6},
+        {"description": "0.7) Station Tour: Feedback", "order": 7},
+        {"description": "0.8) Station Tour: Material Trolley", "order": 8},
+        {"description": "0.9) Station Tour: Voice assistance", "order": 9},
+        {"description": "0.10) End of tutorial", "order": 10},
+        {"description": "1) Safety instructions. Review of conditions and drawings", "order": 11},
+        {"description": "2) Materials", "order": 12},
+        {"description": "3.1) Assembly Process Preliminary review", "order": 13},
+        {"description": "3.2) Assembly process: Planning on the plate", "order": 14},
+        {"description": "3.3) Placement of kits in pre-assembly area", "order": 15},
+        {"description": "3.4) Plate assembly: Disconnecting and protection elements", "order": 16},
+        {"description": "3.5) Plate assembly: Control elements", "order": 17},
+        {"description": "3.6) Plate assembly: Power elements", "order": 18},
+        {"description": "4) Final review. End of operation", "order": 19}
+      ],
+      "logs": [
+        {"description": "8.2. Step - Hands/Gloves/Position detection successful.", "station": "ST0", "timestamp": "2024-07-09T08:44:30Z"},
+        {"description": "8.1. Step - NFC/OCR detection successful.", "station": "ST0", "timestamp": "2024-07-09T08:43:49Z"},
+        {"description": "7.2. Step - Hands/Gloves/Position detection successful.", "station": "ST0", "timestamp": "2024-07-09T08:43:12Z"},
+        {"description": "7.1. Step - NFC/OCR detection successful.", "station": "ST0", "timestamp": "2024-07-09T08:42:54Z"},
+        {"description": "10.0. Step - Hands/Gloves/Position detection successful.", "station": "ST0", "timestamp": "2024-07-09T08:42:48Z"},
+        {"description": "13.0. Step - Hands/Gloves/Position detection successful.", "station": "ST0", "timestamp": "2024-07-09T08:42:18Z"},
+        {"description": "5.10. Loading Step - Successful automatic step.", "station": "ST0", "timestamp": "2024-07-09T08:42:08Z"},
+        {"description": "5.0. SkipStep - Hands/Gloves/Position detection successful.", "station": "ST0", "timestamp": "2024-07-09T08:42:06Z"},
+        {"description": "2.10. Loading Step - Successful automatic step.", "station": "ST0", "timestamp": "2024-07-09T08:42:02Z"},
+        {"description": "2.1. SkipStep - Hands/Gloves/Position detection successful.", "station": "ST0", "timestamp": "2024-07-09T08:42:00Z"},
+        {"description": "1.15. Loading Step - Successful automatic step.", "station": "ST0", "timestamp": "2024-07-09T08:41:48Z"},
+        {"description": "4.2. Loading Step - Successful automatic step.", "station": "ST0", "timestamp": "2024-07-09T08:41:46Z"},
+        {"description": "4.1. Step - Hands/Gloves/Position detection successful.", "station": "ST0", "timestamp": "2024-07-09T08:41:44Z"},
+        {"description": "2.0. Step - Successful automatic step.", "station": "ST0", "timestamp": "2024-07-09T08:41:32Z"}
+      ],
+      "cctv": [
+        {"name": "STO perspective view", "station": "ST0", "url": "https://nginxrtmp20240430.westeurope.azurecontainer.io/flv?app=live&stream=camera01cHjTe5nqZ6gdXo"},
+        {"name": "ST0 detailed view", "station": "ST0", "url": "https://nginxrtmp20240430.westeurope.azurecontainer.io/flv?app=live&stream=camera02KULr3mTXHtR3Hr"}
+      ],
+      "stationIncident": {
+        "open": 0,
+        "closed": 0,
+        "details": []
+      }
+    },
+    {
+      "name": "ST1",
+      "workOrder": "1304 - Assembly operation",
+      "workOrderId": 1304,
+      "progress": 50.45,
+      "start": "2024-07-09T10:00:00Z",
+      "end": "2024-07-09T11:00:00Z",
+      "robot": true,
+      "operator": "Lopez Ana",
+      "status": "IN_PROGRESS",
+      "step": {
+        "description": "4.1) Initial assembly preparation",
+        "order": 11
+      },
+      "sensors": [
+        [
+          {"type": "Consumo", "data": "1.200 Kwh", "extraData": null},
+          {"type": "Batería sensor", "data": "85.4 %", "extraData": "04/11/2023"}
+        ],
+        [
+          {"type": "Temperatura", "data": "21.3 ºC", "extraData": null},
+          {"type": "Presión", "data": "1020.55 bar", "extraData": null},
+          {"type": "Humedad", "data": "60.30 %", "extraData": null}
+        ]
+      ],
+      "stepper": [
+        {"description": "0.1) Welcome to the tutorial", "order": 1},
+        {"description": "0.2) Station Tour: Information Area", "order": 2},
+        {"description": "0.3) Station Tour: Controllers", "order": 3},
+        {"description": "0.4) Station tour: NFC and QR reader. OCR and computer vision camera", "order": 4},
+        {"description": "0.5) Station Tour: Pre-assembly Area", "order": 5},
+        {"description": "0.6) Station Tour: Assembly Area", "order": 6},
+        {"description": "0.7) Station Tour: Feedback", "order": 7},
+        {"description": "0.8) Station Tour: Material Trolley", "order": 8},
+        {"description": "0.9) Station Tour: Voice assistance", "order": 9},
+        {"description": "0.10) End of tutorial", "order": 10},
+        {"description": "1) Safety instructions. Review of conditions and drawings", "order": 11},
+        {"description": "2) Materials", "order": 12},
+        {"description": "3.1) Assembly Process Preliminary review", "order": 13},
+        {"description": "3.2) Assembly process: Planning on the plate", "order": 14},
+        {"description": "3.3) Placement of kits in pre-assembly area", "order": 15},
+        {"description": "3.4) Plate assembly: Disconnecting and protection elements", "order": 16},
+        {"description": "3.5) Plate assembly: Control elements", "order": 17},
+        {"description": "3.6) Plate assembly: Power elements", "order": 18},
+        {"description": "4) Final review. End of operation", "order": 19}
+      ],
+      "logs": [
+        {"description": "8.2. Step - Hands/Gloves/Position detection successful.", "station": "ST1", "timestamp": "2024-07-09T09:44:30Z"},
+        {"description": "8.1. Step - NFC/OCR detection successful.", "station": "ST1", "timestamp": "2024-07-09T09:43:49Z"},
+        {"description": "7.2. Step - Hands/Gloves/Position detection successful.", "station": "ST1", "timestamp": "2024-07-09T09:43:12Z"},
+        {"description": "7.1. Step - NFC/OCR detection successful.", "station": "ST1", "timestamp": "2024-07-09T09:42:54Z"},
+        {"description": "10.0. Step - Hands/Gloves/Position detection successful.", "station": "ST1", "timestamp": "2024-07-09T09:42:48Z"},
+        {"description": "13.0. Step - Hands/Gloves/Position detection successful.", "station": "ST1", "timestamp": "2024-07-09T09:42:18Z"},
+        {"description": "5.10. Loading Step - Successful automatic step.", "station": "ST1", "timestamp": "2024-07-09T09:42:08Z"},
+        {"description": "5.0. SkipStep - Hands/Gloves/Position detection successful.", "station": "ST1", "timestamp": "2024-07-09T09:42:06Z"},
+        {"description": "2.10. Loading Step - Successful automatic step.", "station": "ST1", "timestamp": "2024-07-09T09:42:02Z"},
+        {"description": "2.1. SkipStep - Hands/Gloves/Position detection successful.", "station": "ST1", "timestamp": "2024-07-09T09:42:00Z"},
+        {"description": "1.15. Loading Step - Successful automatic step.", "station": "ST1", "timestamp": "2024-07-09T09:41:48Z"},
+        {"description": "4.2. Loading Step - Successful automatic step.", "station": "ST1", "timestamp": "2024-07-09T09:41:46Z"},
+        {"description": "4.1. Step - Hands/Gloves/Position detection successful.", "station": "ST1", "timestamp": "2024-07-09T09:41:44Z"},
+        {"description": "2.0. Step - Successful automatic step.", "station": "ST1", "timestamp": "2024-07-09T09:41:32Z"}
+      ],
+      "cctv": [
+        {"name": "ST1 perspective view", "station": "ST1", "url": "https://nginxrtmp20240430.westeurope.azurecontainer.io/flv?app=live&stream=camera01cHjTe5nqZ6gdXo"},
+        {"name": "ST1 detailed view", "station": "ST1", "url": "https://nginxrtmp20240430.westeurope.azurecontainer.io/flv?app=live&stream=camera02KULr3mTXHtR3Hr"}
+      ],
+      "stationIncident": {
+        "open": 0,
+        "closed": 0,
+        "details": []
+      }
+    },
+    {
+      "name": "ST2",
+      "workOrder": "1305 - Assembly operation",
+      "workOrderId": 1305,
+      "progress": 90.15,
+      "start": "2024-07-09T08:30:00Z",
+      "end": "2024-07-09T09:30:00Z",
+      "robot": false,
+      "operator": "Doe John",
+      "status": "IN_PROGRESS",
+      "step": {
+        "description": "5.3) Final assembly and inspection",
+        "order": 18
+      },
+      "sensors": [
+        [
+          {"type": "Consumo", "data": "0.500 Kwh", "extraData": null},
+          {"type": "Batería sensor", "data": "65.8 %", "extraData": "04/11/2023"}
+        ],
+        [
+          {"type": "Temperatura", "data": "19.2 ºC", "extraData": null},
+          {"type": "Presión", "data": "1018.25 bar", "extraData": null},
+          {"type": "Humedad", "data": "55.20 %", "extraData": null}
+        ]
+      ],
+      "stepper": [
+        {"description": "0.1) Welcome to the tutorial", "order": 1},
+        {"description": "0.2) Station Tour: Information Area", "order": 2},
+        {"description": "0.3) Station Tour: Controllers", "order": 3},
+        {"description": "0.4) Station tour: NFC and QR reader. OCR and computer vision camera", "order": 4},
+        {"description": "0.5) Station Tour: Pre-assembly Area", "order": 5},
+        {"description": "0.6) Station Tour: Assembly Area", "order": 6},
+        {"description": "0.7) Station Tour: Feedback", "order": 7},
+        {"description": "0.8) Station Tour: Material Trolley", "order": 8},
+        {"description": "0.9) Station Tour: Voice assistance", "order": 9},
+        {"description": "0.10) End of tutorial", "order": 10},
+        {"description": "1) Safety instructions. Review of conditions and drawings", "order": 11},
+        {"description": "2) Materials", "order": 12},
+        {"description": "3.1) Assembly Process Preliminary review", "order": 13},
+        {"description": "3.2) Assembly process: Planning on the plate", "order": 14},
+        {"description": "3.3) Placement of kits in pre-assembly area", "order": 15},
+        {"description": "3.4) Plate assembly: Disconnecting and protection elements", "order": 16},
+        {"description": "3.5) Plate assembly: Control elements", "order": 17},
+        {"description": "3.6) Plate assembly: Power elements", "order": 18},
+        {"description": "4) Final review. End of operation", "order": 19}
+      ],
+      "logs": [
+        {"description": "8.2. Step - Hands/Gloves/Position detection successful.", "station": "ST2", "timestamp": "2024-07-09T07:44:30Z"},
+        {"description": "8.1. Step - NFC/OCR detection successful.", "station": "ST2", "timestamp": "2024-07-09T07:43:49Z"},
+        {"description": "7.2. Step - Hands/Gloves/Position detection successful.", "station": "ST2", "timestamp": "2024-07-09T07:43:12Z"},
+        {"description": "7.1. Step - NFC/OCR detection successful.", "station": "ST2", "timestamp": "2024-07-09T07:42:54Z"},
+        {"description": "10.0. Step - Hands/Gloves/Position detection successful.", "station": "ST2", "timestamp": "2024-07-09T07:42:48Z"},
+        {"description": "13.0. Step - Hands/Gloves/Position detection successful.", "station": "ST2", "timestamp": "2024-07-09T07:42:18Z"},
+        {"description": "5.10. Loading Step - Successful automatic step.", "station": "ST2", "timestamp": "2024-07-09T07:42:08Z"},
+        {"description": "5.0. SkipStep - Hands/Gloves/Position detection successful.", "station": "ST2", "timestamp": "2024-07-09T07:42:06Z"},
+        {"description": "2.10. Loading Step - Successful automatic step.", "station": "ST2", "timestamp": "2024-07-09T07:42:02Z"},
+        {"description": "2.1. SkipStep - Hands/Gloves/Position detection successful.", "station": "ST2", "timestamp": "2024-07-09T07:42:00Z"},
+        {"description": "1.15. Loading Step - Successful automatic step.", "station": "ST2", "timestamp": "2024-07-09T07:41:48Z"},
+        {"description": "4.2. Loading Step - Successful automatic step.", "station": "ST2", "timestamp": "2024-07-09T07:41:46Z"},
+        {"description": "4.1. Step - Hands/Gloves/Position detection successful.", "station": "ST2", "timestamp": "2024-07-09T07:41:44Z"},
+        {"description": "2.0. Step - Successful automatic step.", "station": "ST2", "timestamp": "2024-07-09T07:41:32Z"}
+      ],
+      "cctv": [
+        {"name": "ST2 perspective view", "station": "ST2", "url": "https://nginxrtmp20240430.westeurope.azurecontainer.io/flv?app=live&stream=camera01cHjTe5nqZ6gdXo"},
+        {"name": "ST2 detailed view", "station": "ST2", "url": "https://nginxrtmp20240430.westeurope.azurecontainer.io/flv?app=live&stream=camera02KULr3mTXHtR3Hr"}
+      ],
+      "stationIncident": {
+        "open": 0,
+        "closed": 0,
+        "details": []
+      }
+    }
+]
+  

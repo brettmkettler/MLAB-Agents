@@ -1,6 +1,8 @@
 import pika
 from dotenv import load_dotenv
 import os
+import ssl
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -81,10 +83,20 @@ def create_agent_exchange_and_queues(channel):
         print(f"Queue {queue_name} bound to '{existing_exchange}' with routing key '{routing_key}'.")
 
 def setup_rabbitmq(delete_existing=True):
+    print(f"Setting up RabbitMQ...")
+    print(f"RabbitMQ host: {os.getenv('RABBITMQ_HOST')} , port: {os.getenv('RABBITMQ_PORT')}")
+
+    # SSL context setup with disabled verification
+    context = ssl.create_default_context()
+    context.check_hostname = False
+    context.verify_mode = ssl.CERT_NONE
+
     connection = pika.BlockingConnection(pika.ConnectionParameters(
         host=os.getenv('RABBITMQ_HOST'),
         port=int(os.getenv('RABBITMQ_PORT')),
-        credentials=pika.PlainCredentials(os.getenv('AI_USER'), os.getenv('AI_PASS'))
+        credentials=pika.PlainCredentials(os.getenv('AI_USER'), os.getenv('AI_PASS')),
+        blocked_connection_timeout=600,
+        ssl_options=pika.SSLOptions(context)
     ))
     channel = connection.channel()
 
