@@ -9,6 +9,7 @@ import re
 import time
 import os
 import logging
+import ssl
 
 import pika
 from dotenv import load_dotenv
@@ -189,13 +190,19 @@ def connect_and_consume(agent_name):
                 logger.error("RabbitMQ configuration is missing in the environment variables.")
                 sys.exit(1)
 
+            # SSL context setup with disabled verification
+            context = ssl.create_default_context()
+            context.check_hostname = False
+            context.verify_mode = ssl.CERT_NONE        
+
             credentials = pika.PlainCredentials(rabbitmq_user, rabbitmq_pass)
             parameters = pika.ConnectionParameters(
                 host=rabbitmq_host, 
                 port=rabbitmq_port, 
                 credentials=credentials,
                 heartbeat=60,  
-                blocked_connection_timeout=600  
+                blocked_connection_timeout=600 ,
+                ssl_options=pika.SSLOptions(context)
             )
             connection = pika.BlockingConnection(parameters)
             channel = connection.channel()

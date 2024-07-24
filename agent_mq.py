@@ -3,6 +3,7 @@ import json
 from dotenv import load_dotenv
 import os
 import threading
+import ssl
 
 class Agent:
     def __init__(self, name, exchange, routing_key, queue, user, password):
@@ -10,11 +11,16 @@ class Agent:
         self.exchange = exchange
         self.routing_key = routing_key
         self.queue = queue
+        self.context = ssl.create_default_context()
+        self.context.check_hostname = False
+        self.context.verify_mode = ssl.CERT_NONE        
+
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(
                 host=os.getenv('RABBITMQ_HOST'),
                 port=int(os.getenv('RABBITMQ_PORT')),
-                credentials=pika.PlainCredentials(user, password)
+                credentials=pika.PlainCredentials(user, password),
+                ssl_options=pika.SSLOptions(self.context)
             )
         )
         self.channel = self.connection.channel()

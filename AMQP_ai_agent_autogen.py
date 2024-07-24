@@ -182,9 +182,7 @@ def connect_and_consume(agent_name):
             # SSL context setup with disabled verification
             context = ssl.create_default_context()
             context.check_hostname = False
-            context.verify_mode = ssl.CERT_NONE
-
-        
+            context.verify_mode = ssl.CERT_NONE        
 
             credentials = pika.PlainCredentials(rabbitmq_user, rabbitmq_pass)
             parameters = pika.ConnectionParameters(

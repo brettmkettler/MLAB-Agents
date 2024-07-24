@@ -50,6 +50,9 @@ class Agent:
         self.connection = None
         self.channel = None
         self.connect()
+        self.context = ssl.create_default_context()
+        self.context.check_hostname = False
+        self.context.verify_mode = ssl.CERT_NONE        
         
     def connect(self):
         try:
@@ -57,7 +60,8 @@ class Agent:
                 pika.ConnectionParameters(
                     host=os.getenv('RABBITMQ_HOST'),
                     port=int(os.getenv('RABBITMQ_PORT')),
-                    credentials=pika.PlainCredentials(self.user, self.password)
+                    credentials=pika.PlainCredentials(self.user, self.password),
+                    ssl_options=pika.SSLOptions(self.context)
                 )
             )
             self.channel = self.connection.channel()

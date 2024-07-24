@@ -20,6 +20,7 @@ import pika
 import json
 import os
 import logging
+import ssl
 
 
 ###################################################################
@@ -32,8 +33,12 @@ RABBITMQ_PORT = int(os.getenv('RABBITMQ_PORT'))
 AI_USER = os.getenv('AI_USER')
 AI_PASS = os.getenv('AI_PASS')
 # Set up RabbitMQ connection and channel
+# SSL context setup with disabled verification
+context = ssl.create_default_context()
+context.check_hostname = False
+context.verify_mode = ssl.CERT_NONE       
 credentials = pika.PlainCredentials(AI_USER, AI_PASS)
-parameters = pika.ConnectionParameters(host=RABBITMQ_HOST, port=RABBITMQ_PORT, credentials=credentials)
+parameters = pika.ConnectionParameters(host=RABBITMQ_HOST, port=RABBITMQ_PORT, credentials=credentials, ssl_options=pika.SSLOptions(context))
 connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
 
