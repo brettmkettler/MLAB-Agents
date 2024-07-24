@@ -16,6 +16,9 @@ class Communication:
         self.config = config
         self.channel = None
         self.connection = None
+        self.log_exchange = os.getenv('LOG_EXCHANGE')
+        self.communications_log_file =  os.getenv('COMMUNICATIONS_LOG_FILE') 
+        self.exchange = os.getenv('EXCHANGE')
     
     def setup_connection(self):
         rabbitmq_user = os.getenv('RABBITMQ_USER')
@@ -45,7 +48,7 @@ class Communication:
     
     def send_message(self, message, route):
         self.channel.basic_publish(
-            exchange='amq.topic',
+            exchange=self.exchange,
             routing_key=route,
             body=json.dumps(message)
         )
@@ -58,11 +61,11 @@ class Communication:
             "message": message
         }
         self.channel.basic_publish(
-            exchange='log_exchange',
+            exchange= self.log_exchange,
             routing_key='',
             body=json.dumps(log_entry),
             properties=pika.BasicProperties(delivery_mode=2)
         )
         # Persist to file or DB
-        with open('communications.log', 'a') as log_file:
+        with open(self.communications_log_file, 'a') as log_file:
             log_file.write(json.dumps(log_entry) + "\n")
