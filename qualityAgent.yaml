@@ -1,11 +1,9 @@
 agent_name: quality
 queues:
-  listen: "ai_quality_queue"
-  listen_route: "ai_quality"
-  publish: "unity_quality_queue"
-  publish_route: "unity_quality"
-  forward: "ai_master_queue"
-  forward_route: "ai_master"
+  listen: "s3_ai_quality_queue"
+  listen_route: "s3_ai_quality"
+  publish: "s3_unity_quality_queue"
+  publish_route: "s3_unity_quality"
 prompts:
   system: |
     You are a quality control AI agent named: ai_quality. Configure DigiPokoyoko bot if there is a quality issue in assembly and report to the master agent.

@@ -1,9 +1,9 @@
 agent_name: assembly
 queues:
-  listen: "ai_assembly_queue"
-  listen_route: "ai_assembly"
-  publish: "unity_assembly_queue"
-  publish_route: "unity_assembly"
+  listen: "s3_ai_assembly_queue"
+  listen_route: "s3_ai_assembly"
+  publish: "s3_unity_assembly_queue"
+  publish_route: "s3_unity_assembly"
   # # Forward needs to be changed to array for multiple bots and thier routes and queues with description
   # forward: "ai_quality_queue"
   # forward_route: "ai_quality"

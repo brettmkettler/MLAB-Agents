@@ -1,59 +1,4 @@
-# Python Script with YAML Integration
-
-###############################
-# Installation to Ubuntu 24
-#
-# sudo apt install git
-# git clone https://github.com/brettmkettler/MLAB-Agents.git
-# cd MLAB-Agents/
-# sudo apt install python3-venv 
-# python3 -m venv venv
-# source venv/bin/activate
-# pip install -r requirements.txt
-# nano .env #insert passwords
-
-# python AMQP_ai_agent_autogen.py <agent>
-
-############################
-# Setup Service
-
-# sudo nano /etc/systemd/system/mlab-agent.service
-
-# [Unit]
-# Description=MLAB Agent Service
-# After=network.target
-
-# [Service]
-# User=agent        
-# Group=agent         
-# WorkingDirectory=/home/agent/MLAB-Agents
-# ExecStart=/home/agent/MLAB-Agents/venv/bin/python /home/agent/MLAB-Agents/AMQP_ai_agent_autogen.py quality
-# Restart=always
-
-# [Install]
-# WantedBy=multi-user.target
-
-# ################
-# #Start Service
-# sudo systemctl daemon-reload
-# sudo systemctl enable mlab-agent.service
-
-# sudo systemctl start mlab-agent.service
-
-# ###############
-# Check Status
-# sudo systemctl status mlab-agent.service
-
-#################
-# Stop Service
-# sudo systemctl stop mlab-agent.service
-
-#################
-# Update Code
-# git pull origin main
-
 import glob
-from pdb import run
 import sys
 import yaml
 import json
@@ -61,10 +6,9 @@ import re
 import time
 import os
 import logging
-
-import pika
 import ssl
 
+import pika
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 from typing import Optional, Type
@@ -97,18 +41,33 @@ logger = logging.getLogger(__name__)
 def load_config(agent_name):
     """Load the configuration file for the given agent."""
     config_file = f"{agent_name}Agent.yaml"
-    with open(config_file, 'r') as file:
-        config = yaml.safe_load(file)
-    return config
+    try:
+        with open(config_file, 'r') as file:
+            config = yaml.safe_load(file)
+            if not isinstance(config, dict):
+                raise ValueError("The loaded config is not a dictionary.")
+            return config
+    except yaml.YAMLError as e:
+        logger.error(f"Error loading YAML configuration: {e}")
+        sys.exit(1)
+    except FileNotFoundError:
+        logger.error(f"Configuration file {config_file} not found.")
+        sys.exit(1)
+    except ValueError as e:
+        logger.error(e)
+        sys.exit(1)
 
 def forward_message(channel, forward_queue, forward_route, message):
     """Forward a message to the specified queue."""
-    channel.basic_publish(
-        exchange='amq.topic',
-        routing_key=forward_route,
-        body=json.dumps(message)
-    )
-    logger.info(f"Message forwarded to {forward_queue} via route {forward_route}.")
+    try:
+        channel.basic_publish(
+            exchange='amq.topic',
+            routing_key=forward_route,
+            body=json.dumps(message)
+        )
+        logger.info(f"Message forwarded to {forward_queue} via route {forward_route}.")
+    except Exception as e:
+        logger.error(f"Failed to forward message: {e}")
 
 # Tools
 tools = [capgeminiDocumentsTool(), actionTool(), Agent2AgentTool(), CallTool()]
@@ -116,27 +75,26 @@ tools = [capgeminiDocumentsTool(), actionTool(), Agent2AgentTool(), CallTool()]
 def setup_prompt(userinfo, agentlocation, userlocation, config):
     """Set up the prompt template."""
     logger.info("Setting up prompt")
-    return ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                config['prompts']['system'].format(userinfo=userinfo, agentlocation=agentlocation, userlocation=userlocation)
-            ),
-            ("placeholder", "{chat_history}"),
-            ("human", "{input}"),
-            ("placeholder", "{agent_scratchpad}"),
-        ]
-    )
-
+    try:
+        system_prompt = config['prompts']['system'].format(userinfo=userinfo, agentlocation=agentlocation, userlocation=userlocation)
+        return ChatPromptTemplate.from_messages(
+            [
+                ("system", system_prompt),
+                ("placeholder", "{chat_history}"),
+                ("human", "{input}"),
+                ("placeholder", "{agent_scratchpad}"),
+            ]
+        )
+    except KeyError as e:
+        logger.error(f"Configuration missing key: {e}")
+        sys.exit(1)
 
 def process_ai_response(response):
     """Process the AI response to extract actions."""
     try:
-        # Check if response is a string
         if isinstance(response, str):
             logger.info(f"Raw AI Response: {response}")
 
-            # Pattern to match actions and their content
             action_pattern = r'"action": "(\w+)", "content": "([^"]*)"'
             actions = re.findall(action_pattern, response)
 
@@ -147,7 +105,7 @@ def process_ai_response(response):
             action_types = {"GOTO": "None", "POINTAT": "None", "TALK": "None", "USERID": "None"}
 
             for action_type, action_content in actions:
-                if (action_type := action_type.upper()) in action_types:
+                if action_type in action_types:
                     action_types[action_type] = action_content
 
             actions_list = [
@@ -167,20 +125,32 @@ def process_ai_response(response):
         logger.error(f"Error processing AI response: {e}")
         return {"error": str(e)}
 
+
+
 def handle_message(channel, method, properties, body, config):
     """Handle incoming messages from the queue."""
     logger.info(f"Received raw message: {body}")
-     # Try to parse the incoming message as JSON
-    message_dict = json.loads(body)
     
-    # Check if the message has the required fields
-    if all(key in message_dict for key in ["userquestion", "user_id", "user_location", "agent_location"]):
+    try:
+        message_dict = json.loads(body)
+        print("Message Dict: ", message_dict)
+    except json.JSONDecodeError:
+        logger.error("Received message is not in JSON format. Here is the raw message:")
+        logger.error(body.decode('utf-8'))
+    finally:
+        channel.basic_ack(delivery_tag=method.delivery_tag)
+        
+    
+
+    required_fields = ["userquestion", "user_id", "user_location", "agent_location"]
+    
+    if all(key in message_dict for key in required_fields):
+        print("All required fields are present")
         try:
-            message = json.loads(body)
-            userquestion = message.get('userquestion', 'No question provided')
-            userinfo = message.get('user_id', 'Unknown user')
-            userlocation = message.get('user_location', 'Unknown location')
-            agentlocation = message.get('agent_location', 'Unknown location')
+            userquestion = message_dict['userquestion']
+            userinfo = message_dict['user_id']
+            userlocation = message_dict['user_location']
+            agentlocation = message_dict['agent_location']
             session_id = userinfo
 
             logger.info(f"User Info: {userinfo}")
@@ -188,20 +158,16 @@ def handle_message(channel, method, properties, body, config):
             logger.info(f"Agent Location: {agentlocation}")
             logger.info(f"User Question: {userquestion}")
 
-        prompt = setup_prompt(userinfo, agentlocation, userlocation, config)
-
-        # Convert to string
-        prompt = str(prompt)
-
-        logger.info(f"Prompt: {prompt}")
-
-        # AUTOGEN CODE
-        response = run_agent("ai_master", userquestion, prompt)
-
+            prompt = setup_prompt(userinfo, agentlocation, userlocation, config)
+            
+            prompt_str = str(prompt)
+            
+            logger.info(f"Prompt: {prompt_str}")
+            
+            response = run_agent(agent_name, userquestion, prompt_str)
             logger.info(f"Raw AI response: {response}")
             formatted_response = process_ai_response(response)
 
-            # Publish the response to the publish queue
             logger.info(f"Publishing to {config['queues']['publish']} with routing key {config['queues']['publish_route']}")
             channel.basic_publish(
                 exchange='amq.topic',
@@ -210,39 +176,41 @@ def handle_message(channel, method, properties, body, config):
             )
             logger.info(f"Published response to {config['queues']['publish']} via route {config['queues']['publish_route']}")
 
-        # Forward the message if necessary
-        # if config['agent_name'] == 'assembly' and actions(userlocation, userquestion, response):
-        #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
-        # elif config['agent_name'] == 'quality' and actions(userlocation, userquestion, response):
-        #     forward_message(channel, config['queues']['forward'], config['queues']['forward_route'], message)
-        # elif config['agent_name'] == 'master':
-        #     logger.info("Master agent does not forward messages")
-
-    except json.JSONDecodeError:
-        logger.error("Received message is not in JSON format. Here is the raw message:")
-        logger.error(body.decode('utf-8'))
-    except Exception as e:
-        logger.error(f"Error handling message: {e}")
-    finally:
-        channel.basic_ack(delivery_tag=method.delivery_tag)
-
+        except KeyError as e:
+            logger.error(f"Missing key in message: {e}")
+        except Exception as e:
+            logger.error(f"Error handling message: {e}")
+        finally:
+            channel.basic_ack(delivery_tag=method.delivery_tag)
     else:
-        message = json.loads(body)
-        userinfo = message.get('user_id', 'Unknown user')
-        ############################################
-        # AUTOGEN CODE
-        prompt = setup_prompt_com(userinfo, config)
-        #convert to string
-        prompt = str(prompt)
-        response = run_agent("ai_master", body, prompt)
-        logger.info(f"Raw AI response: {response}")
-        print(response)
+        try:
+            logger.warning("Message does not have the required fields. This is a system message...")
+            prompt = """
+            You are a factory worker in a digital twin laboratory. You are responsible for monitoring the system logs and analyzing the data.
+
+            This is a message from the system which is a log, you need to store this in your memory and analyze the data. 
+            """
+            
+            #convert body to string
+            body = body.decode('utf-8')
+            
+            response = run_agent(agent_name, body, prompt)
+            
+            logger.info(f"Raw AI response: {response}")
+            
+            print(response)
+            # continue to the next message
+        except KeyError as e:
+            logger.error(f"Missing key in message: {e}")
+        except Exception as e:
+            logger.error(f"Error handling message: {e}")
+        finally:
+            channel.basic_ack(delivery_tag=method.delivery_tag)
+
+
         
         
         
-
-
-
 
 def connect_and_consume(agent_name):
     """Connect to RabbitMQ and start consuming messages."""
@@ -250,20 +218,16 @@ def connect_and_consume(agent_name):
     while True:
         try:
             config = load_config(agent_name)
-
+            
             rabbitmq_user = os.getenv('RABBITMQ_USER')
             rabbitmq_pass = os.getenv('RABBITMQ_PASS')
             rabbitmq_host = os.getenv('RABBITMQ_HOST')
             rabbitmq_port = int(os.getenv('RABBITMQ_PORT'))
 
-            print(f"Connecting to RabbitMQ at {rabbitmq_host}:{rabbitmq_port} with user {rabbitmq_user}")
-
-
             if not all([rabbitmq_user, rabbitmq_pass, rabbitmq_host, rabbitmq_port]):
                 logger.error("RabbitMQ configuration is missing in the environment variables.")
                 sys.exit(1)
 
-            # SSL context setup with disabled verification
             context = ssl.create_default_context()
             context.check_hostname = False
             context.verify_mode = ssl.CERT_NONE        

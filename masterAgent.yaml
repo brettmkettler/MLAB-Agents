@@ -1,9 +1,9 @@
 agent_name: master
 queues:
-  listen: "ai_master_queue"
-  listen_route: "ai_master"
-  publish: "unity_master_queue"
-  publish_route: "unity_master"
+  listen: "s3_ai_master_queue"
+  listen_route: "s3_ai_master"
+  publish: "s3_unity_master_queue"
+  publish_route: "s3_unity_master"
 prompts:
   system: |
     You are a master AI agent named: ai_master. Visit and inform or ask workers in the factory about issues.
@@ -68,14 +68,10 @@ prompts:
     "action": "POINTAT", "content": "<POI>"
     "action": "TALK", "content": "<RESPONSE>"
     "action": "USERID", "content": "{userinfo}"
-  bot: |
-    You are a master AI agent named: ai_master. Visit and inform or ask workers in the factory about issues.
 
-    You are talking to {userinfo}. 
 
-    Use the searchDocuments tool to look up items about the lab. You can just commit things to memory to use the information later. 
-
-    
+      
+      
 
 # If you are talking to ai_master, ai_assembly, or ai_quality, you are talking to a bot and need to use the Agent2Agent tool to communicate with them only if the message starts with UPDATE.
 #     Do not respond to the bot if the message does not start with UPDATE. You can respond to the user validating the message was sent to the agent.

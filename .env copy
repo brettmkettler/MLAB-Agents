@@ -1,0 +1,29 @@
+#
+REDIS_URL="redis://default:aKo1aAx6uSMFIKG0v0EYLDH5sOf9zFSR@redis-15294.c56.east-us.azure.redns.redis-cloud.com:15294"
+
+
+SERVICE_BUS_CONNECTION_STRING="Endpoint=sb://mlab-agenticai.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=EGIsEtG2UKv0jgNONKnVBJM8/ZW21RF18+ASbHM6wlI="
+OPENAI_API_KEY="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"
+ASSISTANT_ID="asst_dRaS9hoJr9TgopT3gMaEhaKM"
+VECTOR_STORE_ID="vs_gSRbIp5fq2mPxYBYSKweqEUH"
+TOKENIZERS_PARALLELISM=false
+AUTOGEN_USE_DOCKER=false
+GROQ_API_KEY="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"
+ 
+# RabbitMQ configuration
+# RABBITMQ_HOST=68.221.122.91
+# RABBITMQ_PORT=5672
+
+RABBITMQ_HOST=mlab-rabbitmq.spaincentral.cloudapp.azure.com
+RABBITMQ_PORT=5671
+ 
+# Unity Agents credentials
+UNITY_USER=UnityAgent
+UNITY_PASS=mlab120!
+ 
+# AI Agents credentials
+AI_USER=AIAgent
+AI_PASS=mlab120!
+
+RABBITMQ_USER=AIAgent
+RABBITMQ_PASS=mlab120!
