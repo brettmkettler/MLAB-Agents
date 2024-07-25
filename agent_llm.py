@@ -166,8 +166,16 @@ def run_agent(agent_name: str, userquestion: str, prompt: str) -> str:
 
     chatmessage = user_proxy.initiate_chat(agent, message=userquestion, clear_history=True)
 
+    # Get the last message from userproxy:
+    
+    
     last_message = chatmessage.chat_history[-1]['content']
+    
 
     print(f"Last message: {last_message}")
+    
+    message = GPTAssistantAgent.last_message
+    
+    print(f"Message: {message}")
 
     return last_message

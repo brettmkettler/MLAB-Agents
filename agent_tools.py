@@ -21,7 +21,7 @@ import json
 import os
 import logging
 import ssl
-
+import re
 
 ###################################################################
 # RABBITMQ
@@ -50,42 +50,42 @@ channel = connection.channel()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def process_ai_response(response):
-    """Process the AI response to extract actions."""
-    try:
-        # Check if response is a string
-        if isinstance(response, str):
-            logger.info(f"Raw AI Response: {response}")
+# def process_ai_response(response):
+#     """Process the AI response to extract actions."""
+#     try:
+#         # Check if response is a string
+#         if isinstance(response, str):
+#             logger.info(f"Raw AI Response: {response}")
 
-            # Pattern to match actions and their content
-            action_pattern = r'"action": "(\w+)", "content": "([^"]*)"'
-            actions = re.findall(action_pattern, response)
+#             # Pattern to match actions and their content
+#             action_pattern = r'"action": "(\w+)", "content": "([^"]*)"'
+#             actions = re.findall(action_pattern, response)
 
-            if not actions:
-                logger.warning("No valid actions found in the AI response.")
-                return {"error": "No valid actions found in the AI response."}
+#             if not actions:
+#                 logger.warning("No valid actions found in the AI response.")
+#                 return {"error": "No valid actions found in the AI response."}
 
-            action_types = {"GOTO": "None", "POINTAT": "None", "TALK": "None"}
+#             action_types = {"GOTO": "None", "POINTAT": "None", "TALK": "None"}
 
-            for action_type, action_content in actions:
-                if action_type in action_types:
-                    action_types[action_type] = action_content
+#             for action_type, action_content in actions:
+#                 if action_type in action_types:
+#                     action_types[action_type] = action_content
 
-            actions_list = [
-                {"action": "GOTO", "content": action_types["GOTO"]},
-                {"action": "POINTAT", "content": action_types["POINTAT"]},
-                {"action": "TALK", "content": action_types["TALK"]}
-            ]
+#             actions_list = [
+#                 {"action": "GOTO", "content": action_types["GOTO"]},
+#                 {"action": "POINTAT", "content": action_types["POINTAT"]},
+#                 {"action": "TALK", "content": action_types["TALK"]}
+#             ]
 
-            formatted_response = {"response": actions_list}
-            logger.info(f"Formatted Response: {formatted_response}")
-            return formatted_response
-        else:
-            logger.warning("No valid response from the AI.")
-            return {"error": "No valid response from the AI."}
-    except Exception as e:
-        logger.error(f"Error processing AI response: {e}")
-        return {"error": str(e)}
+#             formatted_response = {"response": actions_list}
+#             logger.info(f"Formatted Response: {formatted_response}")
+#             return formatted_response
+#         else:
+#             logger.warning("No valid response from the AI.")
+#             return {"error": "No valid response from the AI."}
+#     except Exception as e:
+#         logger.error(f"Error processing AI response: {e}")
+#         return {"error": str(e)}
     
     
 #########################################################################################################
@@ -316,6 +316,7 @@ def search_tavily(query, search_depth="basic", include_images=False, include_ans
 
     # Check if the request was successful
     if response.status_code == 200:
+        
         # Parse the JSON response
         data = response.json()
         return data
@@ -447,17 +448,17 @@ def makeCall(question: str):
                 print('Summary of the call:')
                 print(summary)
                 
-                summary = f"""
-                "action": "GOTO", "content": "None"
-                "action": "POINTAT", "content": "None"
-                "action": "TALK", "content": "{summary}"
-                """
+                # summary = f"""
+                # "action": "GOTO", "content": "None"
+                # "action": "POINTAT", "content": "None"
+                # "action": "TALK", "content": "{summary}"
+                # """
                 
-                formatted_summary = process_ai_response(summary)
+                # formatted_summary = process_ai_response(summary)
                 
-                print("Formatted Summary: ", formatted_summary)
+                # print("Formatted Summary: ", formatted_summary)
                 
-                return formatted_summary
+                return summary
             #########################################
             else:
                 print("Failed to get call summary")

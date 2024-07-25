@@ -1,3 +1,57 @@
+# Python Script with YAML Integration
+
+###############################
+# Installation to Ubuntu 24
+#
+# sudo apt install git
+# git clone https://github.com/brettmkettler/MLAB-Agents.git
+# cd MLAB-Agents/
+# sudo apt install python3-venv 
+# python3 -m venv venv
+# source venv/bin/activate
+# pip install -r requirements.txt
+# nano .env #insert passwords
+
+# python AMQP_ai_agent_autogen.py <agent>
+
+############################
+# Setup Service
+
+# sudo nano /etc/systemd/system/mlab-agent.service
+
+# [Unit]
+# Description=MLAB Agent Service
+# After=network.target
+
+# [Service]
+# User=agent        
+# Group=agent         
+# WorkingDirectory=/home/agent/MLAB-Agents
+# ExecStart=/home/agent/MLAB-Agents/venv/bin/python /home/agent/MLAB-Agents/AMQP_ai_agent_autogen.py quality
+# Restart=always
+
+# [Install]
+# WantedBy=multi-user.target
+
+# ################
+# #Start Service
+# sudo systemctl daemon-reload
+# sudo systemctl enable mlab-agent.service
+
+# sudo systemctl start mlab-agent.service
+
+# ###############
+# Check Status
+# sudo systemctl status mlab-agent.service
+
+#################
+# Stop Service
+# sudo systemctl stop mlab-agent.service
+
+#################
+# Update Code
+# git pull origin main
+
 import glob
 import sys
 import yaml
@@ -99,8 +153,16 @@ def process_ai_response(response):
             actions = re.findall(action_pattern, response)
 
             if not actions:
-                logger.warning("No valid actions found in the AI response.")
-                return {"error": "No valid actions found in the AI response."}
+                summary = f"""
+                "action": "GOTO", "content": "None"
+                "action": "POINTAT", "content": "None"
+                "action": "TALK", "content": "{response}"
+                """
+                
+                formatted_summary = process_ai_response(summary)
+                
+                return formatted_summary
+            
 
             action_types = {"GOTO": "None", "POINTAT": "None", "TALK": "None", "USERID": "None"}
 
@@ -254,6 +316,8 @@ def connect_and_consume(agent_name):
         except Exception as e:
             logger.error(f"Unexpected error: {e}. Reconnecting in 10 seconds...")
             time.sleep(10)
+
+
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:

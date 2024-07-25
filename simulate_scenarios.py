@@ -6,7 +6,8 @@ import ssl
 from dotenv import load_dotenv
 
 
-prefix = "s3_"
+#prefix = "s3_"
+prefix = ""
 # Load environment variables from .env file
 load_dotenv()
 
