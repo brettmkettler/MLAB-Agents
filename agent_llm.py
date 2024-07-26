@@ -9,8 +9,11 @@ from dotenv import load_dotenv
 from autogen import UserProxyAgent, config_list_from_json
 from typing import Any, Dict, Optional
 
-from agent_tools import actions, makeCall, search_tavily
+from langchain_community.tools import DuckDuckGoSearchRun
 
+from agent_tools import actions, makeCall, search_tavily, tavily
+
+from mlab_robots_tools import get_station_overview, get_robot_status, get_robot_programs, send_program_to_robot
 
 # Load environment variables
 load_dotenv()
@@ -34,6 +37,23 @@ logger.setLevel(logging.WARNING)
 # FUNCTIONS 
 # # NOTE: Move to tools later
 
+# MLAB OVERVIEW
+
+
+getoverview_api_schema = get_function_schema(
+    get_station_overview,
+    name="get_station_overview",
+    description="Ability to get the overview of all stations and robots in the lab.",
+)
+
+
+
+#
+#
+#
+
+
+# AGENT2AGENT COMMUNICATION
 def agent2agent_comm(fromagent: str, agent: str, question: str) -> str:
     """
     Ability to talk to another agent to ask questions or get information.
@@ -61,21 +81,24 @@ agent2agent_api_schema = get_function_schema(
 ###############################
 # Call Tool
 
+
 def callTool(question: str) -> str:
     """
-    Ability to call and talk to Brett Kettler to ask questions or get information on things you dont know.
+    Ability to call and talk to Brett Kettler to update him on the lab. Only use this for emergencies.
     """
     
     print("Running call tool")
     response = makeCall(question)
     print(f"Response: {response}")
-    return "The message was sent to the agent."
+    # reformat the response to string
+    response = str(response)
+    return response
    
 
 callTool_api_schema = get_function_schema(
     callTool,
     name="callTool",
-    description="Ability to call and talk to Brett Kettler to ask questions or get information on things you dont know.",
+    description="Ability to call and talk to Brett Kettler to ask questions about the lab only and operations only.",
 )
 
 ###############################
@@ -83,13 +106,24 @@ callTool_api_schema = get_function_schema(
 
 def searchTool(question: str) -> str:
     """
-    Ability to search the web for information on things you dont know.
+    Ability to search the web for information to search for things you do not know.
     """
     
     print("Running call tool")
-    response = search_tavily(question, search_depth="basic", include_images=False, include_answer=True, include_raw_content=False, max_results=5, include_domains=None, exclude_domains=None)
+    #response = tavily(question)
+    from langchain_community.tools import DuckDuckGoSearchResults
+
+    search = DuckDuckGoSearchResults()
+    
+    # search = DuckDuckGoSearchRun()
+
+    response = search.invoke(question)
+    
     print(f"Response: {response}")
-    return "The message was sent to the agent."
+    # reformat the response to string
+    response = response["results"]
+    
+    return response
    
 
 searchTool_api_schema = get_function_schema(
@@ -126,7 +160,8 @@ def run_agent(agent_name: str, userquestion: str, prompt: str) -> str:
         llm_config={
             "config_list": config_list,
             # "tools": [agent2agent_api_schema],
-            "tools": [callTool_api_schema, searchTool_api_schema],
+            #"tools": [callTool_api_schema, searchTool_api_schema, getoverview_api_schema],
+            "tools": [callTool_api_schema, getoverview_api_schema],
             "assistant_id": assistant_id,
         },
         verbose=True,
@@ -136,7 +171,8 @@ def run_agent(agent_name: str, userquestion: str, prompt: str) -> str:
     # agent.register_function(function_map={"agent2agent_comm": agent2agent_comm})
     
     agent.register_function(function_map={"callTool": callTool})
-    agent.register_function(function_map={"searchTool": searchTool})
+    # agent.register_function(function_map={"searchTool": searchTool})
+    agent.register_function(function_map={"get_station_overview": get_station_overview})
 
     # Update the assistant (ensure that the assistant_id is correctly set in the environment variables)
     if assistant_id:

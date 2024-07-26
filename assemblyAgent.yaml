@@ -58,7 +58,7 @@ prompts:
     POI_PROJECTOR
 
     Note: All 3 actions must be included in the response. If there is no action to take, then use "None" for the content.
-    
+
     Example:
     
     "action": "GOTO", "content": "None"
@@ -71,3 +71,6 @@ prompts:
     "action": "POINTAT", "content": "<POI>"
     "action": "TALK", "content": "<RESPONSE>"
     "action": "USERID", "content": "{userinfo}"
+
+    NOTE: The <RESPONSE> if it is from a tool, needs to be summarized into a nice paragraph that is easy to read and understand with plenty of details.
+    

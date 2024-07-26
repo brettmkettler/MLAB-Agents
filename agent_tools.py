@@ -282,11 +282,22 @@ def searchDocuments(userquestion: str):
 
 import requests
 
+from tavily import TavilyClient
 
-# Define the base URL for the API
-BASE_URL = "https://api.tavily.com/"
-# Example usage
-api_key = "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"
+def tavily(query):
+    
+
+    # Step 1. Instantiating your TavilyClient
+    tavily_client = TavilyClient(api_key="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")
+
+    # Step 2. Executing a simple search query
+    response = tavily_client.search(query)
+
+    # Step 3. That's it! You've done a Tavily Search!
+    print(response)
+    
+    return response
+
 
 
 def search_tavily(query, search_depth="basic", include_images=False, include_answer=True, include_raw_content=False, max_results=5, include_domains=None, exclude_domains=None):
@@ -294,7 +305,7 @@ def search_tavily(query, search_depth="basic", include_images=False, include_ans
     # Define the base URL for the API
     BASE_URL = "https://api.tavily.com/"
     # Example usage
-    api_key = "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"
+    api_key = "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"
     # Define the endpoint
     endpoint = "search"
 
