@@ -1,0 +1,332 @@
+2024-07-29 14:20:01,791 Connected 29/07/2024 14:20:01
+2024-07-29 14:20:03,221 Connected 29/07/2024 14:20:03
+2024-07-29 14:20:35,837 Connected 29/07/2024 14:20:35
+2024-07-29 14:20:37,275 Connected 29/07/2024 14:20:37
+2024-07-29 14:21:09,950 Connected 29/07/2024 14:21:09
+2024-07-29 14:21:11,394 Connected 29/07/2024 14:21:11
+2024-07-29 14:23:32,736 Connected 29/07/2024 14:23:32
+2024-07-29 14:23:33,935 Received 0 messages
+2024-07-29 14:24:06,834 Connected 29/07/2024 14:24:06
+2024-07-29 14:24:08,027 Received 0 messages
+2024-07-29 14:26:16,318 Connected
+2024-07-29 14:26:17,507 Received 0 messages
+2024-07-29 14:26:50,390 Connected
+2024-07-29 14:26:51,593 Received 0 messages
+2024-07-29 14:27:24,494 Connected
+2024-07-29 14:27:25,688 Received 0 messages
+2024-07-29 14:27:58,625 Received 0 messages
+2024-07-29 14:28:25,335 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:28:25,564 Socket connected: <socket.socket fd=1188, family=2, type=1, proto=6, laddr=('10.61.170.180', 57323), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:28:25,564 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83BDDB8C0>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83BDDB8C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:28:26,279 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83BDDB8C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:28:26,279 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83BDDB8C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:28:26,279 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83BDDB8C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:28:26,279 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:28:26,524 Socket connected: <socket.socket fd=1388, family=2, type=1, proto=6, laddr=('10.61.170.180', 57326), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:28:26,524 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83CB8A6C0>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83CB8A6C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:28:27,260 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83CB8A6C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:28:27,261 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83CB8A6C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:28:27,261 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83CB8A6C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:28:27,262 Connected to RabbitMQ A and B at 29/07/2024 14:28:27
+2024-07-29 14:28:27,263 Created channel=1
+2024-07-29 14:28:27,739 Created channel=1
+2024-07-29 14:28:28,453 Received 0 messages
+2024-07-29 14:28:28,453 Closing connection (200): Normal shutdown
+2024-07-29 14:28:28,453 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83BDDB8C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:28:28,688 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83BDDB8C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:28:28,688 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:28:28,923 Aborting transport connection: state=1; <socket.socket fd=1188, family=2, type=1, proto=6, laddr=('10.61.170.180', 57323), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:28:28,923 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1188, family=2, type=1, proto=6, laddr=('10.61.170.180', 57323), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:28:28,923 Deactivating transport: state=1; <socket.socket fd=1188, family=2, type=1, proto=6, laddr=('10.61.170.180', 57323), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:28:28,940 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:28:28,940 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:28:28,940 Closing transport socket and unlinking: state=3; <socket.socket fd=1188, family=2, type=1, proto=6, laddr=('10.61.170.180', 57323), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:28:28,940 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:28:28,945 Closing connection (200): Normal shutdown
+2024-07-29 14:28:28,947 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83CB8A6C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:28:29,188 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B83CB8A6C0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:28:29,190 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:28:29,423 Aborting transport connection: state=1; <socket.socket fd=1388, family=2, type=1, proto=6, laddr=('10.61.170.180', 57326), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:28:29,423 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1388, family=2, type=1, proto=6, laddr=('10.61.170.180', 57326), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:28:29,423 Deactivating transport: state=1; <socket.socket fd=1388, family=2, type=1, proto=6, laddr=('10.61.170.180', 57326), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:28:29,423 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:28:29,423 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:28:29,423 Closing transport socket and unlinking: state=3; <socket.socket fd=1388, family=2, type=1, proto=6, laddr=('10.61.170.180', 57326), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:28:29,423 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:31:04,207 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:31:04,445 Socket connected: <socket.socket fd=1396, family=2, type=1, proto=6, laddr=('10.61.170.180', 57472), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:04,446 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBA1EAE0>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBA1EAE0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:31:05,163 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBA1EAE0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:05,163 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBA1EAE0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:05,163 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBA1EAE0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:05,168 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:31:05,408 Socket connected: <socket.socket fd=1428, family=2, type=1, proto=6, laddr=('10.61.170.180', 57475), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:05,408 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A900>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A900> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:31:06,126 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A900> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:06,127 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A900> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:06,127 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A900> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:06,127 Connected 29/07/2024 14:31:06
+2024-07-29 14:31:06,127 Connected to RabbitMQ A and B at 29/07/2024 14:31:06
+2024-07-29 14:31:06,128 Created channel=1
+2024-07-29 14:31:06,603 Created channel=1
+2024-07-29 14:31:07,319 Received 0 messages
+2024-07-29 14:31:07,320 Closing connection (200): Normal shutdown
+2024-07-29 14:31:07,320 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBA1EAE0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:07,556 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBA1EAE0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:07,556 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:31:07,792 Aborting transport connection: state=1; <socket.socket fd=1396, family=2, type=1, proto=6, laddr=('10.61.170.180', 57472), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:07,792 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1396, family=2, type=1, proto=6, laddr=('10.61.170.180', 57472), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:07,792 Deactivating transport: state=1; <socket.socket fd=1396, family=2, type=1, proto=6, laddr=('10.61.170.180', 57472), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:07,794 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:07,794 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:07,794 Closing transport socket and unlinking: state=3; <socket.socket fd=1396, family=2, type=1, proto=6, laddr=('10.61.170.180', 57472), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:07,794 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:31:07,794 Closing connection (200): Normal shutdown
+2024-07-29 14:31:07,794 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A900> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:08,032 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A900> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:08,033 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:31:08,272 Aborting transport connection: state=1; <socket.socket fd=1428, family=2, type=1, proto=6, laddr=('10.61.170.180', 57475), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:08,273 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1428, family=2, type=1, proto=6, laddr=('10.61.170.180', 57475), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:08,273 Deactivating transport: state=1; <socket.socket fd=1428, family=2, type=1, proto=6, laddr=('10.61.170.180', 57475), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:08,273 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:08,273 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:08,273 Closing transport socket and unlinking: state=3; <socket.socket fd=1428, family=2, type=1, proto=6, laddr=('10.61.170.180', 57475), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:08,273 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:31:18,312 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:31:18,567 Socket connected: <socket.socket fd=1404, family=2, type=1, proto=6, laddr=('10.61.170.180', 57490), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:18,568 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A930>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A930> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:31:19,283 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A930> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:19,284 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A930> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:19,284 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A930> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:19,288 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:31:19,526 Socket connected: <socket.socket fd=1460, family=2, type=1, proto=6, laddr=('10.61.170.180', 57493), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:19,526 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B350>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B350> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:31:20,239 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B350> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:20,239 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B350> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:20,239 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B350> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:20,239 Connected 29/07/2024 14:31:20
+2024-07-29 14:31:20,240 Connected to RabbitMQ A and B at 29/07/2024 14:31:20
+2024-07-29 14:31:20,241 Created channel=1
+2024-07-29 14:31:20,715 Created channel=1
+2024-07-29 14:31:21,426 Received 0 messages
+2024-07-29 14:31:21,427 Closing connection (200): Normal shutdown
+2024-07-29 14:31:21,427 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A930> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:21,664 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7A930> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:21,664 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:31:21,903 Aborting transport connection: state=1; <socket.socket fd=1404, family=2, type=1, proto=6, laddr=('10.61.170.180', 57490), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:21,903 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1404, family=2, type=1, proto=6, laddr=('10.61.170.180', 57490), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:21,904 Deactivating transport: state=1; <socket.socket fd=1404, family=2, type=1, proto=6, laddr=('10.61.170.180', 57490), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:21,904 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:21,904 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:21,904 Closing transport socket and unlinking: state=3; <socket.socket fd=1404, family=2, type=1, proto=6, laddr=('10.61.170.180', 57490), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:21,904 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:31:21,904 Closing connection (200): Normal shutdown
+2024-07-29 14:31:21,904 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B350> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:22,142 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B350> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:22,143 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:31:22,378 Aborting transport connection: state=1; <socket.socket fd=1460, family=2, type=1, proto=6, laddr=('10.61.170.180', 57493), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:22,378 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1460, family=2, type=1, proto=6, laddr=('10.61.170.180', 57493), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:22,378 Deactivating transport: state=1; <socket.socket fd=1460, family=2, type=1, proto=6, laddr=('10.61.170.180', 57493), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:22,379 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:22,379 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:22,379 Closing transport socket and unlinking: state=3; <socket.socket fd=1460, family=2, type=1, proto=6, laddr=('10.61.170.180', 57493), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:22,379 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:31:32,415 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:31:32,654 Socket connected: <socket.socket fd=1308, family=2, type=1, proto=6, laddr=('10.61.170.180', 57501), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:32,655 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B170>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B170> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:31:33,377 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B170> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:33,378 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B170> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:33,378 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B170> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:33,381 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:31:33,624 Socket connected: <socket.socket fd=1492, family=2, type=1, proto=6, laddr=('10.61.170.180', 57508), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:33,625 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B8F0>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B8F0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:31:34,335 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B8F0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:34,336 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B8F0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:34,336 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B8F0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:34,336 Connected 29/07/2024 14:31:34
+2024-07-29 14:31:34,336 Connected to RabbitMQ A and B at 29/07/2024 14:31:34
+2024-07-29 14:31:34,337 Created channel=1
+2024-07-29 14:31:34,813 Created channel=1
+2024-07-29 14:31:35,526 Received 0 messages
+2024-07-29 14:31:35,527 Closing connection (200): Normal shutdown
+2024-07-29 14:31:35,527 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B170> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:35,765 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B170> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:35,765 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:31:36,002 Aborting transport connection: state=1; <socket.socket fd=1308, family=2, type=1, proto=6, laddr=('10.61.170.180', 57501), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:36,003 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1308, family=2, type=1, proto=6, laddr=('10.61.170.180', 57501), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:36,003 Deactivating transport: state=1; <socket.socket fd=1308, family=2, type=1, proto=6, laddr=('10.61.170.180', 57501), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:36,003 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:36,003 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:36,003 Closing transport socket and unlinking: state=3; <socket.socket fd=1308, family=2, type=1, proto=6, laddr=('10.61.170.180', 57501), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:36,004 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:31:36,004 Closing connection (200): Normal shutdown
+2024-07-29 14:31:36,004 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B8F0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:36,241 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7B8F0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:36,241 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:31:36,478 Aborting transport connection: state=1; <socket.socket fd=1492, family=2, type=1, proto=6, laddr=('10.61.170.180', 57508), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:36,478 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1492, family=2, type=1, proto=6, laddr=('10.61.170.180', 57508), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:36,478 Deactivating transport: state=1; <socket.socket fd=1492, family=2, type=1, proto=6, laddr=('10.61.170.180', 57508), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:36,478 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:36,478 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:36,478 Closing transport socket and unlinking: state=3; <socket.socket fd=1492, family=2, type=1, proto=6, laddr=('10.61.170.180', 57508), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:36,479 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:31:46,512 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:31:46,751 Socket connected: <socket.socket fd=1204, family=2, type=1, proto=6, laddr=('10.61.170.180', 57518), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:46,751 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BD10>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BD10> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:31:47,475 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BD10> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:47,476 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BD10> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:47,476 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BD10> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:47,478 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:31:47,714 Socket connected: <socket.socket fd=1224, family=2, type=1, proto=6, laddr=('10.61.170.180', 57523), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:47,715 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0440>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0440> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:31:48,426 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0440> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:48,427 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0440> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:48,427 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0440> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:31:48,427 Connected 29/07/2024 14:31:48
+2024-07-29 14:31:48,427 Connected to RabbitMQ A and B at 29/07/2024 14:31:48
+2024-07-29 14:31:48,428 Created channel=1
+2024-07-29 14:31:48,912 Created channel=1
+2024-07-29 14:31:49,626 Received 0 messages
+2024-07-29 14:31:49,627 Closing connection (200): Normal shutdown
+2024-07-29 14:31:49,627 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BD10> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:49,866 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BD10> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:49,867 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:31:50,106 Aborting transport connection: state=1; <socket.socket fd=1204, family=2, type=1, proto=6, laddr=('10.61.170.180', 57518), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:50,106 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1204, family=2, type=1, proto=6, laddr=('10.61.170.180', 57518), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:50,106 Deactivating transport: state=1; <socket.socket fd=1204, family=2, type=1, proto=6, laddr=('10.61.170.180', 57518), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:50,106 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:50,106 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:50,106 Closing transport socket and unlinking: state=3; <socket.socket fd=1204, family=2, type=1, proto=6, laddr=('10.61.170.180', 57518), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:50,107 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:31:50,108 Closing connection (200): Normal shutdown
+2024-07-29 14:31:50,108 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0440> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:50,343 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0440> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:31:50,343 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:31:50,579 Aborting transport connection: state=1; <socket.socket fd=1224, family=2, type=1, proto=6, laddr=('10.61.170.180', 57523), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:50,579 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1224, family=2, type=1, proto=6, laddr=('10.61.170.180', 57523), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:50,579 Deactivating transport: state=1; <socket.socket fd=1224, family=2, type=1, proto=6, laddr=('10.61.170.180', 57523), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:50,579 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:50,579 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:31:50,579 Closing transport socket and unlinking: state=3; <socket.socket fd=1224, family=2, type=1, proto=6, laddr=('10.61.170.180', 57523), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:31:50,579 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:32:00,584 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:32:00,823 Socket connected: <socket.socket fd=1368, family=2, type=1, proto=6, laddr=('10.61.170.180', 57534), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:00,824 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0740>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0740> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:32:01,548 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0740> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:01,548 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0740> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:01,548 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0740> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:01,552 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:32:01,797 Socket connected: <socket.socket fd=1456, family=2, type=1, proto=6, laddr=('10.61.170.180', 57537), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:01,798 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0F20>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0F20> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:32:03,228 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0F20> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:03,228 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0F20> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:03,228 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0F20> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:03,228 Connected 29/07/2024 14:32:03
+2024-07-29 14:32:03,229 Connected to RabbitMQ A and B at 29/07/2024 14:32:03
+2024-07-29 14:32:03,230 Created channel=1
+2024-07-29 14:32:03,709 Created channel=1
+2024-07-29 14:32:04,442 Received 0 messages
+2024-07-29 14:32:04,443 Closing connection (200): Normal shutdown
+2024-07-29 14:32:04,443 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0740> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:04,682 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0740> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:04,683 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:32:04,921 Aborting transport connection: state=1; <socket.socket fd=1368, family=2, type=1, proto=6, laddr=('10.61.170.180', 57534), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:04,921 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1368, family=2, type=1, proto=6, laddr=('10.61.170.180', 57534), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:04,921 Deactivating transport: state=1; <socket.socket fd=1368, family=2, type=1, proto=6, laddr=('10.61.170.180', 57534), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:04,921 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:04,921 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:04,921 Closing transport socket and unlinking: state=3; <socket.socket fd=1368, family=2, type=1, proto=6, laddr=('10.61.170.180', 57534), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:04,922 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:32:04,922 Closing connection (200): Normal shutdown
+2024-07-29 14:32:04,922 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0F20> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:05,165 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA0F20> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:05,166 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:32:05,405 Aborting transport connection: state=1; <socket.socket fd=1456, family=2, type=1, proto=6, laddr=('10.61.170.180', 57537), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:05,405 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1456, family=2, type=1, proto=6, laddr=('10.61.170.180', 57537), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:05,405 Deactivating transport: state=1; <socket.socket fd=1456, family=2, type=1, proto=6, laddr=('10.61.170.180', 57537), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:05,405 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:05,405 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:05,405 Closing transport socket and unlinking: state=3; <socket.socket fd=1456, family=2, type=1, proto=6, laddr=('10.61.170.180', 57537), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:05,405 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:32:15,445 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:32:15,679 Socket connected: <socket.socket fd=816, family=2, type=1, proto=6, laddr=('10.61.170.180', 57569), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:15,680 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA1220>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA1220> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:32:16,381 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA1220> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:16,381 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA1220> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:16,381 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA1220> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:16,384 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:32:16,623 Socket connected: <socket.socket fd=1496, family=2, type=1, proto=6, laddr=('10.61.170.180', 57573), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:16,625 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA19A0>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA19A0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:32:17,340 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA19A0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:17,340 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA19A0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:17,341 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA19A0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:17,341 Connected 29/07/2024 14:32:17
+2024-07-29 14:32:17,341 Connected to RabbitMQ A and B at 29/07/2024 14:32:17
+2024-07-29 14:32:17,341 Created channel=1
+2024-07-29 14:32:17,809 Created channel=1
+2024-07-29 14:32:18,993 Received message: test a2
+2024-07-29 14:32:18,993 Received 2 messages, sent 1 message
+2024-07-29 14:32:18,994 Msg : test a2
+2024-07-29 14:32:18,994 Closing connection (200): Normal shutdown
+2024-07-29 14:32:18,994 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA1220> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:19,229 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA1220> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:19,229 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:32:19,463 Aborting transport connection: state=1; <socket.socket fd=816, family=2, type=1, proto=6, laddr=('10.61.170.180', 57569), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:19,463 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=816, family=2, type=1, proto=6, laddr=('10.61.170.180', 57569), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:19,463 Deactivating transport: state=1; <socket.socket fd=816, family=2, type=1, proto=6, laddr=('10.61.170.180', 57569), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:19,464 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:19,464 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:19,464 Closing transport socket and unlinking: state=3; <socket.socket fd=816, family=2, type=1, proto=6, laddr=('10.61.170.180', 57569), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:19,464 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:32:19,464 Closing connection (200): Normal shutdown
+2024-07-29 14:32:19,464 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA19A0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:19,702 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA19A0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:19,703 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:32:19,943 Aborting transport connection: state=1; <socket.socket fd=1496, family=2, type=1, proto=6, laddr=('10.61.170.180', 57573), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:19,944 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1496, family=2, type=1, proto=6, laddr=('10.61.170.180', 57573), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:19,944 Deactivating transport: state=1; <socket.socket fd=1496, family=2, type=1, proto=6, laddr=('10.61.170.180', 57573), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:19,944 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:19,944 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:19,944 Closing transport socket and unlinking: state=3; <socket.socket fd=1496, family=2, type=1, proto=6, laddr=('10.61.170.180', 57573), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:19,945 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:32:29,982 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:32:30,221 Socket connected: <socket.socket fd=1492, family=2, type=1, proto=6, laddr=('10.61.170.180', 57584), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:30,221 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA16D0>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA16D0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:32:30,934 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA16D0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:30,935 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA16D0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:30,935 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA16D0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:30,938 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-07-29 14:32:31,175 Socket connected: <socket.socket fd=1404, family=2, type=1, proto=6, laddr=('10.61.170.180', 57587), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:31,175 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BE00>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BE00> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-07-29 14:32:31,886 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BE00> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:31,886 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BE00> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:31,886 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BE00> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-07-29 14:32:31,886 Connected 29/07/2024 14:32:31
+2024-07-29 14:32:31,887 Connected to RabbitMQ A and B at 29/07/2024 14:32:31
+2024-07-29 14:32:31,887 Created channel=1
+2024-07-29 14:32:32,364 Created channel=1
+2024-07-29 14:32:33,314 Received message: test a3
+2024-07-29 14:32:33,314 Received 1 messages, sent 1 message
+2024-07-29 14:32:33,315 Msg : test a3
+2024-07-29 14:32:33,315 Closing connection (200): Normal shutdown
+2024-07-29 14:32:33,315 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA16D0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:33,551 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBEA16D0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:33,552 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:32:33,788 Aborting transport connection: state=1; <socket.socket fd=1492, family=2, type=1, proto=6, laddr=('10.61.170.180', 57584), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:33,788 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1492, family=2, type=1, proto=6, laddr=('10.61.170.180', 57584), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:33,789 Deactivating transport: state=1; <socket.socket fd=1492, family=2, type=1, proto=6, laddr=('10.61.170.180', 57584), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:33,789 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:33,789 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:33,789 Closing transport socket and unlinking: state=3; <socket.socket fd=1492, family=2, type=1, proto=6, laddr=('10.61.170.180', 57584), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:33,789 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-07-29 14:32:33,790 Closing connection (200): Normal shutdown
+2024-07-29 14:32:33,790 Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BE00> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:34,028 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001AFFBE7BE00> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-07-29 14:32:34,028 Closing connection (200): 'Normal shutdown'
+2024-07-29 14:32:34,265 Aborting transport connection: state=1; <socket.socket fd=1404, family=2, type=1, proto=6, laddr=('10.61.170.180', 57587), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:34,265 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1404, family=2, type=1, proto=6, laddr=('10.61.170.180', 57587), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:34,265 Deactivating transport: state=1; <socket.socket fd=1404, family=2, type=1, proto=6, laddr=('10.61.170.180', 57587), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:34,266 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:34,266 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-07-29 14:32:34,266 Closing transport socket and unlinking: state=3; <socket.socket fd=1404, family=2, type=1, proto=6, laddr=('10.61.170.180', 57587), raddr=('68.221.122.91', 5672)>
+2024-07-29 14:32:34,266 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
