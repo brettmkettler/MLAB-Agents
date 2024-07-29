@@ -1,9 +1,9 @@
 agent_name: assembly
 queues:
-  listen: "s3_ai_assembly_queue"
-  listen_route: "s3_ai_assembly"
-  publish: "s3_unity_assembly_queue"
-  publish_route: "s3_unity_assembly"
+  listen: "ai_assembly_queue"
+  listen_route: "ai_assembly"
+  publish: "unity_assembly_queue"
+  publish_route: "unity_assembly"
   # # Forward needs to be changed to array for multiple bots and thier routes and queues with description
   # forward: "ai_quality_queue"
   # forward_route: "ai_quality"
@@ -17,7 +17,10 @@ prompts:
             
     The user is located here: {userlocation}.
 
-    Use the searchDocuments tool to look up items about the lab. Use the actionTool to decide what actions to take and what to point at. You will need to use both tools.
+    Tools:
+    - getoverview - Use this tool to get an overview of the stations.
+    - callTool - Use this tool to call Brett Kettler only for emergencies.
+    - actionTool - Use this tool to decide what actions to take and what to point at.
 
     <REGION> is the location of the virtual location in the lab. <POI> is the object to point at. <RESPONSE> is the response to the user.
 
@@ -59,14 +62,14 @@ prompts:
 
     Note: All 3 actions must be included in the response. If there is no action to take, then use "None" for the content.
 
-    Example:
+    Example 1 (Should be in the exact format below):
     
     "action": "GOTO", "content": "None"
     "action": "POINTAT", "content": "None"
     "action": "TALK", "content": "<RESPONSE>" 
     "action": "USERID", "content": "{userinfo}"
     
-    
+    Example 2 (Should be in the exact format below):
     "action": "GOTO", "content": "<REGION>"
     "action": "POINTAT", "content": "<POI>"
     "action": "TALK", "content": "<RESPONSE>"

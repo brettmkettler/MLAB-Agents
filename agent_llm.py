@@ -26,7 +26,7 @@ config_list = config_list_from_json(
     env_or_file="OAI_CONFIG_LIST",
     file_location=".",
     filter_dict={
-        "model": ["gpt-4o"],
+        "model": ["gpt-4"],
     },
 )
 
@@ -98,7 +98,7 @@ def callTool(question: str) -> str:
 callTool_api_schema = get_function_schema(
     callTool,
     name="callTool",
-    description="Ability to call and talk to Brett Kettler to ask questions about the lab only and operations only.",
+    description="Ability to call and talk to Brett Kettler. Only use this for emergencies do not call unless there is an absolute emergency.",
 )
 
 ###############################
@@ -161,7 +161,7 @@ def run_agent(agent_name: str, userquestion: str, prompt: str) -> str:
             "config_list": config_list,
             # "tools": [agent2agent_api_schema],
             #"tools": [callTool_api_schema, searchTool_api_schema, getoverview_api_schema],
-            "tools": [callTool_api_schema, getoverview_api_schema],
+            "tools": [getoverview_api_schema, callTool_api_schema],
             "assistant_id": assistant_id,
         },
         verbose=True,
