@@ -546,7 +546,7 @@ class CallToolInputs(BaseModel):
 
 class CallTool(BaseTool):
     name = "call-tool"
-    description = "useful for when you need to make a phone call to a colleague to get more information from a employee. You will need the following inputs: question The question should be something that is easy to answer over the phone but descriptive and detailed enough to get the information you need."
+    description = "useful for when you need to make a phone call to a colleague in an emergency situation only. You will need the following inputs: question The question should be something that is easy to answer over the phone but descriptive and detailed enough to get the information you need."
     args_schema: Type[BaseModel] = CallToolInputs
     company = ""
 

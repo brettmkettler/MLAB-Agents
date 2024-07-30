@@ -1,19 +1,30 @@
+import json
+import os
+from typing import Literal
+from typing_extensions import Annotated
+import autogen
 from autogen.agentchat.contrib.gpt_assistant_agent import GPTAssistantAgent
 from autogen.function_utils import get_function_schema
 from autogen.agentchat.contrib.capabilities.teachability import Teachability
 
+from httpx import get
 from openai import OpenAI
 import logging
 import os
 from dotenv import load_dotenv
-from autogen import UserProxyAgent, config_list_from_json
+from autogen import AssistantAgent, ConversableAgent, UserProxyAgent, config_list_from_json
 from typing import Any, Dict, Optional
 
+from langchain_groq import ChatGroq
+from langchain.agents import AgentExecutor, create_tool_calling_agent
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.tools import DuckDuckGoSearchRun
 
+from OLD_USABLE.app import Chat
 from agent_tools import actions, makeCall, search_tavily, tavily
 
-from mlab_robots_tools import get_station_overview, get_robot_status, get_robot_programs, send_program_to_robot
+from mlab_robots_tools import get_station_overview, get_robot_status, get_robot_programs, send_program_to_robot, GetStationOverview
+
 
 # Load environment variables
 load_dotenv()
@@ -22,13 +33,25 @@ load_dotenv()
 client = OpenAI()
 
 # Configuration for the agent
-config_list = config_list_from_json(
-    env_or_file="OAI_CONFIG_LIST",
-    file_location=".",
-    filter_dict={
-        "model": ["gpt-4"],
-    },
-)
+
+# config_list = [
+#     {
+#         # Let's choose the Llama 3 model
+#         "model": "llama3-8b-8192",
+#         "base_url": "https://api.groq.com/openai/v1",
+#         # Put your Groq API key here or put it into the GROQ_API_KEY environment variable.
+#         "api_key": os.environ.get("GROQ_API_KEY"),
+#         # We specify the API Type as 'groq' so it uses the Groq client class
+#         "api_type": "groq",
+        
+#         "cache_seed": None
+#     }
+# ]
+
+prompt_price_per_1k=0
+completion_token_price_per_1k=0
+config_list= [{"model": "llama3-70b-8192", "api_key": os.environ.get("GROQ_API_KEY"), "base_url": "https://api.groq.com/openai/v1", "price": [prompt_price_per_1k, completion_token_price_per_1k], "frequency_penalty": 0.5, "max_tokens": 2048, "presence_penalty": 0.2, "temperature": 0.5, "top_p": 0.2}]
+llm_config = {"config_list":config_list}
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
@@ -136,82 +159,39 @@ searchTool_api_schema = get_function_schema(
 # Create the agent
 assistant_id = os.environ.get("ASSISTANT_ID", None)
 
+tools = [GetStationOverview()]
+
 def run_agent(agent_name: str, userquestion: str, prompt: str) -> str:
     """
     Run the agent with the user question.
     """
     
-    agent = GPTAssistantAgent(
-        name=agent_name,
-        # instructions="""You are a working agent in a Capgemini Digital Twin Factory named ai_master. 
-        
-        # You are a friendly assistant agent that can help answer questions about the lab and the AI models.
-        
-        # You can ask questions to other agents using the agent2agent API, The other agents are: 
-        
-        # 1. ai_master - ai_master is the master agent that can answer questions about the factory and its operations or the temperature of the lab.
-        # 2. ai_assistant - ai_assistant is the assistant agent that can answer questions about the AI models and their capabilities.
-        
-        # """,
-        instructions=prompt,
-        
-        overwrite_instructions=True,  # overwrite any existing instructions with the ones provided
-        overwrite_tools=True,  # overwrite any existing tools with the ones provided
-        llm_config={
-            "config_list": config_list,
-            # "tools": [agent2agent_api_schema],
-            #"tools": [callTool_api_schema, searchTool_api_schema, getoverview_api_schema],
-            "tools": [getoverview_api_schema, callTool_api_schema],
-            "assistant_id": assistant_id,
-        },
-        verbose=True,
+
+    llm = ChatGroq(model="llama3-70b-8192",
+    temperature=0.5,
+    max_tokens=None,
+    timeout=None,
+    max_retries=2)
+    
+    prompt1 = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                prompt,
+            ),
+            ("placeholder", "{chat_history}"),
+            ("human", "{input}"),
+            ("placeholder", "{agent_scratchpad}"),
+        ]
     )
 
-    # Register the function to the agent
-    # agent.register_function(function_map={"agent2agent_comm": agent2agent_comm})
+    # Construct the Tools agent
+    agent = create_tool_calling_agent(llm, tools, prompt1)
+    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+    response = agent_executor.invoke({"input": userquestion})
     
-    agent.register_function(function_map={"callTool": callTool})
-    # agent.register_function(function_map={"searchTool": searchTool})
-    agent.register_function(function_map={"get_station_overview": get_station_overview})
-
-    # Update the assistant (ensure that the assistant_id is correctly set in the environment variables)
-    if assistant_id:
-        client.beta.assistants.update(
-            assistant_id=agent.assistant_id,
-        )
-        
-
-    # Teachability capability
-    teachability = Teachability(
-        verbosity=2,  # 0 for basic info, 1 to add memory operations, 2 for analyzer messages, 3 for memo lists.
-        reset_db=False,
-        path_to_db_dir=f"./tmp/notebook/{agent_name}teachability_db",
-        recall_threshold=1.5,  # Higher numbers allow more (but less relevant) memos to be recalled.
-    )
+    last_message = response["output"]
     
-    teachability.add_to_agent(agent)
-
-    # User proxy for chat
-    user_proxy = UserProxyAgent(
-        name="user_proxy",
-        code_execution_config={"work_dir": "coding", "use_docker": False},
-        is_termination_msg=lambda msg: "TERMINATE" in msg["content"],
-        human_input_mode="NEVER",
-        max_consecutive_auto_reply=1,
-    )
-
-    chatmessage = user_proxy.initiate_chat(agent, message=userquestion, clear_history=True)
-
-    # Get the last message from userproxy:
-    
-    
-    last_message = chatmessage.chat_history[-1]['content']
-    
-
-    print(f"Last message: {last_message}")
-    
-    message = GPTAssistantAgent.last_message
-    
-    print(f"Message: {message}")
+    # print(f"Message: {message}")
 
     return last_message

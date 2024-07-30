@@ -35,6 +35,8 @@ headers = {
 
 # Request the stations overview
 
+
+
 def get_station_overview():
     """
     Get the overview of all stations
@@ -129,3 +131,35 @@ def send_program_to_robot(robot_id, program_id, operation):
 
 # make text white
 print("\033[97m")
+
+
+
+####################
+# LANGCHAIN
+import asyncio
+import glob
+from multiprocessing import process
+from grpc import channel_ready_future
+from langchain.tools import BaseTool
+from typing import Optional, Type
+from flask import Flask, Response, request
+from pydantic import BaseModel, Field
+from datetime import datetime
+from openai import OpenAI
+from pydantic import BaseModel
+
+
+class GetStationOverviewInputs(BaseModel):
+    """Inputs for the Agent2Human tool."""
+    
+
+class GetStationOverview(BaseTool):
+    name = "get_station_overview"
+    description = "useful for when you need to talk to or ask a human a question. You will need the following inputs: question The question should be something that is easy to answer over the phone but descriptive and detailed enough to get the information you need and the agent name.."
+    args_schema: Type[BaseModel] = GetStationOverviewInputs
+    company = ""
+
+    def _run(self):
+        """Use the tool."""
+        response = get_station_overview()
+        return response

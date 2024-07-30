@@ -1,5 +1,16 @@
 [
     {
+        "model": "gpt-4o"
+    },
+    {
         "model": "gpt-4"
+    },
+    {
+        "model": "gpt-3.5-turbo"
+    },
+    {
+        "model": "llama3-8b-8192",
+        "api_key": "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",
+        "api_type": "groq"
     }
 ]

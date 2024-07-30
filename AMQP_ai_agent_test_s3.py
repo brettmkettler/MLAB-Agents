@@ -15,7 +15,7 @@ AI_PASS = os.getenv('AI_PASS')
 
 # Sample message
 message = {
-    "userquestion": "What is the status of the factory right now?",
+    "userquestion": "I have a bit of a problem, robot 3 is not working!",
     "user_id": "Brett Kettler",
     "user_location": "Lab",
     "agent_location": "Lab"
