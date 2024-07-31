@@ -27,28 +27,53 @@ import re
 # RABBITMQ
 #############
 
-# RabbitMQ configuration
-RABBITMQ_HOST = os.getenv('RABBITMQ_HOST')
-RABBITMQ_PORT = int(os.getenv('RABBITMQ_PORT'))
-AI_USER = os.getenv('AI_USER')
-AI_PASS = os.getenv('AI_PASS')
-# Set up RabbitMQ connection and channel
-# SSL context setup with disabled verification
-context = ssl.create_default_context()
-context.check_hostname = False
-context.verify_mode = ssl.CERT_NONE       
-credentials = pika.PlainCredentials(AI_USER, AI_PASS)
-parameters = pika.ConnectionParameters(host=RABBITMQ_HOST, port=RABBITMQ_PORT, credentials=credentials, ssl_options=pika.SSLOptions(context))
-connection = pika.BlockingConnection(parameters)
-channel = connection.channel()
+import pika
+import ssl
+import os
+import logging
 
-############################
-
-
-# HELPER FUNCTION
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+def create_rabbitmq_connection():
+    """Create a connection to RabbitMQ with SSL."""
+    try:
+        rabbitmq_user = os.getenv('RABBITMQ_USER')
+        rabbitmq_pass = os.getenv('RABBITMQ_PASS')
+        rabbitmq_host = os.getenv('RABBITMQ_HOST')
+        rabbitmq_port = int(os.getenv('RABBITMQ_PORT'))
+
+        # SSL context setup
+        context = ssl.create_default_context()
+        context.check_hostname = False
+        context.verify_mode = ssl.CERT_NONE
+
+        # RabbitMQ credentials and connection parameters
+        credentials = pika.PlainCredentials(rabbitmq_user, rabbitmq_pass)
+        parameters = pika.ConnectionParameters(
+            host=rabbitmq_host,
+            port=rabbitmq_port,
+            credentials=credentials,
+            heartbeat=60,
+            blocked_connection_timeout=600,
+            ssl_options=pika.SSLOptions(context)
+        )
+
+        connection = pika.BlockingConnection(parameters)
+        channel = connection.channel()
+        logger.info("RabbitMQ connection established successfully.")
+        return connection, channel
+
+    except Exception as e:
+        logger.error(f"Failed to establish RabbitMQ connection: {e}")
+        raise
+
+
+connection, channel = create_rabbitmq_connection()
+
+# HELPER FUNCTION
+
 
 # def process_ai_response(response):
 #     """Process the AI response to extract actions."""
@@ -576,6 +601,9 @@ def send_message(route, message):
     )
     print(f"Message send to route {route}.")
     # logger.info(f"Message forwarded to {forward_queue} via route {forward_route}.")       
+
+
+        
 
 
 from dotenv import load_dotenv

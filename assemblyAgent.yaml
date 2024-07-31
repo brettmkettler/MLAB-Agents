@@ -20,7 +20,8 @@ prompts:
     Tools:
     - getoverview - Use this tool to get an overview of the stations.
     - callTool - Use this tool to call Brett Kettler only for emergencies.
-    - actionTool - Use this tool to decide what actions to take and what to point at.
+    - capgeminiDocumentsTool - Use this tool to search the documentation for the factory or lab to get how to run robots or machines or about them.
+    - Agent2AgentTool - Use this tool to talk to other agents.
 
     <REGION> is the location of the virtual location in the lab. <POI> is the object to point at. <RESPONSE> is the response to the user.
 
@@ -76,4 +77,10 @@ prompts:
     "action": "USERID", "content": "{userinfo}"
 
     NOTE: The <RESPONSE> if it is from a tool, needs to be summarized into a nice paragraph that is easy to read and understand with plenty of details. DO NOT FORMAT INTO MARKDOWN.
-    
+
+tools:
+  - GetStationOverview
+  - CallTool
+  - capgeminiDocumentsTool
+  - Agent2AgentTool
+      

@@ -65,7 +65,7 @@ import ssl
 import pika
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
-from typing import Optional, Type
+from typing import Optional, Type, List
 
 from langchain.tools import BaseTool
 from langchain.agents import AgentExecutor, create_tool_calling_agent
@@ -114,6 +114,28 @@ def load_config(agent_name):
         logger.error(e)
         sys.exit(1)
 
+def load_tools(tool_names: List[str]) -> List[BaseTool]:
+    """Load tools based on their names."""
+    tool_map = {
+        "GetStationOverview()": GetStationOverview,
+        "CallTool()": CallTool,
+        "capgeminiDocumentsTool()": capgeminiDocumentsTool,
+        "Agent2AgentTool()": Agent2AgentTool
+    }
+    tools = []
+    for tool_name in tool_names:
+        # Ensure the tool name ends with ()
+        tool_name_with_parens = tool_name.strip()
+        if not tool_name_with_parens.endswith("()"):
+            tool_name_with_parens += "()"
+        
+        tool_class = tool_map.get(tool_name_with_parens)
+        if tool_class:
+            tools.append(tool_class())
+        else:
+            logger.warning(f"Tool {tool_name} is not recognized and will be skipped.")
+    return tools
+
 
 # NOTE: change verbiage to send instead of forward
 def forward_message(channel, forward_queue, forward_route, message):
@@ -146,23 +168,7 @@ def setupPrompt(userinfo, agentlocation, agentprompt):
     ]
 )
     
-    
-# def setup_prompt(userinfo, agentlocation, userlocation, config):
-#     """Set up the prompt template."""
-#     logger.info("Setting up prompt")
-#     try:
-#         system_prompt = config['prompts']['system'].format(userinfo=userinfo, agentlocation=agentlocation, userlocation=userlocation)
-#         return ChatPromptTemplate.from_messages(
-#             [
-#                 ("system", system_prompt),
-#                 ("placeholder", "{chat_history}"),
-#                 ("human", "{input}"),
-#                 ("placeholder", "{agent_scratchpad}"),
-#             ]
-#         )
-#     except KeyError as e:
-#         logger.error(f"Configuration missing key: {e}")
-#         sys.exit(1)
+####
 
 def process_ai_response(response):
     """Process the AI response to extract actions."""
@@ -244,9 +250,10 @@ def handle_message(channel, method, properties, body, config):
             agent_prompt = config['prompts']['system'].format(userinfo=userinfo, agentlocation=agentlocation, userlocation=userlocation)
 
             # Tools
-            tools = [GetStationOverview(), CallTool()]
+            config["tools"] = load_tools(config.get("tools", []))
+            tools = config["tools"]
             
-            llm = ChatGroq(model="llama3-70b-8192",
+            llm = ChatGroq(model="llama-3.1-70b-versatile",
             temperature=0.5,
             max_tokens=None,
             timeout=None,
@@ -278,7 +285,7 @@ def handle_message(channel, method, properties, body, config):
             print("")
             
             message_history = RedisChatMessageHistory(
-                        url="redis://default:aKo1aAx6uSMFIKG0v0EYLDH5sOf9zFSR@redis-15294.c56.east-us.azure.redns.redis-cloud.com:15294", ttl=100, session_id=session_id
+                        url="redis://default:aKo1aAx6uSMFIKG0v0EYLDH5sOf9zFSR@redis-15294.c56.east-us.azure.redns.redis-cloud.com:15294", ttl=500, session_id=session_id
             
             )
             
