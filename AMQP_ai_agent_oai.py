@@ -114,8 +114,10 @@ def load_config(agent_name):
         logger.error(e)
         sys.exit(1)
 
+
+# NOTE: change verbiage to send instead of forward
 def forward_message(channel, forward_queue, forward_route, message):
-    """Forward a message to the specified queue."""
+    """Send a message to the specified queue."""
     try:
         channel.basic_publish(
             exchange='amq.topic',
@@ -213,13 +215,12 @@ def handle_message(channel, method, properties, body, config):
     logger.info(f"Received raw message: {body}")
     
     try:
+        print("Message Body: ", body)
         message_dict = json.loads(body)
-        print("Message Dict: ", message_dict)
     except json.JSONDecodeError:
         logger.error("Received message is not in JSON format. Here is the raw message:")
         logger.error(body.decode('utf-8'))
-    finally:
-        channel.basic_ack(delivery_tag=method.delivery_tag)
+
         
     
 
