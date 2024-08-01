@@ -50,7 +50,12 @@
 
 #################
 # Update Code
+# sudo systemctl stop mlab-agent.service
 # git pull origin main
+# sudo systemctl restart mlab-agent.service
+# sudo journalctl -u mlab-agent.service -f
+
+
 
 import glob
 import sys
@@ -80,7 +85,7 @@ from langchain_community.chat_message_histories import RedisChatMessageHistory
 from langchain.memory import ConversationBufferMemory
 
 from agent_tools import capgeminiDocumentsTool, CallTool, actionTool, Agent2AgentTool, makeCall
-from mlab_robots_tools import get_station_overview, get_robot_status, get_robot_programs, send_program_to_robot, GetStationOverview
+from mlab_robots_tools import get_station_overview, get_robot_status, get_robot_programs, send_program_to_robot, GetStationOverview, GetRobotStationStatusOverview, RunFANUC
 from agent_llm import run_agent
 from langchain_groq import ChatGroq
 
@@ -120,7 +125,9 @@ def load_tools(tool_names: List[str]) -> List[BaseTool]:
         "GetStationOverview()": GetStationOverview,
         "CallTool()": CallTool,
         "capgeminiDocumentsTool()": capgeminiDocumentsTool,
-        "Agent2AgentTool()": Agent2AgentTool
+        "Agent2AgentTool()": Agent2AgentTool,
+        "GetRobotStationStatusOverview()": GetRobotStationStatusOverview,
+        "RunFANUC()": RunFANUC,
     }
     tools = []
     for tool_name in tool_names:
@@ -408,6 +415,7 @@ def connect_and_consume(agent_name):
 
             logger.info(f'Waiting for messages from "{config["queues"]["listen"]}". To exit press CTRL+C')
             channel.start_consuming()
+            
         except (pika.exceptions.AMQPConnectionError, pika.exceptions.ChannelError) as e:
             logger.error(f"Connection error: {e}. Reconnecting in 10 seconds...")
             time.sleep(10)

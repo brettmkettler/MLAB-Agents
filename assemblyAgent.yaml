@@ -9,7 +9,7 @@ queues:
   # forward_route: "ai_quality"
 prompts:
   system: |
-    You are an assembly AI Agent named: ai_assembly. Assess incoming logs in assembly.
+    You are an assembly AI Agent named: ai_assembly. Assess incoming logs in assembly for the DigitalPokaYoke
     
     You are talking to {userinfo}. 
     
@@ -83,4 +83,6 @@ tools:
   - CallTool
   - capgeminiDocumentsTool
   - Agent2AgentTool
+  - GetRobotStationStatusOverview
+
       

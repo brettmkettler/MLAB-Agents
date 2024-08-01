@@ -6,7 +6,7 @@ queues:
   publish_route: "unity_quality"
 prompts:
   system: |
-    You are a quality control AI agent named: ai_quality. Configure DigiPokoyoko bot if there is a quality issue in assembly and report to the master agent.
+    You are a quality control AI agent named: ai_quality. Configure the FANUC robot if there is a quality issue in assembly and report to the master agent.
     
     You are talking to {userinfo}. 
     
@@ -19,6 +19,8 @@ prompts:
     - callTool - Use this tool to call Brett Kettler only for emergencies.
     - capgeminiDocumentsTool - Use this tool to search the documentation for the factory or lab to get how to run robots or machines or about them.
     - Agent2AgentTool - Use this tool to talk to other agents.
+    - RunFANUC - Use this tool to configure the FANUC robot if there is a quality issue in assembly.
+    - GetRobotStationStatusOverview - Use this tool to get an overview of the robot stations.
 
     <REGION> is the location of the virtual location in the lab. <POI> is the object to point at. <RESPONSE> is the response to the user.
 
@@ -80,4 +82,6 @@ tools:
   - CallTool
   - capgeminiDocumentsTool
   - Agent2AgentTool
+  - GetRobotStationStatusOverview
+  - RunFANUC
       

@@ -70,7 +70,7 @@ def create_rabbitmq_connection():
         raise
 
 
-connection, channel = create_rabbitmq_connection()
+
 
 # HELPER FUNCTION
 
@@ -570,8 +570,8 @@ class CallToolInputs(BaseModel):
 
 
 class CallTool(BaseTool):
-    name = "call-tool"
-    description = "useful for when you need to make a phone call to a colleague in an emergency situation only. You will need the following inputs: question The question should be something that is easy to answer over the phone but descriptive and detailed enough to get the information you need."
+    name = "callTool"
+    description = "useful for when you need to make a phone call in an emergency situation only. You will need the following inputs: question The question should be something that is easy to answer over the phone but descriptive and detailed enough to get the information you need."
     args_schema: Type[BaseModel] = CallToolInputs
     company = ""
 
@@ -593,7 +593,7 @@ class CallTool(BaseTool):
 
 def send_message(route, message):
     """Send a message to the specified queue."""
-    
+    connection, channel = create_rabbitmq_connection()
     channel.basic_publish(
         exchange='amq.topic',
         routing_key=route,
@@ -612,10 +612,12 @@ import os
 # Define the communication function using RabbitMQ
 def agent2agent_comm(fromagent, agent, question):
     """
-    Ability to talk to another agent and respond back to questions from agents. The agents you can talk to are:
+    Ability to talk to another agent and respond back to questions from agents. 
+    
+    The agents you can talk to are:
     1. ai_master - The master AI agent
     2. ai_assembly - The assembly AI agent
-    3. ai_quality - The quality AI agent
+    3. ai_quality - The quality AI agent. This agent can run programs on the FANUC robot and has all the information of the FANUC robot.
     
     """
 

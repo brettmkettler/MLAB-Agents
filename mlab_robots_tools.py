@@ -122,8 +122,8 @@ def send_program_to_robot(robot_id, program_id, operation):
             # Print in green
             print("\033[92mSend Program Response:", send_program_response)
             
-            #response_text = f"Program sent to robot {robot_id} with program ID {program_id} and operation {operation}."
-            return send_program_response
+            response_text = f"Program sent to robot {robot_id} with program ID {program_id} and operation {operation}. Operation is starting."
+            return response_text
         except:
             print("\033[91mError: Failed to parse response.")
             response_text = f"Program sent to robot {robot_id} with program ID {program_id} and operation {operation}."
@@ -162,4 +162,44 @@ class GetStationOverview(BaseTool):
     def _run(self):
         """Use the tool."""
         response = get_station_overview()
+        return response
+
+
+#####
+
+
+
+class GetRobotStationStatusInputs(BaseModel):
+    """Inputs for the GetRobotStationStatus tool."""
+    robotStation: str = Field(..., description="The robot or station number ID. Number only.")
+
+class GetRobotStationStatusOverview(BaseTool):
+    name = "get_robot_status"
+    description = "Useful for when you need to get the status or various sensor data of a particular robot or station like temperatures and data points of the robots. You will need the following inputs: robotStation The robot or station number ID. Here are the mappings of the stations: Station 2: Assembly Bench, Station 3: Testbench FANUC Robot, Station 10: Training Area. Only put the number of the station in the input."
+    args_schema: Type[BaseModel] = GetRobotStationStatusInputs
+    company = ""
+
+    def _run(self, robotStation: str):
+        """Use the tool."""
+        response = get_robot_status(robotStation)
+        return response
+    
+    
+
+###
+
+
+class RunFANUCInputs(BaseModel):
+    """Inputs for the GetRobotStationStatus tool."""
+    regionNumber: str = Field(..., description="The region of the part to look at on examining part.")
+
+class RunFANUC(BaseTool):
+    name = "RunFANUC"
+    description = "Useful for when you need to run a program on the FANUC robot to examine a particular area on the part for defects. You will need the following inputs: regionNumber The region of the part to look at on examining part."
+    args_schema: Type[BaseModel] = RunFANUCInputs
+    company = ""
+
+    def _run(self, regionNumber: str):
+        """Use the tool."""
+        response = send_program_to_robot(3, regionNumber, "EXECUTE")
         return response

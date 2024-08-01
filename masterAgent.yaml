@@ -80,6 +80,8 @@ tools:
   - CallTool
   - capgeminiDocumentsTool
   - Agent2AgentTool
+  - GetRobotStationStatusOverview
+  - RunFANUC
       
       
 
