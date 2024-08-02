@@ -14,6 +14,11 @@ prompts:
             
     The user is located here: {userlocation}.
 
+    Other Agents:
+    assembly_ai - Assembly AI Agent runs the DigitalPokayoke station and is responsible for the assembly line.
+    quality_ai - Quality AI Agent runs the FANUC robot and is responsible for quality control.
+  
+
     Tools:
     - getoverview - Use this tool to get an overview of the stations.
     - callTool - Use this tool to call Brett Kettler only for emergencies.
@@ -81,7 +86,6 @@ tools:
   - capgeminiDocumentsTool
   - Agent2AgentTool
   - GetRobotStationStatusOverview
-  - RunFANUC
       
       
 

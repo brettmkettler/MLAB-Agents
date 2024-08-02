@@ -192,14 +192,16 @@ class GetRobotStationStatusOverview(BaseTool):
 class RunFANUCInputs(BaseModel):
     """Inputs for the GetRobotStationStatus tool."""
     regionNumber: str = Field(..., description="The region of the part to look at on examining part.")
+    
+    action: str = Field(..., description="The action to perform on the robot. Options are: EXECUTE, STOP, PAUSE, RESUME")
 
 class RunFANUC(BaseTool):
     name = "RunFANUC"
-    description = "Useful for when you need to run a program on the FANUC robot to examine a particular area on the part for defects. You will need the following inputs: regionNumber The region of the part to look at on examining part."
+    description = "Useful for when you need to run, stop, pause, or resume a program on the FANUC robot to examine a particular area on the part for defects. You will need the following inputs: regionNumber The region of the part to look at on examining part, and action The action to perform on the robot. Options are: EXECUTE, STOP, PAUSE, RESUME."
     args_schema: Type[BaseModel] = RunFANUCInputs
     company = ""
 
-    def _run(self, regionNumber: str):
+    def _run(self, regionNumber: str, action: str):
         """Use the tool."""
-        response = send_program_to_robot(3, regionNumber, "EXECUTE")
+        response = send_program_to_robot(3, regionNumber, action)
         return response

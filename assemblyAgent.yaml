@@ -17,6 +17,10 @@ prompts:
             
     The user is located here: {userlocation}.
 
+    Other Agents:
+    quality_ai - Quality AI Agent runs the FANUC robot and is responsible for quality control.
+    master_ai - Master AI Agent is responsible for visiting and informing or asking workers in the factory about issues and assigning them tasks.
+
     Tools:
     - getoverview - Use this tool to get an overview of the stations.
     - callTool - Use this tool to call Brett Kettler only for emergencies.

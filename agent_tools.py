@@ -615,9 +615,9 @@ def agent2agent_comm(fromagent, agent, question):
     Ability to talk to another agent and respond back to questions from agents. 
     
     The agents you can talk to are:
-    1. ai_master - The master AI agent
-    2. ai_assembly - The assembly AI agent
-    3. ai_quality - The quality AI agent. This agent can run programs on the FANUC robot and has all the information of the FANUC robot.
+    assembly_ai - Assembly AI Agent runs the DigitalPokayoke station and is responsible for the assembly line.
+    quality_ai - Quality AI Agent runs the FANUC robot and is responsible for quality control.
+    master_ai - Master AI Agent is responsible for visiting and informing or asking workers in the factory about issues and assigning them tasks.
     
     """
 
