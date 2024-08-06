@@ -72,20 +72,20 @@ print("\033[94mRobot Programs:", robot_programs)
 # SEND PROGRAM TO ROBOT
 
 # # Define the endpoint to send a program to the robot (example for robot id 3)
-# send_program_url = f"https://testpctbackend.azurewebsites.net/robot/program/{robot}"
+send_program_url = f"https://testpctbackend.azurewebsites.net/robot/program/{robot}"
 
-# # Define the program data to be sent
-# program_data = {
-#     "programId": 7,  # Example program ID
-#     "operation": "EXECUTE"  # Example operation
-# }
+# Define the program data to be sent
+program_data = {
+    "programId": 12,  # Example program ID
+    "operation": "EXECUTE"  # Example operation
+}
 
-# # Send the program to the robot
-# response = requests.post(send_program_url, headers=headers, json=program_data)
+# Send the program to the robot
+response = requests.post(send_program_url, headers=headers, json=program_data)
 
-# # Print the status code and response text for debugging
-# print(f"\033[97mStatus Code: {response.status_code}")
-# print(f"Response Text: {response.text}")
+# Print the status code and response text for debugging
+print(f"\033[97mStatus Code: {response.status_code}")
+print(f"Response Text: {response.text}")
 
 
 

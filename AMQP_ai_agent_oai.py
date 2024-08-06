@@ -84,7 +84,8 @@ from langchain_openai import AzureOpenAIEmbeddings, OpenAIEmbeddings
 from langchain_community.chat_message_histories import RedisChatMessageHistory
 from langchain.memory import ConversationBufferMemory
 
-from agent_tools import capgeminiDocumentsTool, CallTool, actionTool, Agent2AgentTool, makeCall
+#capgeminiDocumentsTool, ##
+from agent_tools import CallTool, capgeminiDocumentsTool, actionTool, Agent2AgentTool, makeCall
 from mlab_robots_tools import get_station_overview, get_robot_status, get_robot_programs, send_program_to_robot, GetStationOverview, GetRobotStationStatusOverview, RunFANUC
 from agent_llm import run_agent
 from langchain_groq import ChatGroq
@@ -141,6 +142,8 @@ def load_tools(tool_names: List[str]) -> List[BaseTool]:
             tools.append(tool_class())
         else:
             logger.warning(f"Tool {tool_name} is not recognized and will be skipped.")
+    
+    print("Tools: ", tools)
     return tools
 
 
@@ -356,6 +359,9 @@ def handle_message(channel, method, properties, body, config):
             You are a factory worker in a digital twin laboratory. You are responsible for monitoring the system logs and analyzing the data.
 
             This is a message from the system which is a log, you need to store this in your memory and analyze the data. 
+            
+            To store memory, you need to use the MEMORY tool.
+            
             """
             
             #convert body to string

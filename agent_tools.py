@@ -203,7 +203,7 @@ class actionTool(BaseTool):
 
 
 
-from langchain_community.vectorstores.azuresearch import AzureSearch
+# from langchain_community.vectorstores.azuresearch import AzureSearch
 from langchain_openai import AzureOpenAIEmbeddings, OpenAIEmbeddings
 from langchain_community.chat_message_histories import RedisChatMessageHistory
 from langchain.memory import ConversationBufferMemory
@@ -224,81 +224,81 @@ embeddings: AzureOpenAIEmbeddings = AzureOpenAIEmbeddings(
 
 index_name: str = "mlabagent1-index"
 
-vector_store: AzureSearch = AzureSearch(
-    azure_search_endpoint=vector_store_address,
-    azure_search_key=vector_store_password,
-    index_name=index_name,
-    embedding_function=embeddings.embed_query,
-)
+# vector_store: AzureSearch = AzureSearch(
+#     azure_search_endpoint=vector_store_address,
+#     azure_search_key=vector_store_password,
+#     index_name=index_name,
+#     embedding_function=embeddings.embed_query,
+# )
 
-print("VECTOR STORE: ", vector_store)
+# print("VECTOR STORE: ", vector_store)
 
 
 
-def actions(userlocation, userquestion, response):
-    print("Deciding what actions to take...")
+# def actions(userlocation, userquestion, response):
+#     print("Deciding what actions to take...")
     
-    print("User's Location: ", userlocation)
-    print("User Question: ", userquestion)
-    print("Response: ", response)
+#     print("User's Location: ", userlocation)
+#     print("User Question: ", userquestion)
+#     print("Response: ", response)
     
-    print("Searching for documents...")
-    print("User Question: ", userquestion)
-    print("Response: ", response)
+#     print("Searching for documents...")
+#     print("User Question: ", userquestion)
+#     print("Response: ", response)
     
-    #testbench-index
-    index_name_t: str = "testbench-index"
-    vector_store: AzureSearch = AzureSearch(
-        azure_search_endpoint=vector_store_address,
-        azure_search_key=vector_store_password,
-        index_name=index_name_t,
-        embedding_function=embeddings.embed_query,
-    )
+#     #testbench-index
+#     index_name_t: str = "testbench-index"
+#     vector_store: AzureSearch = AzureSearch(
+#         azure_search_endpoint=vector_store_address,
+#         azure_search_key=vector_store_password,
+#         index_name=index_name_t,
+#         embedding_function=embeddings.embed_query,
+#     )
     
-    combo = f"{userquestion} the agents response: {response}"
+#     combo = f"{userquestion} the agents response: {response}"
     
-    docs_and_scores = vector_store.similarity_search_with_relevance_scores(
-            query=combo,
-            k=6,
-            score_threshold=0.2,
-        )
+#     docs_and_scores = vector_store.similarity_search_with_relevance_scores(
+#             query=combo,
+#             k=6,
+#             score_threshold=0.2,
+#         )
         
-    print("Data Retrieved: ", docs_and_scores)
+#     print("Data Retrieved: ", docs_and_scores)
 
 
-    results = docs_and_scores
+#     results = docs_and_scores
     
     
-    print("Results: ", results)
+#     print("Results: ", results)
 
-    # Do something here with openai to decide what actions to take
+#     # Do something here with openai to decide what actions to take
     
     
-    return response
+#     return response
 
 
 
-def searchDocuments(userquestion: str):
-    """Search for documents in the vector store for relevant information."""
-    print("Searching for documents...")
-    print("User Question: ", userquestion)
+# def searchDocuments(userquestion: str):
+#     """Search for documents in the vector store for relevant information."""
+#     print("Searching for documents...")
+#     print("User Question: ", userquestion)
     
 
-    docs_and_scores = vector_store.similarity_search_with_relevance_scores(
-            query=userquestion,
-            k=6,
-            score_threshold=0.2,
-        )   
-    print("Docs and Scores: ", docs_and_scores)
-    results = docs_and_scores
-    print("Results: ", results)
+#     docs_and_scores = vector_store.similarity_search_with_relevance_scores(
+#             query=userquestion,
+#             k=6,
+#             score_threshold=0.2,
+#         )   
+#     print("Docs and Scores: ", docs_and_scores)
+#     results = docs_and_scores
+#     print("Results: ", results)
 
 
 
 
 
 
-    return results
+    # return results
 
 
 
@@ -629,8 +629,8 @@ def agent2agent_comm(fromagent, agent, question):
         message = {
         "userquestion": question,
         "user_id": fromagent,
-        "user_location": "Lab",
-        "agent_location": "Lab"
+        "user_location": "None",
+        "agent_location": "None"
         }
 
         send_message(route, message)
