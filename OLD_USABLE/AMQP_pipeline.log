@@ -1,0 +1,113 @@
+2024-08-30 12:00:33,729 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-08-30 12:00:33,967 Socket connected: <socket.socket fd=1104, family=2, type=1, proto=6, laddr=('192.168.0.74', 60595), raddr=('68.221.122.91', 5672)>
+2024-08-30 12:00:33,968 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA103980>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA103980> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-08-30 12:00:34,691 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA103980> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-08-30 12:00:34,692 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA103980> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-08-30 12:00:34,692 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA103980> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-08-30 12:00:34,695 Pika version 1.3.2 connecting to ('68.221.122.91', 5672)
+2024-08-30 12:00:34,929 Socket connected: <socket.socket fd=1384, family=2, type=1, proto=6, laddr=('192.168.0.74', 60598), raddr=('68.221.122.91', 5672)>
+2024-08-30 12:00:34,931 Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA56ECC0>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA56ECC0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>).
+2024-08-30 12:00:35,639 AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA56ECC0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-08-30 12:00:35,639 AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA56ECC0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-08-30 12:00:35,639 Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA56ECC0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>
+2024-08-30 12:00:35,640 Connected 30/08/2024 12:00:35
+2024-08-30 12:00:35,640 Connected to RabbitMQ A and B at 30/08/2024 12:00:35
+2024-08-30 12:00:35,640 Created channel=1
+2024-08-30 12:00:35,878 Created channel=1
+2024-08-30 12:00:37,064 Waiting for messages...
+2024-08-30 12:01:15,096 Processing message: test v2 n1...
+2024-08-30 12:01:15,098 Received message and sent to B: Msg: test v2 n1
+2024-08-30 12:01:22,261 Processing message: test v2 n2...
+2024-08-30 12:01:22,262 Received message and sent to B: Msg: test v2 n2
+2024-08-30 12:01:28,520 Processing message: test v2 n3...
+2024-08-30 12:01:28,521 Received message and sent to B: Msg: test v2 n3
+2024-08-30 12:01:43,764 Processing message: test v2 n4...
+2024-08-30 12:01:43,765 Received message and sent to B: Msg: test v2 n4
+2024-08-30 12:01:47,167 Processing message: test v2 n5...
+2024-08-30 12:01:47,168 Received message and sent to B: Msg: test v2 n5
+2024-08-30 12:04:39,948 Closing channel (0): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA103980> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-08-30 12:04:40,186 Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA103980> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-08-30 12:04:40,186 Closing connection (200): Normal shutdown
+2024-08-30 12:04:40,186 Closing connection (200): 'Normal shutdown'
+2024-08-30 12:04:40,423 Aborting transport connection: state=1; <socket.socket fd=1104, family=2, type=1, proto=6, laddr=('192.168.0.74', 60595), raddr=('68.221.122.91', 5672)>
+2024-08-30 12:04:40,423 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1104, family=2, type=1, proto=6, laddr=('192.168.0.74', 60595), raddr=('68.221.122.91', 5672)>
+2024-08-30 12:04:40,423 Deactivating transport: state=1; <socket.socket fd=1104, family=2, type=1, proto=6, laddr=('192.168.0.74', 60595), raddr=('68.221.122.91', 5672)>
+2024-08-30 12:04:40,423 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-08-30 12:04:40,423 Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2024-08-30 12:04:40,423 Closing transport socket and unlinking: state=3; <socket.socket fd=1104, family=2, type=1, proto=6, laddr=('192.168.0.74', 60595), raddr=('68.221.122.91', 5672)>
+2024-08-30 12:04:40,424 User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2024-08-30 12:04:40,424 Closing channel (0): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002B5EA56ECC0> params=<ConnectionParameters host=mlab-rabbitmq.spaincentral.cloudapp.azure.com port=5672 virtual_host=/ ssl=False>>>
+2024-08-30 12:04:40,430 _AsyncBaseTransport._produce() failed, aborting connection: error=ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None); sock=<socket.socket fd=1384, family=2, type=1, proto=6, laddr=('192.168.0.74', 60598), raddr=('68.221.122.91', 5672)>; Caller's stack:
+Traceback (most recent call last):
+  File "c:\repo\MLAB-Agents\AMQP_input_pilpelineV2.py", line 139, in main
+    channel_a.start_consuming()
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\blocking_connection.py", line 1883, in start_consuming
+    self._process_data_events(time_limit=None)
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\blocking_connection.py", line 2044, in _process_data_events
+    self.connection.process_data_events(time_limit=time_limit)
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\blocking_connection.py", line 842, in process_data_events
+    self._flush_output(common_terminator)
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\blocking_connection.py", line 514, in _flush_output
+    self._impl.ioloop.poll()
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\select_connection.py", line 579, in poll
+    self._poller.poll()
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\select_connection.py", line 953, in poll
+    read, write, error = select.select(
+                         ^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\utils\io_services_utils.py", line 1103, in _on_socket_writable
+    self._produce()
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\utils\io_services_utils.py", line 819, in _produce
+    num_bytes_sent = self._sigint_safe_send(self._sock,
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\utils\io_services_utils.py", line 79, in retry_sigint_wrap
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\utils\io_services_utils.py", line 861, in _sigint_safe_send
+    return sock.send(data)
+           ^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+Traceback (most recent call last):
+  File "c:\repo\MLAB-Agents\AMQP_input_pilpelineV2.py", line 139, in main
+    channel_a.start_consuming()
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\blocking_connection.py", line 1883, in start_consuming
+    self._process_data_events(time_limit=None)
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\blocking_connection.py", line 2044, in _process_data_events
+    self.connection.process_data_events(time_limit=time_limit)
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\blocking_connection.py", line 842, in process_data_events
+    self._flush_output(common_terminator)
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\blocking_connection.py", line 514, in _flush_output
+    self._impl.ioloop.poll()
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\select_connection.py", line 579, in poll
+    self._poller.poll()
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\select_connection.py", line 953, in poll
+    read, write, error = select.select(
+                         ^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\utils\io_services_utils.py", line 1103, in _on_socket_writable
+    self._produce()
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\utils\io_services_utils.py", line 819, in _produce
+    num_bytes_sent = self._sigint_safe_send(self._sock,
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\utils\io_services_utils.py", line 79, in retry_sigint_wrap
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\repo\MLAB-Agents\mlab\Lib\site-packages\pika\adapters\utils\io_services_utils.py", line 861, in _sigint_safe_send
+    return sock.send(data)
+           ^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2024-08-30 12:04:40,431 _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None); <socket.socket fd=1384, family=2, type=1, proto=6, laddr=('192.168.0.74', 60598), raddr=('68.221.122.91', 5672)>
+2024-08-30 12:04:40,431 Deactivating transport: state=1; <socket.socket fd=1384, family=2, type=1, proto=6, laddr=('192.168.0.74', 60598), raddr=('68.221.122.91', 5672)>
+2024-08-30 12:04:40,432 connection_lost: StreamLostError: ("Stream connection lost: ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)",)
+2024-08-30 12:04:40,432 AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=StreamLostError: ("Stream connection lost: ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)",); pending-error=None
+2024-08-30 12:04:40,432 Stack terminated due to StreamLostError: ("Stream connection lost: ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)",)
+2024-08-30 12:04:40,432 Closing transport socket and unlinking: state=2; <socket.socket fd=1384, family=2, type=1, proto=6, laddr=('192.168.0.74', 60598), raddr=('68.221.122.91', 5672)>
+2024-08-30 12:04:40,432 Unexpected connection close detected: StreamLostError: ("Stream connection lost: ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)",)

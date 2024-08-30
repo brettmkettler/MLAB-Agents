@@ -1,0 +1,175 @@
+{
+    "name": "ST0",
+    "workOrder": "1405 - Assembly operation",
+    "workOrderId": 1405,
+    "progress": 0.0,
+    "start": "2024-08-29T15:00:00Z",
+    "end": "2024-08-29T16:00:00Z",
+    "robot": false,
+    "operator": "Sanchez Bella, Natalia",
+    "status": "IN_PROGRESS",
+    "step": null,
+    "sensors": [
+        [
+            {
+                "type": "Consumo",
+                "data": "0.000 Kwh",
+                "extraData": null
+            },
+            {
+                "type": "Batería sensor",
+                "data": "10.6 %",
+                "extraData": "04/11/2023"
+            }
+        ],
+        [
+            {
+                "type": "Temperatura",
+                "data": "17.1 ºC",
+                "extraData": null
+            },
+            {
+                "type": "Presión",
+                "data": "1016.75 bar",
+                "extraData": null
+            },
+            {
+                "type": "Humedad",
+                "data": "75.10 %",
+                "extraData": null
+            }
+        ]
+    ],
+    "stepper": [
+        {
+            "description": "0.1) Welcome to the tutorial",
+            "order": 1
+        },
+        {
+            "description": "0.2) Station Tour: Information Area",
+            "order": 2
+        },
+        {
+            "description": "0.3) Station Tour: Controllers",
+            "order": 3
+        },
+        {
+            "description": "0.4) Station tour: NFC and QR reader. OCR and computer vision camera",
+            "order": 4
+        },
+        {
+            "description": "0.5) Station Tour: Pre-assembly Area",
+            "order": 5
+        },
+        {
+            "description": "0.6) Station Tour: Assembly Area",
+            "order": 6
+        },
+        {
+            "description": "0.7) Station Tour: Feedback",
+            "order": 7
+        },
+        {
+            "description": "0.8) Station Tour: Material Trolley",
+            "order": 8
+        },
+        {
+            "description": "0.9) Station Tour: Voice assistance",
+            "order": 9
+        },
+        {
+            "description": "0.10) End of tutorial",
+            "order": 10
+        },
+        {
+            "description": "1) Safety instructions. Review of conditions and drawings",
+            "order": 11
+        },
+        {
+            "description": "2) Materials",
+            "order": 12
+        },
+        {
+            "description": "3.1) Assembly Process Preliminary review",
+            "order": 13
+        },
+        {
+            "description": "3.2) Assembly process: Planning on the plate",
+            "order": 14
+        },
+        {
+            "description": "3.3) Placement of kits in pre-assembly area",
+            "order": 15
+        },
+        {
+            "description": "3.4) Plate assembly:  Disconnecting and protection elements",
+            "order": 16
+        },
+        {
+            "description": "3.5) Plate assembly: Control elements",
+            "order": 17
+        },
+        {
+            "description": "3.6) Plate assembly: Power elements",
+            "order": 18
+        },
+        {
+            "description": "4) Final review. End of operation",
+            "order": 19
+        }
+    ],
+    "logs": [
+        {
+            "description": "TestManolo - 1",
+            "station": "ST0",
+            "timestamp": "2024-08-29T12:48:23.98Z"
+        },
+        {
+            "description": "TestManolo - 2",
+            "station": "ST0",
+            "timestamp": "2024-08-29T12:48:23.98Z"
+        },
+        {
+            "description": "TestManolo - 3",
+            "station": "ST0",
+            "timestamp": "2024-08-29T12:48:23.98Z"
+        },
+        {
+            "description": "TestManolo - 4",
+            "station": "ST0",
+            "timestamp": "2024-08-29T12:48:23.98Z"
+        },
+        {
+            "description": "TestManolo - 5",
+            "station": "ST0",
+            "timestamp": "2024-08-29T12:48:23.98Z"
+        },
+        {
+            "description": "TestManolo - 5",
+            "station": "ST0",
+            "timestamp": "2024-08-29T12:48:23.98Z"
+        },
+        {
+            "description": "TestManolo - 5",
+            "station": "ST0",
+            "timestamp": "2024-08-29T12:48:23.98Z"
+        }
+    ],
+    "cctv": [
+        {
+            "name": "STO perspective view",
+            "station": "ST0",
+            "url": "https://nginxrtmp20240430.westeurope.azurecontainer.io/flv?app=live&stream=camera01cHjTe5nqZ6gdXo"
+        },
+        {
+            "name": "ST0 detailed view",
+            "station": "ST0",
+            "url": "https://nginxrtmp20240430.westeurope.azurecontainer.io/flv?app=live&stream=camera02KULr3mTXHtR3Hr"
+        }
+    ],
+    "stationIncident": {
+        "open": 0,
+        "closed": 0,
+        "details": []
+    }
+}
