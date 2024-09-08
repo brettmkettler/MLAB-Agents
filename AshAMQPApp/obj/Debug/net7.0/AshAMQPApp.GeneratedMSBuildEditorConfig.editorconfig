@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AshAMQPApp
-build_property.ProjectDir = d:\REPOSITORY\MLAB-Agents\AshAMQPApp\
+build_property.ProjectDir = /Users/brettkettler/REPO/MLAB-Agents/AshAMQPApp/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

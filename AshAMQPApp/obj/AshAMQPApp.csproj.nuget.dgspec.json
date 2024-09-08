@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\repo\\MLAB-Agents\\AshAMQPApp\\AshAMQPApp.csproj": {}
+    "/Users/brettkettler/REPO/MLAB-Agents/AshAMQPApp/AshAMQPApp.csproj": {}
   },
   "projects": {
-    "C:\\repo\\MLAB-Agents\\AshAMQPApp\\AshAMQPApp.csproj": {
+    "/Users/brettkettler/REPO/MLAB-Agents/AshAMQPApp/AshAMQPApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\repo\\MLAB-Agents\\AshAMQPApp\\AshAMQPApp.csproj",
+        "projectUniqueName": "/Users/brettkettler/REPO/MLAB-Agents/AshAMQPApp/AshAMQPApp.csproj",
         "projectName": "AshAMQPApp",
-        "projectPath": "C:\\repo\\MLAB-Agents\\AshAMQPApp\\AshAMQPApp.csproj",
-        "packagesPath": "C:\\Users\\akhalili\\.nuget\\packages\\",
-        "outputPath": "C:\\repo\\MLAB-Agents\\AshAMQPApp\\obj\\",
+        "projectPath": "/Users/brettkettler/REPO/MLAB-Agents/AshAMQPApp/AshAMQPApp.csproj",
+        "packagesPath": "/Users/brettkettler/.nuget/packages/",
+        "outputPath": "/Users/brettkettler/REPO/MLAB-Agents/AshAMQPApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\akhalili\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/brettkettler/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -32,6 +32,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -58,12 +63,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.20, 7.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-arm64",
+              "version": "[7.0.20, 7.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.20, 7.0.20]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/RuntimeIdentifierGraph.json"
         }
       }
     }
